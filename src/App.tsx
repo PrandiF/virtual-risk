@@ -1,6 +1,6 @@
 import Header from "./components/Header";
 import "./index.css";
-import imageBackground from "./assets/Fondo.jpg";
+import imageBackground from "./assets/Fondo.png";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Login from "./components/login/Login";
 import Home from "./components/inicio/Home";
@@ -15,9 +15,9 @@ function App() {
         <img
           src={imageBackground}
           alt="fondo"
-          className="fixed flex w-screen object-cover z-0 top-[-50%]"
+          className="absolute top-0 left-0 inset-0 w-screen h-screen object-cover"
         />
-        <Header />
+        {/* <Header /> */}
         <Routes>
           <Route path="/" element={<Login />} />
           <Route path="/inicio" element={<Home />} />

@@ -10,7 +10,7 @@ function Card({ img, buttonText, buttonHref }: CardProps) {
   return (
     <a
       href={buttonHref}
-      className="relative w-[22%] h-full rounded-lg shadow-lg overflow-hidden bg-transparent hover:scale-105 transition-transform duration-300"
+      className="relative xl:w-[22%] h-full rounded-lg shadow-lg overflow-hidden bg-transparent hover:scale-105 transition-transform duration-500"
     >
       {/* <div className="relative w-[22%] h-full rounded-lg shadow-lg overflow-hidden bg-transparent hover:scale-105 "> */}
       <img
