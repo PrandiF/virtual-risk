@@ -5,7 +5,7 @@ export default {
     extend: {
       backgroundImage: {
         "header-gradient":
-          "linear-gradient(to bottom, #FFFFFF 0%, #f3eeed 67%, #f9eae5 100%)",
+          "linear-gradient(to bottom, #FFFFFF 0%, #f3eeed80 67%, #f9eae000 100%)",
         "button1-gradient":
           "linear-gradient(to bottom, #FC9767 0%, #EC6728 70%, #DA3822 100%)",
         "button2-gradient":

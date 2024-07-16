@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import flatpickr from "flatpickr";
 import "flatpickr/dist/flatpickr.min.css";
-import { CgCalendarDates } from "react-icons/cg";
+import { Spanish } from "flatpickr/dist/l10n/es.js";
 
 interface DatePickerProps {
   placeholder: string;
@@ -19,6 +19,7 @@ const InputDate: React.FC<DatePickerProps> = ({
   useEffect(() => {
     if (datePickerRef.current) {
       flatpickr(datePickerRef.current, {
+        locale: Spanish,
         dateFormat: "m-y",
         onChange: (selectedDates) => {
           if (onChange) {
@@ -35,14 +36,8 @@ const InputDate: React.FC<DatePickerProps> = ({
         type="text"
         ref={datePickerRef}
         placeholder={placeholder}
-        className={`w-${width} bg-white text-black rounded-xl py-2 px-3  border border-orange-500 outline-none cursor-pointer`}
+        className={`w-${width} bg-white text-black rounded-xl py-2 px-3 border border-orange-500 outline-none cursor-pointer`}
       />
-      {/* <button
-        type="button"
-        className="relative right-8 top-3 transform -translate-y-1/2 pointer-events-none"
-      >
-        <CgCalendarDates className=" text-black w-[18px] h-[18px]" />
-      </button> */}
     </div>
   );
 };

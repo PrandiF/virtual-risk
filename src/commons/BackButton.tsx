@@ -4,7 +4,7 @@ function BackButton() {
   return (
     <div className="cursor-pointer text-orange1  underline flex gap-0.5 items-center" onClick={() => window.history.back()}>
       <FaArrowLeft />
-      <p className="text-lg font-semibold">Atrás</p>
+      <p className="xl:text-lg md:text-lg text-sm font-semibold">Atrás</p>
     </div>
   );
 }

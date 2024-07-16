@@ -1,22 +1,24 @@
 import BackButton from "../../commons/BackButton";
 import Button1 from "../../commons/Button1";
 import Button2 from "../../commons/Button2";
+import Header from "../Header";
 
 function IndividualConsulta() {
   return (
-    <div className="flex w-full h-screen items-center z-20 ">
-      <div className="flex w-full items-start flex-col gap-8">
-        <div className="flex flex-col relative bg-[#EAA788] bg-opacity-25 backdrop-blur-sm z-20 w-[60%] px-6 py-8 m-auto rounded-lg gap-10">
+    <div className="relative flex w-full h-screen items-center z-20 ">
+      <Header />
+      <div className="flex w-full items-start flex-col gap-8 xl:pt-0 pt-[30%] xl:pb-0 pb-[10%]">
+        <div className="flex flex-col relative bg-[#EAA788] bg-opacity-25 backdrop-blur-sm z-20 xl:w-[60%] md:w-[75%] w-[95%] px-6 py-8 m-auto rounded-lg gap-10">
           <BackButton />
-          <div className="flex w-[50%] items-start justify-center gap-10 mx-auto">
-            <div className="flex w-full items-center justify-center flex-col gap-8">
-              <div className="flex w-full flex-col justify-center gap-6">
+          <div className="flex w-[50%] items-start justify-center xl:gap-10 md:gap-6 gap-4 mx-auto">
+            <div className="flex w-full  justify-center flex-col gap-8">
+              <div className="flex w-full flex-col gap-6">
                 <div className="flex flex-col">
                   <label className="text-sm text-start text-[#7c8087] font-semibold ml-1 mt-[-13px]">
                     Asegurado
                   </label>
                   <input
-                    className="bg-white text-black rounded-xl py-2 pl-3 border border-orange1 outline-none"
+                    className="bg-white text-black rounded-xl py-2 pl-3 border border-orange1 outline-none xl:text-base md:text-base text-sm"
                     value="Juan Pérez"
                   />
                 </div>
@@ -26,7 +28,7 @@ function IndividualConsulta() {
                     Compañía
                   </label>
                   <input
-                    className="bg-white text-black rounded-xl py-2 pl-3 border border-orange1 outline-none"
+                    className="bg-white text-black rounded-xl py-2 pl-3 border border-orange1 outline-none xl:text-base md:text-base text-sm"
                     value="Allianz"
                   />
                 </div>
@@ -36,7 +38,7 @@ function IndividualConsulta() {
                     N de Póliza
                   </label>
                   <input
-                    className="bg-white text-black rounded-xl py-2 pl-3 border border-orange1 outline-none"
+                    className="bg-white text-black rounded-xl py-2 pl-3 border border-orange1 outline-none xl:text-base md:text-base text-sm"
                     value="3-55963698"
                   />
                 </div>
@@ -45,7 +47,7 @@ function IndividualConsulta() {
                     Vigencia Inicio
                   </label>
                   <input
-                    className="bg-white text-black rounded-xl py-2 pl-3 border border-orange1 outline-none"
+                    className="bg-white text-black rounded-xl py-2 pl-3 border border-orange1 outline-none xl:text-base md:text-base text-sm"
                     value="11-05-2023"
                   />
                 </div>
@@ -54,7 +56,7 @@ function IndividualConsulta() {
                     Moneda
                   </label>
                   <input
-                    className="bg-white text-black rounded-xl py-2 pl-3 border border-orange1 outline-none"
+                    className="bg-white text-black rounded-xl py-2 pl-3 border border-orange1 outline-none xl:text-base md:text-base text-sm"
                     value="Pesos"
                   />
                 </div>
@@ -64,7 +66,7 @@ function IndividualConsulta() {
                     Forma de pago
                   </label>
                   <input
-                    className="bg-white text-black rounded-xl py-2 pl-3 border border-orange1 outline-none"
+                    className="bg-white text-black rounded-xl py-2 pl-3 border border-orange1 outline-none xl:text-base md:text-base text-sm"
                     value="Cupones"
                   />
                 </div>
@@ -76,7 +78,7 @@ function IndividualConsulta() {
                   Productor
                 </label>
                 <input
-                  className="bg-white text-black rounded-xl py-2 pl-3 border border-orange1 outline-none"
+                  className="bg-white text-black rounded-xl py-2 pl-3 border border-orange1 outline-none xl:text-base md:text-base text-sm"
                   value="Virtual Risk"
                 />
               </div>
@@ -86,7 +88,7 @@ function IndividualConsulta() {
                   Riesgo
                 </label>
                 <input
-                  className="bg-white text-black rounded-xl py-2 pl-3 border border-orange1 outline-none"
+                  className="bg-white text-black rounded-xl py-2 pl-3 border border-orange1 outline-none xl:text-base md:text-base text-sm"
                   value="Automotor"
                 />
               </div>
@@ -96,7 +98,7 @@ function IndividualConsulta() {
                   Detalle/Patente
                 </label>
                 <input
-                  className="bg-white text-black rounded-xl py-2 pl-3 border border-orange1 outline-none"
+                  className="bg-white text-black rounded-xl py-2 pl-3 border border-orange1 outline-none xl:text-base md:text-base text-sm"
                   value="AA123BB"
                 />
               </div>
@@ -106,7 +108,7 @@ function IndividualConsulta() {
                   Vigencia Fin
                 </label>
                 <input
-                  className="bg-white text-black rounded-xl py-2 pl-3 border border-orange1 outline-none"
+                  className="bg-white text-black rounded-xl py-2 pl-3 border border-orange1 outline-none xl:text-base md:text-base text-sm"
                   value="11-05-2024"
                 />
               </div>
@@ -116,7 +118,7 @@ function IndividualConsulta() {
                   Premio
                 </label>
                 <input
-                  className="bg-white text-black rounded-xl py-2 pl-3 border border-orange1 outline-none"
+                  className="bg-white text-black rounded-xl py-2 pl-3 border border-orange1 outline-none xl:text-base md:text-base text-sm"
                   value="15500"
                 />
               </div>
