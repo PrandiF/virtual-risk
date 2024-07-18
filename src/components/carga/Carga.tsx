@@ -6,12 +6,23 @@ import InputText from "../../commons/InputText";
 import Title from "../../commons/Title";
 import Header from "../Header";
 
+import AOS from "aos";
+import "aos/dist/aos.css";
+import { useEffect } from "react";
 function Carga() {
+  useEffect(() => {
+    AOS.init();
+  }, []);
   return (
     <div className="relative flex w-full h-screen items-center z-20 ">
       <Header />
-      <div className="flex w-full items-center flex-col gap-8 xl:pt-0 xl:pb-0 pt-[50%] pb-[10%]">
-        <div className="flex flex-col relative bg-[#EAA788] bg-opacity-25 backdrop-blur-sm z-20 xl:w-[50%] md:w-[70%] w-[95%] px-6 xl:py-8 md:py-6 py-4 m-auto rounded-lg xl:gap-10 md:gap-8 gap-6 xl:mt-0 ">
+      <div className="flex w-full items-center flex-col gap-8 xl:pt-0 xl:pb-0 pt-[30%] pb-[20%]">
+        <div
+          className="flex flex-col relative bg-[#EAA788] bg-opacity-25 backdrop-blur-sm z-20 xl:w-[50%] md:w-[70%] w-[95%] px-6 xl:py-8 md:py-6 py-4 m-auto rounded-lg xl:gap-10 md:gap-8 gap-6 "
+          data-aos="fade"
+          data-aos-duration="2500"
+          data-aos-delay="400"
+        >
           <BackButton />
           <Title text="Cargar pólizas" />
           <div className="flex w-[50%] items-start justify-center gap-5 mx-auto">
@@ -42,9 +53,11 @@ function Carga() {
               <InputDate placeholder="Vigencia Fin" width="full" />
               <InputText placeholder="Premio" />
             </div>
-          </div>{" "}
+          </div>
         </div>
-        <Button1 text="Cargar" />
+        <div data-aos="fade" data-aos-duration="2000" data-aos-delay="600">
+          <Button1 text="Cargar" />
+        </div>
       </div>
     </div>
   );

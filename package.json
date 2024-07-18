@@ -13,6 +13,7 @@
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.5",
     "@mui/material": "^5.16.1",
+    "aos": "^2.3.4",
     "bootstrap": "^5.3.3",
     "dayjs": "^1.11.11",
     "flatpickr": "^4.6.13",
@@ -24,6 +25,7 @@
     "swiper": "^11.1.5"
   },
   "devDependencies": {
+    "@types/aos": "^3.0.7",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
     "@typescript-eslint/eslint-plugin": "^7.13.1",
