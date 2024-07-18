@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import Button1 from "../../commons/Button1";
 
 type CardProps = {
@@ -7,9 +8,11 @@ type CardProps = {
 };
 
 function Card({ img, buttonText, buttonHref }: CardProps) {
+  const navigate = useNavigate()
   return (
-    <a
-      href={buttonHref}
+    <button
+      // href={buttonHref} 
+      onClick={() => navigate(`${buttonHref}`)}
       className="relative xl:w-[22%] h-full rounded-lg shadow-lg overflow-hidden bg-transparent hover:scale-105 transition-transform duration-500"
     >
       {/* <div className="relative w-[22%] h-full rounded-lg shadow-lg overflow-hidden bg-transparent hover:scale-105 "> */}
@@ -22,7 +25,7 @@ function Card({ img, buttonText, buttonHref }: CardProps) {
         <Button1 text={buttonText} url={buttonHref} />
       </div>
       {/* </div> */}
-    </a>
+    </button>
   );
 }
 
