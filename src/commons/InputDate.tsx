@@ -1,3 +1,4 @@
+// InputDate.tsx
 import React, { useEffect, useRef } from "react";
 import flatpickr from "flatpickr";
 import "flatpickr/dist/flatpickr.min.css";
@@ -5,7 +6,7 @@ import { Spanish } from "flatpickr/dist/l10n/es.js";
 
 interface DatePickerProps {
   placeholder: string;
-  onChange?: (date: Date | Date[]) => void;
+  onChange?: (date: string) => void;
   width?: string;
 }
 
@@ -20,10 +21,11 @@ const InputDate: React.FC<DatePickerProps> = ({
     if (datePickerRef.current) {
       flatpickr(datePickerRef.current, {
         locale: Spanish,
-        dateFormat: "m-y",
+        dateFormat: "d-m-y", // Cambié el formato de fecha a día-mes-año
         onChange: (selectedDates) => {
-          if (onChange) {
-            onChange(selectedDates);
+          if (onChange && selectedDates.length > 0) {
+            const formattedDate = selectedDates[0].toISOString().split('T')[0]; // Convierte la fecha a string
+            onChange(formattedDate);
           }
         },
       });

@@ -12,10 +12,22 @@ import Card from "./Card";
 import imgCargar from "../../assets/imagenCargar.png";
 import imgConsultar from "../../assets/imagenConsultar.png";
 
+import AOS from "aos";
+import "aos/dist/aos.css";
+import { useEffect } from "react";
+
 function RespnosiveCards() {
+  useEffect(() => {
+    AOS.init();
+  }, []);
   return (
     <div className="flex flex-col w-screen relative ">
-      <div className="w-full rounded-sm relative">
+      <div
+        className="w-full rounded-sm relative"
+        data-aos="fade-up"
+         data-aos-duration="2000"
+        data-aos-delay="400"
+      >
         <div className="swiper-button-prev-serv absolute left-5 top-[50%] transform z-10">
           <BsFillArrowLeftSquareFill className="w-8 h-8 cursor-pointer rounded-xl" />
         </div>
@@ -39,8 +51,6 @@ function RespnosiveCards() {
           }}
           modules={[EffectCoverflow, Pagination, Navigation]}
           className="h-full w-[65%] relative flex items-center m-auto mt-4"
-          data-aos="fade-up"
-          data-aos-delay="400"
         >
           <SwiperSlide className="w-[80%] h-[90%] relative flex justify-center">
             <Card img={imgCargar} buttonText="Cargar" buttonHref="/cargar" />
