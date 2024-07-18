@@ -5,7 +5,7 @@ function TablaConsulta() {
     <Table className="xl:w-[70%] md:w-[85%] w-[95%]">
       <thead className="bg-orange1 text-white xl:text-lg md:text-base text-[12px]">
         <tr className="text-center">
-          <th className="xl:p-2 p-1">Asegurado</th>{" "}
+          <th className="xl:p-2 p-1">Asegurado</th>
           <th className="xl:p-2 p-1">Compañía</th>
           <th className="xl:p-2 p-1">Detalle/Patente</th>
           <th className="xl:p-2 p-1">Póliza</th>
@@ -16,7 +16,7 @@ function TablaConsulta() {
       </thead>
       <tbody className="bg-orange-100 text-black xl:text-lg md:text-base text-[12px]">
         <tr className="text-center">
-          <td className="xl:p-2 p-1">Pérez, Juan</td>{" "}
+          <td className="xl:p-2 p-1">Pérez, Juan</td>
           <td className="xl:p-2 p-1">Allianz</td>
           <td className="xl:p-2 p-1">AA123BB</td>
           <td className="xl:p-2 p-1">

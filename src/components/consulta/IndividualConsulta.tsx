@@ -6,9 +6,25 @@ import Header from "../Header";
 
 import AOS from "aos";
 import "aos/dist/aos.css";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 function IndividualConsulta() {
+  const [polizaData, setPolizaData] = useState({
+    asegurado: "",
+    compañia: "",
+    numeroPoliza: "",
+    vigenciaInicio: "",
+    vigenciaFin: "",
+    moneda: "",
+    estado: "",
+    productor: "",
+    riesgo: "",
+    detalle: "",
+    premio: "",
+    formaDePago: "",
+  });
+
+ 
   useEffect(() => {
     AOS.init();
   }, []);

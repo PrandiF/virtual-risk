@@ -11,9 +11,7 @@ function Button1({ text, onClick, url }: Button1Props) {
       onClick={onClick}
       className="z-30 bg-button1-gradient py-1 w-[150px] flex items-center justify-center shadow-lg rounded-3xl cursor-pointer hover:brightness-95"
     >
-      <p className="z-30 font-montserrat font-medium text-white text-center">
-        {text}
-      </p>
+      {text}
     </a>
   );
 }

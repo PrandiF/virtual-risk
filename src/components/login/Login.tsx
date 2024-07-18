@@ -6,11 +6,36 @@ import HeaderLogin from "../HeaderLogin";
 
 import AOS from "aos";
 import "aos/dist/aos.css";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { login } from "../../services/user.service";
+import { useNavigate } from "react-router-dom";
 function Login() {
+  const navigate = useNavigate();
   useEffect(() => {
     AOS.init();
   }, []);
+
+  const [userData, setUserData] = useState({
+    username: "",
+    password: "",
+  });
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setUserData((prevUserData) => ({
+      ...prevUserData,
+      [e.target.name]: e.target.value,
+    }));
+  };
+
+  const handleSubmit = async () => {
+    try {
+      const res = await login(userData.username, userData.password);
+      console.log(res)
+      if (res == "User has been logged" ) navigate("/inicio");
+    } catch (error) {
+      throw error;
+    }
+  };
   return (
     <div className="flex w-full h-screen items-center justify-center z-20">
       <HeaderLogin />
@@ -26,20 +51,29 @@ function Login() {
 
         <form className="xl:w-[60%] flex flex-col gap-6">
           <div data-aos="fade" data-aos-duration="2000" data-aos-delay="600">
-            <InputText placeholder="Usuario" width="full" />
+            <InputText
+              placeholder="Usuario"
+              width="full"
+              onChange={handleChange}
+              value={userData.username}
+              name="username"
+            />
           </div>
           <div data-aos="fade" data-aos-duration="2000" data-aos-delay="600">
-            <InputPsw />
+            <InputPsw
+              onChange={handleChange}
+              value={userData.password}
+              name="password"
+            />
           </div>
         </form>
-        <a
-          href="/inicio"
+        <button
           data-aos="fade"
           data-aos-duration="2000"
           data-aos-delay="700"
         >
-          <Button1 text="Iniciar Sesión" />
-        </a>
+          <Button1 text="Iniciar Sesión" onClick={handleSubmit} />
+        </button>
       </div>
     </div>
   );

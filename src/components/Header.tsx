@@ -3,6 +3,7 @@ import logo from "../assets/Group 21.png";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { useEffect } from "react";
+import LogoutButton from "../commons/LogoutButton";
 function Header() {
   useEffect(() => {
     AOS.init();
@@ -48,6 +49,14 @@ function Header() {
         >
           CONSULTAR
         </a>
+      </div>
+      <div
+        className="absolute w-full flex justify-end mr-12"
+        data-aos="fade"
+        data-aos-duration="2000"
+        data-aos-delay="600"
+      >
+        <LogoutButton />
       </div>
     </div>
   );
