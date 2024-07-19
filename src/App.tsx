@@ -19,21 +19,21 @@ function App() {
           className="absolute top-0 left-0 inset-0 w-screen h-screen object-cover"
         />
 
-        {isAuthenticated ? (
-          <Routes>
-            <Route path="/inicio" element={<Home />} />
-            <Route path="/cargar" element={<Carga />} />
-            <Route path="/consultar" element={<Consulta />} />
-            <Route
-              path="/consultar/consulta-individual"
-              element={<IndividualConsulta />}
-            />
-          </Routes>
-        ) : (
-          <Routes>
+        <Routes>
+          {isAuthenticated ? (
+            <>
+              <Route path="/inicio" element={<Home />} />
+              <Route path="/cargar" element={<Carga />} />
+              <Route path="/consultar" element={<Consulta />} />
+              <Route
+                path="/consultar/consulta-individual"
+                element={<IndividualConsulta />}
+              />
+            </>
+          ) : (
             <Route path="/" element={<Login />} />
-          </Routes>
-        )}
+          )}
+        </Routes>
       </div>
     </Router>
   );

@@ -1,4 +1,5 @@
 import axios from "axios";
+// import { useState } from "react";
 
 const USER_URL = `${import.meta.env.VITE_API_URL}/poliza`;
 
@@ -18,6 +19,15 @@ type PolizaProps = {
   numero?: string;
 };
 
+type FilterProps = {
+  asegurado: string,
+  compañia: string,
+  detalle: string,
+  estado: string,
+  vigenciaInicio: Date | null,
+  vigenciaFin: Date | null,
+}
+
 export const getPolizas = async () => {
   try {
     const res = await axios.get(`${USER_URL}`, { withCredentials: true });
@@ -25,6 +35,58 @@ export const getPolizas = async () => {
   } catch (error) {
     throw error;
   }
+};
+
+export const getPoliza = async () => {
+  try {
+    const res = await axios.get(`${USER_URL}`, { withCredentials: true });
+    return res.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const getFilterPoliza = async (filter: FilterProps) => {
+  console.log("FILTRAR");
+  // const [response, setResponse] = useState([])
+  let filterClean: FilterProps = {
+    asegurado: filter.asegurado,
+    compañia: filter.compañia,
+    detalle: filter.detalle,
+    estado: filter.estado,
+    vigenciaInicio: filter.vigenciaInicio,
+    vigenciaFin: filter.vigenciaFin,
+  };
+
+  if (filter.vigenciaInicio && new Date(filter.vigenciaInicio).toLocaleDateString() === "31/12/1899") {
+    filterClean.vigenciaInicio = null;
+  }
+  if (filter.vigenciaFin && new Date(filter.vigenciaFin).toLocaleDateString() === "31/12/1899") {
+    filterClean.vigenciaFin = null;
+  }
+  // const newUrl = async () => {
+  let stringReq = ""
+  Object.keys(filterClean).forEach(key => {
+    if (filterClean[key as keyof FilterProps] === "" || filterClean[key as keyof FilterProps] === null) {
+      delete filterClean[key as keyof FilterProps];
+    } else {
+      if (stringReq.includes("?")) {
+        stringReq = stringReq + `&${key}=${filterClean[key as keyof FilterProps]}`
+      } else {
+        stringReq = stringReq + `?${key}=${filterClean[key as keyof FilterProps]}`
+      }
+    }
+  });
+  console.log(stringReq)
+  try {
+    const res = await axios.get(`${USER_URL}/filter${stringReq}`, { withCredentials: true });
+    return (res.data);
+  } catch (error) {
+    throw error;
+  }
+  // }
+  // newUrl()
+  // return response;
 };
 
 export const createPoliza = async (polizaData: PolizaProps) => {

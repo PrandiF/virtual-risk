@@ -30,12 +30,16 @@ function Home() {
           data-aos-duration="2000"
           data-aos-delay="600"
         >
-          <Card img={imgCargar} buttonText="Cargar" buttonHref="/cargar" />
-          <Card
-            img={imgConsultar}
-            buttonText="Consultar"
-            buttonHref="/consultar"
-          />
+          <div className="xl:w-[22%] hover:scale-[1.02] transition-transform duration-500">
+            <Card img={imgCargar} buttonText="Cargar" buttonHref="/cargar" />
+          </div>
+          <div className="xl:w-[22%] hover:scale-[1.02] transition-transform duration-500">
+            <Card
+              img={imgConsultar}
+              buttonText="Consultar"
+              buttonHref="/consultar"
+            />
+          </div>
         </div>
         <div className="xl:hidden flex justify-center items-center">
           <RespnosiveCards />
