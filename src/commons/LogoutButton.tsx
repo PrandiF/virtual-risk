@@ -8,7 +8,6 @@ function LogoutButton() {
   const handleLogout = async () => {
     try {
       const res = await logout();
-      console.log(res);
       if (res == "Cookies deleted") {
         logoutState();
         navigate("/");
