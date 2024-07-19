@@ -9,7 +9,7 @@ import "aos/dist/aos.css";
 import { useEffect, useState } from "react";
 import { login } from "../../services/user.service";
 import { useNavigate } from "react-router-dom";
-import { useUserStore } from "../../store/userStore";
+import { useUserStoreLocalStorage } from "../../store/userStore";
 function Login() {
   const navigate = useNavigate();
   useEffect(() => {
@@ -21,7 +21,7 @@ function Login() {
     password: "",
   });
 
-  const loginState = useUserStore((state) => state.login);
+  const { loginState } = useUserStoreLocalStorage();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUserData((prevUserData) => ({
