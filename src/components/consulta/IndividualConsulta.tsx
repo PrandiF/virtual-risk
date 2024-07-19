@@ -24,7 +24,6 @@ function IndividualConsulta() {
     formaDePago: "",
   });
 
- 
   useEffect(() => {
     AOS.init();
   }, []);
