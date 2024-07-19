@@ -1,13 +1,18 @@
 import { TbLogout } from "react-icons/tb";
 import { logout } from "../services/user.service";
 import { useNavigate } from "react-router-dom";
+import { useUserStore } from "../store/userStore";
 function LogoutButton() {
   const navigate = useNavigate();
+  const logoutState = useUserStore((state) => state.logout);
   const handleLogout = async () => {
     try {
       const res = await logout();
       console.log(res);
-      if (res == "Cookies deleted") navigate("/");
+      if (res == "Cookies deleted") {
+        logoutState();
+        navigate("/");
+      }
     } catch (error) {
       throw error;
     }

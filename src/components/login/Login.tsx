@@ -9,6 +9,7 @@ import "aos/dist/aos.css";
 import { useEffect, useState } from "react";
 import { login } from "../../services/user.service";
 import { useNavigate } from "react-router-dom";
+import { useUserStore } from "../../store/userStore";
 function Login() {
   const navigate = useNavigate();
   useEffect(() => {
@@ -20,6 +21,8 @@ function Login() {
     password: "",
   });
 
+  const loginState = useUserStore((state) => state.login);
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUserData((prevUserData) => ({
       ...prevUserData,
@@ -27,11 +30,14 @@ function Login() {
     }));
   };
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
     try {
       const res = await login(userData.username, userData.password);
-      console.log(res)
-      if (res == "User has been logged" ) navigate("/inicio");
+      if (res == "User has been logged") {
+        loginState();
+        navigate("/inicio");
+      }
     } catch (error) {
       throw error;
     }
@@ -67,11 +73,7 @@ function Login() {
             />
           </div>
         </form>
-        <button
-          data-aos="fade"
-          data-aos-duration="2000"
-          data-aos-delay="700"
-        >
+        <button data-aos="fade" data-aos-duration="2000" data-aos-delay="700">
           <Button1 text="Iniciar Sesión" onClick={handleSubmit} />
         </button>
       </div>
