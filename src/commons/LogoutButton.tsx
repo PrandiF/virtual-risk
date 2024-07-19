@@ -1,10 +1,10 @@
 import { TbLogout } from "react-icons/tb";
 import { logout } from "../services/user.service";
 import { useNavigate } from "react-router-dom";
-import { useUserStore } from "../store/userStore";
+import { useUserStoreLocalStorage } from "../store/userStore";
 function LogoutButton() {
   const navigate = useNavigate();
-  const logoutState = useUserStore((state) => state.logout);
+  const { logoutState } = useUserStoreLocalStorage();
   const handleLogout = async () => {
     try {
       const res = await logout();

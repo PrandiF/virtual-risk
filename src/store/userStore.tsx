@@ -2,12 +2,30 @@ import { create } from "zustand";
 
 interface UserState {
   isAuthenticated: boolean;
-  login: () => void;
-  logout: () => void;
+  loginState: () => void;
+  logoutState: () => void;
 }
 
-export const useUserStore = create<UserState>((set) => ({
+const useUserStore = create<UserState>((set) => ({
   isAuthenticated: false,
-  login: () => set({ isAuthenticated: true }),
-  logout: () => set({ isAuthenticated: false }),
+  loginState: () => {
+    set({ isAuthenticated: true });
+    localStorage.setItem("isAuthenticated", "true");
+  },
+  logoutState: () => {
+    set({ isAuthenticated: false });
+    localStorage.setItem("isAuthenticated", "false");
+  },
 }));
+
+export const useUserStoreLocalStorage = () => {
+  const store = useUserStore();
+  const isAuthenticatedFromStorage =
+    localStorage.getItem("isAuthenticated") === "true";
+
+  if (store.isAuthenticated !== isAuthenticatedFromStorage) {
+    store.isAuthenticated = isAuthenticatedFromStorage;
+  }
+
+  return store;
+};

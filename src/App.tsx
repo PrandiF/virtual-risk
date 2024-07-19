@@ -6,10 +6,10 @@ import Home from "./components/inicio/Home";
 import Carga from "./components/carga/Carga";
 import Consulta from "./components/consulta/Consulta";
 import IndividualConsulta from "./components/consulta/IndividualConsulta";
-import { useUserStore } from "./store/userStore";
+import { useUserStoreLocalStorage } from "./store/userStore";
 
 function App() {
-  const isAuthenticated = useUserStore((state) => state.isAuthenticated);
+  const { isAuthenticated } = useUserStoreLocalStorage();
   return (
     <Router>
       <div className="min-h-screen w-full font-roboto scroll-smooth flex flex-col">
