@@ -30,7 +30,7 @@ function InputSelect({
         name={name} // Añadir el atributo name al select
         onChange={handleChange}
         value={selected}
-        className={`w-${width} bg-white rounded-xl py-2 px-2 border border-orange1 outline-none cursor-pointer ${
+        className={`w-${width} bg-white rounded-xl h-[2.8rem] px-2 border border-orange1 outline-none cursor-pointer ${
           selected === "" ? "text-[#b4b9c3]" : "text-black"
         }`}
       >

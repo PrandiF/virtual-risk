@@ -23,7 +23,7 @@ function InputText({
       value={value}
       name={name}
       onChange={handleChange}
-      className={`w-${width} bg-white text-black rounded-xl py-2 pl-3 border border-orange1 outline-none`}
+      className={`w-${width} bg-white text-black rounded-xl h-[2.8rem] pl-3 border border-orange1 outline-none`}
     />
   );
 }

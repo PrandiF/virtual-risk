@@ -25,6 +25,7 @@ function Carga() {
     detalle: "",
     premio: "",
     formaDePago: "",
+    numero: "",
   });
 
   const handleChange = (
@@ -60,6 +61,7 @@ function Carga() {
           detalle: "",
           premio: "",
           formaDePago: "",
+          numero: "",
         });
         window.location.reload();
       }
@@ -213,6 +215,21 @@ function Carga() {
                 onChange={handleChange}
                 name="premio"
               />
+              {polizaData.formaDePago == "CBU" ? (
+                <InputText
+                  placeholder="Numero de CBU"
+                  name="numero"
+                  value={polizaData.numero}
+                />
+              ) : polizaData.formaDePago == "TARJETA" ? (
+                <InputText
+                  placeholder="Numero de tarjeta"
+                  name="numero"
+                  value={polizaData.numero}
+                />
+              ) : (
+                ""
+              )}
             </div>
           </div>
         </div>

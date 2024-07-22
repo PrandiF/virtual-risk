@@ -45,7 +45,7 @@ const InputDate: React.FC<DatePickerProps> = ({
         type="text"
         ref={datePickerRef}
         placeholder={placeholder}
-        className={`w-${width} bg-white text-black rounded-xl py-2 px-3 border border-orange-500 outline-none cursor-pointer`}
+        className={`w-${width} bg-white text-black rounded-xl h-[2.8rem] px-3 border border-orange-500 outline-none cursor-pointer`}
       />
     </div>
   );
