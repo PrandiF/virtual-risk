@@ -20,13 +20,13 @@ type PolizaProps = {
 };
 
 type FilterProps = {
-  asegurado: string,
-  compañia: string,
-  detalle: string,
-  estado: string,
-  vigenciaInicio: Date | null,
-  vigenciaFin: Date | null,
-}
+  asegurado: string;
+  compañia: string;
+  detalle: string;
+  estado: string;
+  vigenciaInicio: Date | null;
+  vigenciaFin: Date | null;
+};
 
 export const getPolizas = async () => {
   try {
@@ -58,29 +58,42 @@ export const getFilterPoliza = async (filter: FilterProps) => {
     vigenciaFin: filter.vigenciaFin,
   };
 
-  if (filter.vigenciaInicio && new Date(filter.vigenciaInicio).toLocaleDateString() === "31/12/1899") {
+  if (
+    filter.vigenciaInicio &&
+    new Date(filter.vigenciaInicio).toLocaleDateString() === "31/12/1899"
+  ) {
     filterClean.vigenciaInicio = null;
   }
-  if (filter.vigenciaFin && new Date(filter.vigenciaFin).toLocaleDateString() === "31/12/1899") {
+  if (
+    filter.vigenciaFin &&
+    new Date(filter.vigenciaFin).toLocaleDateString() === "31/12/1899"
+  ) {
     filterClean.vigenciaFin = null;
   }
   // const newUrl = async () => {
-  let stringReq = ""
-  Object.keys(filterClean).forEach(key => {
-    if (filterClean[key as keyof FilterProps] === "" || filterClean[key as keyof FilterProps] === null) {
+  let stringReq = "";
+  Object.keys(filterClean).forEach((key) => {
+    if (
+      filterClean[key as keyof FilterProps] === "" ||
+      filterClean[key as keyof FilterProps] === null
+    ) {
       delete filterClean[key as keyof FilterProps];
     } else {
       if (stringReq.includes("?")) {
-        stringReq = stringReq + `&${key}=${filterClean[key as keyof FilterProps]}`
+        stringReq =
+          stringReq + `&${key}=${filterClean[key as keyof FilterProps]}`;
       } else {
-        stringReq = stringReq + `?${key}=${filterClean[key as keyof FilterProps]}`
+        stringReq =
+          stringReq + `?${key}=${filterClean[key as keyof FilterProps]}`;
       }
     }
   });
-  console.log(stringReq)
+  console.log(stringReq);
   try {
-    const res = await axios.get(`${USER_URL}/filter${stringReq}`, { withCredentials: true });
-    return (res.data);
+    const res = await axios.get(`${USER_URL}/filter${stringReq}`, {
+      withCredentials: true,
+    });
+    return res.data;
   } catch (error) {
     throw error;
   }
@@ -98,6 +111,20 @@ export const createPoliza = async (polizaData: PolizaProps) => {
     );
     return res.data;
   } catch (error) {
+    throw error;
+  }
+};
+
+export const getPolizaByPolizaNumber = async (id: string) => {
+  try {
+    console.log(`Requesting policy with id: ${id}`);
+    const res = await axios.get(`${USER_URL}/poliza/${id}`, {
+      withCredentials: true,
+    });
+    console.log('Response:', res);
+    return res.data;
+  } catch (error) {
+    console.error('Error in getPolizaByPolizaNumber:', error);
     throw error;
   }
 };
