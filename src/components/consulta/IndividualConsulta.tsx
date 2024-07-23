@@ -14,8 +14,7 @@ import {
   getPolizaByPolizaNumber,
 } from "../../services/poliza.service";
 import InputText from "../../commons/InputText";
-import InputDate from "../../commons/InputDate";
-import InputSelect from "../../commons/InputSelect";
+import { Confirm } from "notiflix/build/notiflix-confirm-aio";
 
 interface PolizaProps {
   asegurado: string;
@@ -34,7 +33,7 @@ interface PolizaProps {
 }
 
 function IndividualConsulta() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const { polizaNumber } = useParams();
   const [polizaData, setPolizaData] = useState<PolizaProps>({
     asegurado: "",
@@ -72,11 +71,11 @@ function IndividualConsulta() {
     console.log(typeof polizaData.vigenciaInicio, polizaData.vigenciaFin);
   }, [polizaNumber]);
 
-  const handleDeletePoliza = async () => {
+  const handleConfirmDeletePoliza = async () => {
     try {
       const res = await deletePoliza(polizaData.numeroPoliza);
       if (res) {
-        navigate("/consultar")
+        navigate("/consultar");
       }
     } catch (error) {
       console.error("Error al eliminar la poliza:", error);
@@ -88,11 +87,12 @@ function IndividualConsulta() {
     return <div>No existe la póliza solicitada.</div>;
   }
 
-  const handleEditPoliza = async () => {
+  const handleConfirmEditPoliza = async () => {
     try {
       const res = await editPoliza(polizaData.numeroPoliza, polizaData);
       if (res) console.log(`Poliza ${polizaData.numeroPoliza} editada`);
       setEditar(false);
+      window.location.reload();
       return;
     } catch (error) {
       console.log("Error al editar la poliza:", error);
@@ -108,6 +108,30 @@ function IndividualConsulta() {
       ...prevPolizaData,
       [e.target.name]: e.target.value,
     }));
+  };
+
+  const handleDeletePoliza = async () => {
+    Confirm.show(
+      "Está a punto de eliminar la póliza",
+      "Desea confirmar?",
+      "Si",
+      "No",
+      () => {
+        handleConfirmDeletePoliza();
+      }
+    );
+  };
+
+  const handleEditPoliza = async () => {
+    Confirm.show(
+      "Esta a punto de editar la póliza",
+      "Desea confirmar?",
+      "Si",
+      "No",
+      () => {
+        handleConfirmEditPoliza();
+      }
+    );
   };
 
   // const handleDateChange = (name: string) => (date: string) => {
