@@ -8,16 +8,41 @@ import Header from "../Header";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { useEffect, useState } from "react";
-import { getPolizaByPolizaNumber } from "../../services/poliza.service";
+import {
+  deletePoliza,
+  editPoliza,
+  getPolizaByPolizaNumber,
+} from "../../services/poliza.service";
+import InputText from "../../commons/InputText";
+import InputDate from "../../commons/InputDate";
+import InputSelect from "../../commons/InputSelect";
+
+interface PolizaProps {
+  id: number;
+  asegurado: string;
+  compañia: string;
+  numeroPoliza: string;
+  vigenciaInicio: Date;
+  vigenciaFin: Date;
+  moneda: string;
+  estado: string;
+  productor: string;
+  riesgo: string;
+  detalle: string;
+  premio: string;
+  formaDePago: string;
+  numero: string;
+}
 
 function IndividualConsulta() {
   const { polizaNumber } = useParams();
-  const [polizaData, setPolizaData] = useState({
+  const [polizaData, setPolizaData] = useState<PolizaProps>({
+    id: 0,
     asegurado: "",
     compañia: "",
     numeroPoliza: "",
-    vigenciaInicio: "",
-    vigenciaFin: "",
+    vigenciaInicio: new Date(),
+    vigenciaFin: new Date(),
     moneda: "",
     estado: "",
     productor: "",
@@ -28,13 +53,19 @@ function IndividualConsulta() {
     numero: "",
   });
   const [error, setError] = useState("");
+  const [editar, setEditar] = useState(false);
 
   useEffect(() => {
     AOS.init();
     if (polizaNumber) {
       getPolizaByPolizaNumber(polizaNumber)
         .then((res) => {
-          setPolizaData(res);
+          setPolizaData({
+            ...res,
+            id: Number(res.id),
+            vigenciaInicio: new Date(res.vigenciaInicio),
+            vigenciaFin: new Date(res.vigenciaFin),
+          });
         })
         .catch((error) => {
           console.error(error);
@@ -45,9 +76,47 @@ function IndividualConsulta() {
     }
   }, [polizaNumber]);
 
+  const handleDeletePoliza = async () => {
+    try {
+      await deletePoliza(polizaData?.id);
+    } catch (error) {
+      console.error("Error al eliminar la poliza:", error);
+      throw error;
+    }
+  };
+
   if (!polizaNumber) {
     return <div>No existe la póliza solicitada.</div>;
   }
+
+  const handleEditPoliza = async () => {
+    try {
+      const res = await editPoliza(polizaData?.id, polizaData);
+      if (res) console.log(`Poliza ${polizaData.id} editada`);
+      setEditar(false);
+      return;
+    } catch (error) {
+      console.log("Error al editar la poliza:", error);
+      setEditar(false);
+      throw error;
+    }
+  };
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
+    setPolizaData((prevPolizaData) => ({
+      ...prevPolizaData,
+      [e.target.name]: e.target.value,
+    }));
+  };
+
+  const handleDateChange = (name: string) => (date: string) => {
+    setPolizaData((prevPolizaData) => ({
+      ...prevPolizaData,
+      [name]: date,
+    }));
+  };
 
   return (
     <div className="relative flex w-full h-screen items-center z-20 ">
@@ -70,18 +139,22 @@ function IndividualConsulta() {
                     <label className="text-sm text-start text-[#7c8087] font-semibold ml-1 mt-[-13px]">
                       Asegurado
                     </label>
-                    <input
-                      className="bg-white text-black rounded-xl py-2 pl-3 border border-orange1 outline-none xl:text-base md:text-base text-sm"
-                      defaultValue={polizaData.asegurado}
+                    <InputText
+                      name="asegurado"
+                      value={polizaData.asegurado}
+                      onChange={handleChange}
+                      readonly={!editar}
                     />
                   </div>
                   <div className="flex flex-col">
                     <label className="text-sm text-start text-[#7c8087] font-semibold ml-1 mt-[-13px]">
                       Compañía
                     </label>
-                    <input
-                      className="bg-white text-black rounded-xl py-2 pl-3 border border-orange1 outline-none xl:text-base md:text-base text-sm"
-                      defaultValue={polizaData.compañia}
+                    <InputText
+                      name="compañia"
+                      value={polizaData.compañia}
+                      onChange={handleChange}
+                      readonly={!editar}
                     />
                   </div>
 
@@ -89,27 +162,31 @@ function IndividualConsulta() {
                     <label className="text-sm text-start text-[#7c8087] font-semibold ml-1 mt-[-13px]">
                       N de Póliza
                     </label>
-                    <input
-                      className="bg-white text-black rounded-xl py-2 pl-3 border border-orange1 outline-none xl:text-base md:text-base text-sm"
-                      defaultValue={polizaData.numeroPoliza}
+                    <InputText
+                      name="numeroPoliza"
+                      value={polizaData.numeroPoliza}
+                      onChange={handleChange}
+                      readonly={!editar}
                     />
                   </div>
                   <div className="flex flex-col">
                     <label className="text-sm text-start text-[#7c8087] font-semibold ml-1 mt-[-13px]">
                       Vigencia Inicio
                     </label>
-                    <input
-                      className="bg-white text-black rounded-xl py-2 pl-3 border border-orange1 outline-none xl:text-base md:text-base text-sm"
-                      defaultValue={polizaData.vigenciaInicio}
+                    <InputDate
+                      onChange={handleDateChange("vigenciaInicio")}
+                      readonly={!editar}
                     />
                   </div>
                   <div className="flex flex-col">
                     <label className="text-sm text-start text-[#7c8087] font-semibold ml-1 mt-[-13px]">
                       Moneda
                     </label>
-                    <input
-                      className="bg-white text-black rounded-xl py-2 pl-3 border border-orange1 outline-none xl:text-base md:text-base text-sm"
-                      defaultValue={polizaData.moneda}
+                    <InputText
+                      name="moneda"
+                      value={polizaData.moneda}
+                      onChange={handleChange}
+                      readonly={!editar}
                     />
                   </div>
 
@@ -119,7 +196,10 @@ function IndividualConsulta() {
                     </label>
                     <input
                       className="bg-[#FFA6A6] text-black rounded-xl py-2 pl-3 border outline-none xl:text-base md:text-base text-sm"
-                      defaultValue={polizaData.estado}
+                      name="estado"
+                      value={polizaData.estado}
+                      onChange={handleChange}
+                      readOnly={!editar}
                     />
                   </div>
                 </div>
@@ -129,9 +209,11 @@ function IndividualConsulta() {
                   <label className="text-sm text-start text-[#7c8087] font-semibold ml-1 mt-[-13px]">
                     Productor
                   </label>
-                  <input
-                    className="bg-white text-black rounded-xl py-2 pl-3 border border-orange1 outline-none xl:text-base md:text-base text-sm"
-                    defaultValue={polizaData.productor}
+                  <InputText
+                    name="productor"
+                    value={polizaData.productor}
+                    onChange={handleChange}
+                    readonly={!editar}
                   />
                 </div>
 
@@ -139,9 +221,11 @@ function IndividualConsulta() {
                   <label className="text-sm text-start text-[#7c8087] font-semibold ml-1 mt-[-13px]">
                     Riesgo
                   </label>
-                  <input
-                    className="bg-white text-black rounded-xl py-2 pl-3 border border-orange1 outline-none xl:text-base md:text-base text-sm"
-                    defaultValue={polizaData.riesgo}
+                  <InputText
+                    name="riesgo"
+                    value={polizaData.riesgo}
+                    onChange={handleChange}
+                    readonly={!editar}
                   />
                 </div>
 
@@ -149,9 +233,11 @@ function IndividualConsulta() {
                   <label className="text-sm text-start text-[#7c8087] font-semibold ml-1 mt-[-13px]">
                     Detalle/Patente
                   </label>
-                  <input
-                    className="bg-white text-black rounded-xl py-2 pl-3 border border-orange1 outline-none xl:text-base md:text-base text-sm"
-                    defaultValue={polizaData.detalle}
+                  <InputText
+                    name="detalle"
+                    value={polizaData.detalle}
+                    onChange={handleChange}
+                    readonly={!editar}
                   />
                 </div>
 
@@ -159,9 +245,9 @@ function IndividualConsulta() {
                   <label className="text-sm text-start text-[#7c8087] font-semibold ml-1 mt-[-13px]">
                     Vigencia Fin
                   </label>
-                  <input
-                    className="bg-white text-black rounded-xl py-2 pl-3 border border-orange1 outline-none xl:text-base md:text-base text-sm"
-                    defaultValue={polizaData.vigenciaFin}
+                  <InputDate
+                    onChange={handleDateChange("vigenciaFin")}
+                    readonly={!editar}
                   />
                 </div>
 
@@ -169,9 +255,11 @@ function IndividualConsulta() {
                   <label className="text-sm text-start text-[#7c8087] font-semibold ml-1 mt-[-13px]">
                     Premio
                   </label>
-                  <input
-                    className="bg-white text-black rounded-xl py-2 pl-3 border border-orange1 outline-none xl:text-base md:text-base text-sm"
-                    defaultValue={polizaData.premio}
+                  <InputText
+                    name="premio"
+                    value={polizaData.premio}
+                    onChange={handleChange}
+                    readonly={!editar}
                   />
                 </div>
 
@@ -179,9 +267,12 @@ function IndividualConsulta() {
                   <label className="text-sm text-start text-[#7c8087] font-semibold ml-1 mt-[-13px]">
                     Forma de pago
                   </label>
-                  <input
-                    className="bg-white text-black rounded-xl py-2 pl-3 border border-orange1 outline-none xl:text-base md:text-base text-sm"
-                    defaultValue={polizaData.formaDePago}
+                  <InputSelect
+                    options={["CUPONES", "TARJETA", "CBU"]}
+                    name="formaDePago"
+                    value={polizaData.formaDePago}
+                    onChange={handleChange}
+                    readonly={!editar}
                   />
                 </div>
 
@@ -190,9 +281,10 @@ function IndividualConsulta() {
                     <label className="text-sm text-start text-[#7c8087] font-semibold ml-1 mt-[-13px]">
                       CBU
                     </label>
-                    <input
-                      className="bg-white text-black rounded-xl py-2 pl-3 border border-orange1 outline-none xl:text-base md:text-base text-sm"
-                      defaultValue={polizaData.numero}
+                    <InputText
+                      value={polizaData.numero}
+                      onChange={handleChange}
+                      readonly={!editar}
                     />
                   </div>
                 ) : polizaData.formaDePago == "Tarjeta" ? (
@@ -200,9 +292,11 @@ function IndividualConsulta() {
                     <label className="text-sm text-start text-[#7c8087] font-semibold ml-1 mt-[-13px]">
                       N de Tarjeta
                     </label>
-                    <input
-                      className="bg-white text-black rounded-xl py-2 pl-3 border border-orange1 outline-none xl:text-base md:text-base text-sm"
-                      defaultValue={polizaData.numero}
+                    <InputText
+                      name="numero"
+                      value={polizaData.numero}
+                      onChange={handleChange}
+                      readonly={!editar}
                     />
                   </div>
                 ) : (
@@ -211,11 +305,18 @@ function IndividualConsulta() {
               </div>
             </div>
           )}
-          <div className="flex items-center justify-center gap-6">
-            <Button2 text="Editar" />
-            <Button1 text="Eliminar" />
-            <Button3 text="Anular" />
-          </div>
+
+          {editar ? (
+            <div className="flex items-center justify-center">
+              <Button1 text="Guardar" onClick={handleEditPoliza} />
+            </div>
+          ) : (
+            <div className="flex items-center justify-center gap-6">
+              <Button2 text="Editar" onClick={() => setEditar(true)} />
+              <Button1 text="Eliminar" onClick={handleDeletePoliza} />
+              <Button3 text="Anular" />
+            </div>
+          )}
         </div>
       </div>
     </div>

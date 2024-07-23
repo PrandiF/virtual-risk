@@ -1,9 +1,10 @@
 type InputTextProps = {
-  placeholder: string;
+  placeholder?: string;
   width?: string;
   name?: string;
   value?: string;
   onChange?: React.ChangeEventHandler<HTMLInputElement>;
+  readonly?: boolean;
 };
 
 function InputText({
@@ -12,6 +13,7 @@ function InputText({
   name,
   value,
   onChange,
+  readonly,
 }: InputTextProps) {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (onChange) onChange(e);
@@ -24,6 +26,7 @@ function InputText({
       name={name}
       onChange={handleChange}
       className={`w-${width} bg-white text-black rounded-xl h-[2.8rem] pl-3 border border-orange1 outline-none`}
+      readOnly={readonly}
     />
   );
 }

@@ -59,8 +59,8 @@ function TablaConsulta({ filter, isFilter }: FilterProps) {
     }
   }, [isFilter]);
   return (
-    <Table className="xl:w-[80%] md:w-[85%] w-[95%] rounded-lg shadow-xl">
-      <thead className="bg-orange1 opacity-80 text-white xl:text-lg md:text-base text-[12px] rounded-lg">
+    <Table className="xl:w-[80%] md:w-[85%] w-[99%] rounded-lg shadow-xl">
+      <thead className="bg-orange1 opacity-80 text-white xl:text-lg md:text-base text-[13px] rounded-lg">
         <tr className="text-center rounded-lg">
           <th className="xl:p-2 p-1">Asegurado</th>
           <th className="xl:p-2 p-1">Compañía</th>
