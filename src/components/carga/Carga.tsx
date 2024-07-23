@@ -13,6 +13,7 @@ import { createPoliza } from "../../services/poliza.service";
 
 function Carga() {
   const [polizaData, setPolizaData] = useState({
+    id: 0,
     asegurado: "",
     compañia: "",
     numeroPoliza: "",
@@ -25,6 +26,7 @@ function Carga() {
     detalle: "",
     premio: "",
     formaDePago: "",
+    numero: "",
   });
 
   const handleChange = (
@@ -48,6 +50,7 @@ function Carga() {
       const res = await createPoliza(polizaData);
       if (res) {
         setPolizaData({
+          id: 0,
           asegurado: "",
           compañia: "",
           numeroPoliza: "",
@@ -60,6 +63,7 @@ function Carga() {
           detalle: "",
           premio: "",
           formaDePago: "",
+          numero: "",
         });
         window.location.reload();
       }
@@ -213,6 +217,21 @@ function Carga() {
                 onChange={handleChange}
                 name="premio"
               />
+              {polizaData.formaDePago == "CBU" ? (
+                <InputText
+                  placeholder="Numero de CBU"
+                  name="numero"
+                  value={polizaData.numero}
+                />
+              ) : polizaData.formaDePago == "TARJETA" ? (
+                <InputText
+                  placeholder="Numero de tarjeta"
+                  name="numero"
+                  value={polizaData.numero}
+                />
+              ) : (
+                ""
+              )}
             </div>
           </div>
         </div>

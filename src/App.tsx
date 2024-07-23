@@ -1,6 +1,11 @@
 import "./index.css";
 import imageBackground from "./assets/Fondo.png";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  Navigate,
+} from "react-router-dom";
 import Login from "./components/login/Login";
 import Home from "./components/inicio/Home";
 import Carga from "./components/carga/Carga";
@@ -22,11 +27,12 @@ function App() {
         <Routes>
           {isAuthenticated ? (
             <>
+              <Route path="/" element={<Navigate to="/inicio" replace />} />
               <Route path="/inicio" element={<Home />} />
               <Route path="/cargar" element={<Carga />} />
               <Route path="/consultar" element={<Consulta />} />
               <Route
-                path="/consultar/consulta-individual"
+                path="/consultar/consulta-individual/:polizaNumber"
                 element={<IndividualConsulta />}
               />
             </>

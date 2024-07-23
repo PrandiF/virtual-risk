@@ -1,10 +1,14 @@
 type Button1Props = {
   text: string;
   onClick?: React.MouseEventHandler<HTMLAnchorElement>;
+  onEnter?: () => void;
   url?: string;
 };
 
 function Button1({ text, onClick, url }: Button1Props) {
+
+  
+
   return (
     <a
       href={url}
