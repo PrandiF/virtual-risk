@@ -4,6 +4,7 @@ import axios from "axios";
 const USER_URL = `${import.meta.env.VITE_API_URL}/poliza`;
 
 type PolizaProps = {
+  id: number;
   asegurado: string;
   productor: string;
   compañia: string;
@@ -33,6 +34,7 @@ export const getPolizas = async () => {
     const res = await axios.get(`${USER_URL}`, { withCredentials: true });
     return res.data;
   } catch (error) {
+    console.error("Error al obtener las polizas:", error);
     throw error;
   }
 };
@@ -42,6 +44,7 @@ export const getPoliza = async () => {
     const res = await axios.get(`${USER_URL}`, { withCredentials: true });
     return res.data;
   } catch (error) {
+    console.error("Error al obtener la poliza:", error);
     throw error;
   }
 };
@@ -95,6 +98,7 @@ export const getFilterPoliza = async (filter: FilterProps) => {
     });
     return res.data;
   } catch (error) {
+    console.error("Error al filtrar la/las poliza/s:", error);
     throw error;
   }
   // }
@@ -111,6 +115,7 @@ export const createPoliza = async (polizaData: PolizaProps) => {
     );
     return res.data;
   } catch (error) {
+    console.error("Error al crear la poliza:", error);
     throw error;
   }
 };
@@ -121,10 +126,34 @@ export const getPolizaByPolizaNumber = async (id: string) => {
     const res = await axios.get(`${USER_URL}/poliza/${id}`, {
       withCredentials: true,
     });
-    console.log('Response:', res);
+    console.log("Response:", res);
     return res.data;
   } catch (error) {
-    console.error('Error in getPolizaByPolizaNumber:', error);
+    console.error("Error al obtener la poliza:", error);
+    throw error;
+  }
+};
+
+export const deletePoliza = async (id: number) => {
+  try {
+    await axios.delete(`${USER_URL}/${id}`, { withCredentials: true });
+    console.log("Poliza eliminada:", id);
+  } catch (error) {
+    console.log("Error al eliminar la poliza:", error);
+    throw error;
+  }
+};
+
+export const editPoliza = async (id: number, data: PolizaProps) => {
+  try {
+    const res = await axios.put(
+      `${USER_URL}/${id}`,
+      { data },
+      { withCredentials: true }
+    );
+    return res.data;
+  } catch (error) {
+    console.log("Error al editar la poliza:", error);
     throw error;
   }
 };

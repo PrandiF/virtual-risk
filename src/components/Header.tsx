@@ -10,14 +10,14 @@ function Header() {
     AOS.init();
   }, []);
   return (
-    <div className="absolute top-0 left-0 w-full py-4 px-8 z-40 flex items-center justify-between bg-header-gradient">
+    <div className="absolute top-0 left-0 w-full py-4 xl:px-8 md:px-8 px-3 z-40 flex items-center xl:justify-between xl:gap-0 md:gap-2 gap-3 bg-header-gradient">
       <button data-aos="fade" data-aos-duration="2000" data-aos-delay="200" onClick={() => navigate('/inicio')}>
         <img
           src={logo}
-          className="xl:w-[300px] md:w-[200px] w-[150px] cursor-pointer"
+          className="xl:w-[300px] md:w-[200px] w-[170px] cursor-pointer"
         />
       </button>
-      <div className="text-black font-semibold flex xl:gap-20 md:gap-8 gap-4 xl:text-[18px] md:text-[14px] text-[12px] font-montserrat">
+      <div className="text-black font-semibold flex xl:gap-20 md:gap-8 gap-3 xl:text-[18px] md:text-[14px] text-[12px] font-montserrat">
         <button
           className="cursor-pointer hover:underline"
           data-aos="fade"

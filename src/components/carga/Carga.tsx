@@ -13,6 +13,7 @@ import { createPoliza } from "../../services/poliza.service";
 
 function Carga() {
   const [polizaData, setPolizaData] = useState({
+    id: 0,
     asegurado: "",
     compañia: "",
     numeroPoliza: "",
@@ -49,6 +50,7 @@ function Carga() {
       const res = await createPoliza(polizaData);
       if (res) {
         setPolizaData({
+          id: 0,
           asegurado: "",
           compañia: "",
           numeroPoliza: "",
