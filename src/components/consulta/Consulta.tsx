@@ -5,11 +5,11 @@ import SearchButton from "../../commons/SearchButton";
 import Title from "../../commons/Title";
 import Header from "../Header";
 import TablaConsulta from "./TablaConsulta";
-import { TbWashDrycleanOff } from "react-icons/tb";
 
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { useEffect, useState } from "react";
+import CancelButton from "../../commons/CancelButton";
 
 function Consulta() {
   useEffect(() => {
@@ -37,12 +37,12 @@ function Consulta() {
       [name]: date,
     }));
   };
-  const [search, setSearch] = useState(false)
-  const [clean, setClean] = useState(false)
-  const [isFilter, setIsFilter] = useState(false)
+  const [search, setSearch] = useState(false);
+  const [clean, setClean] = useState(false);
+  const [isFilter, setIsFilter] = useState(false);
   const handleSearch = () => {
-    setSearch(!search)
-  }
+    setSearch(!search);
+  };
   useEffect(() => {
     if (!search && clean) {
       setFilterData({
@@ -52,17 +52,19 @@ function Consulta() {
         vigenciaFin: new Date("1900-01-01"),
         detalle: "",
         estado: "",
-      })
-      setIsFilter(false)
+      });
+      setIsFilter(false);
     } else if (search && !clean) {
-      setIsFilter(true)
+      setIsFilter(true);
     } else {
-      setIsFilter(false)
+      setIsFilter(false);
     }
-  }, [search])
+  }, [search]);
   useEffect(() => {
-    if (search) { setSearch(false), setClean(false) }
-  }, [filterData])
+    if (search) {
+      setSearch(false), setClean(false);
+    }
+  }, [filterData]);
   return (
     <div className="relative flex w-full h-screen items-start z-20 pt-[8%]">
       <Header />
@@ -91,8 +93,20 @@ function Consulta() {
               data-aos-duration="2000"
               data-aos-delay="600"
             >
-              <InputText placeholder="Asegurado" width="full" value={filterData.asegurado} onChange={handleChange} name="asegurado" />
-              <InputText placeholder="Compañía" width="full" value={filterData.compañia} onChange={handleChange} name="compañia" />
+              <InputText
+                placeholder="Asegurado"
+                width="full"
+                value={filterData.asegurado}
+                onChange={handleChange}
+                name="asegurado"
+              />
+              <InputText
+                placeholder="Compañía"
+                width="full"
+                value={filterData.compañia}
+                onChange={handleChange}
+                name="compañia"
+              />
             </div>
             <div
               className="flex items-center gap-5 h-full w-full "
@@ -100,8 +114,20 @@ function Consulta() {
               data-aos-duration="2000"
               data-aos-delay="600"
             >
-              <InputText placeholder="Detalle/Patente" width="full" value={filterData.detalle} onChange={handleChange} name="detalle" />
-              <InputText placeholder="Estado" width="full" value={filterData.estado} onChange={handleChange} name="estado" />
+              <InputText
+                placeholder="Detalle/Patente"
+                width="full"
+                value={filterData.detalle}
+                onChange={handleChange}
+                name="detalle"
+              />
+              <InputText
+                placeholder="Estado"
+                width="full"
+                value={filterData.estado}
+                onChange={handleChange}
+                name="estado"
+              />
             </div>
             <div
               className="relative flex items-center gap-5 h-full w-full"
@@ -113,8 +139,18 @@ function Consulta() {
                 Vigencia
               </p>
               <div className="flex gap-5 items-center w-full">
-                <InputDate placeholder="Desde" clean={clean} width="full" onChange={handleDateChange("vigenciaInicio")} />
-                <InputDate placeholder="Hasta" clean={clean} width="full" onChange={handleDateChange("vigenciaFin")} />
+                <InputDate
+                  placeholder="Desde"
+                  clean={clean}
+                  width="full"
+                  onChange={handleDateChange("vigenciaInicio")}
+                />
+                <InputDate
+                  placeholder="Hasta"
+                  clean={clean}
+                  width="full"
+                  onChange={handleDateChange("vigenciaFin")}
+                />
               </div>
             </div>
             <button
@@ -129,12 +165,11 @@ function Consulta() {
                   onClick={() => setClean(true)}
                   className="bg-orange1 text-white flex items-center justify-center rounded-lg cursor-pointer hover:brightness-95 xl:w-[45px] xl:h-[42px]"
                 >
-                  <TbWashDrycleanOff width={20} className="duration-200 ease-in-out transition-all" />
+                  <CancelButton />
                 </div>
               ) : (
                 <SearchButton />
               )}
-
             </button>
           </div>
         </div>
@@ -143,7 +178,6 @@ function Consulta() {
         </div>
       </div>
     </div>
-
   );
 }
 

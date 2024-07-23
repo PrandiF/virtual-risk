@@ -11,8 +11,8 @@ type PolizaProps = {
   numeroPoliza: string;
   detalle: string;
   estado: string;
-  vigenciaInicio: Date;
-  vigenciaFin: Date;
+  vigenciaInicio: Date | string;
+  vigenciaFin: Date | string;
   moneda: string;
   premio: string;
   formaDePago: string;
@@ -20,19 +20,20 @@ type PolizaProps = {
 };
 
 type FilterProps = {
-  asegurado: string,
-  compañia: string,
-  detalle: string,
-  estado: string,
-  vigenciaInicio: Date | null,
-  vigenciaFin: Date | null,
-}
+  asegurado: string;
+  compañia: string;
+  detalle: string;
+  estado: string;
+  vigenciaInicio: Date | null;
+  vigenciaFin: Date | null;
+};
 
 export const getPolizas = async () => {
   try {
     const res = await axios.get(`${USER_URL}`, { withCredentials: true });
     return res.data;
   } catch (error) {
+    console.error("Error al obtener las polizas:", error);
     throw error;
   }
 };
@@ -42,12 +43,12 @@ export const getPoliza = async () => {
     const res = await axios.get(`${USER_URL}`, { withCredentials: true });
     return res.data;
   } catch (error) {
+    console.error("Error al obtener la poliza:", error);
     throw error;
   }
 };
 
 export const getFilterPoliza = async (filter: FilterProps) => {
-  console.log("FILTRAR");
   // const [response, setResponse] = useState([])
   let filterClean: FilterProps = {
     asegurado: filter.asegurado,
@@ -58,30 +59,43 @@ export const getFilterPoliza = async (filter: FilterProps) => {
     vigenciaFin: filter.vigenciaFin,
   };
 
-  if (filter.vigenciaInicio && new Date(filter.vigenciaInicio).toLocaleDateString() === "31/12/1899") {
+  if (
+    filter.vigenciaInicio &&
+    new Date(filter.vigenciaInicio).toLocaleDateString() === "31/12/1899"
+  ) {
     filterClean.vigenciaInicio = null;
   }
-  if (filter.vigenciaFin && new Date(filter.vigenciaFin).toLocaleDateString() === "31/12/1899") {
+  if (
+    filter.vigenciaFin &&
+    new Date(filter.vigenciaFin).toLocaleDateString() === "31/12/1899"
+  ) {
     filterClean.vigenciaFin = null;
   }
   // const newUrl = async () => {
-  let stringReq = ""
-  Object.keys(filterClean).forEach(key => {
-    if (filterClean[key as keyof FilterProps] === "" || filterClean[key as keyof FilterProps] === null) {
+  let stringReq = "";
+  Object.keys(filterClean).forEach((key) => {
+    if (
+      filterClean[key as keyof FilterProps] === "" ||
+      filterClean[key as keyof FilterProps] === null
+    ) {
       delete filterClean[key as keyof FilterProps];
     } else {
       if (stringReq.includes("?")) {
-        stringReq = stringReq + `&${key}=${filterClean[key as keyof FilterProps]}`
+        stringReq =
+          stringReq + `&${key}=${filterClean[key as keyof FilterProps]}`;
       } else {
-        stringReq = stringReq + `?${key}=${filterClean[key as keyof FilterProps]}`
+        stringReq =
+          stringReq + `?${key}=${filterClean[key as keyof FilterProps]}`;
       }
     }
   });
-  console.log(stringReq)
   try {
-    const res = await axios.get(`${USER_URL}/filter${stringReq}`, { withCredentials: true });
-    return (res.data);
+    const res = await axios.get(`${USER_URL}/filter${stringReq}`, {
+      withCredentials: true,
+    });
+    return res.data;
   } catch (error) {
+    console.error("Error al filtrar la/las poliza/s:", error);
     throw error;
   }
   // }
@@ -98,6 +112,46 @@ export const createPoliza = async (polizaData: PolizaProps) => {
     );
     return res.data;
   } catch (error) {
+    console.error("Error al crear la poliza:", error);
+    throw error;
+  }
+};
+
+export const getPolizaByPolizaNumber = async (polizaNumber: string) => {
+  try {
+    const res = await axios.get(`${USER_URL}/${polizaNumber}`, {
+      withCredentials: true,
+    });
+    return res.data;
+  } catch (error) {
+    console.error("Error al obtener la poliza:", error);
+    throw error;
+  }
+};
+
+export const deletePoliza = async (polizaNumber: string) => {
+  try {
+    const res = await axios.delete(`${USER_URL}/${polizaNumber}`, {
+      withCredentials: true,
+    });
+    return res.data
+  } catch (error) {
+    console.log("Error al eliminar la poliza:", error);
+    throw error;
+  }
+};
+
+export const editPoliza = async (polizaNumber: string, data: PolizaProps, state: boolean) => {
+  const dataClean = state ? { ...data, estado: "" } : { ...data, estado: "ANULADA" }
+  try {
+    const res = await axios.put(
+      `${USER_URL}/${polizaNumber}`,
+      { ...dataClean },
+      { withCredentials: true }
+    );
+    return res.data;
+  } catch (error) {
+    console.log("Error al editar la poliza:", error);
     throw error;
   }
 };
