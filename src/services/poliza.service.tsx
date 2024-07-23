@@ -4,7 +4,6 @@ import axios from "axios";
 const USER_URL = `${import.meta.env.VITE_API_URL}/poliza`;
 
 type PolizaProps = {
-  id: number;
   asegurado: string;
   productor: string;
   compañia: string;
@@ -12,8 +11,8 @@ type PolizaProps = {
   numeroPoliza: string;
   detalle: string;
   estado: string;
-  vigenciaInicio: Date;
-  vigenciaFin: Date;
+  vigenciaInicio: Date | string;
+  vigenciaFin: Date | string;
   moneda: string;
   premio: string;
   formaDePago: string;
@@ -120,10 +119,10 @@ export const createPoliza = async (polizaData: PolizaProps) => {
   }
 };
 
-export const getPolizaByPolizaNumber = async (id: string) => {
+export const getPolizaByPolizaNumber = async (polizaNumber: string) => {
   try {
-    console.log(`Requesting policy with id: ${id}`);
-    const res = await axios.get(`${USER_URL}/poliza/${id}`, {
+    console.log(`Requesting policy with polizaNumber: ${polizaNumber}`);
+    const res = await axios.get(`${USER_URL}/${polizaNumber}`, {
       withCredentials: true,
     });
     console.log("Response:", res);
@@ -134,21 +133,24 @@ export const getPolizaByPolizaNumber = async (id: string) => {
   }
 };
 
-export const deletePoliza = async (id: number) => {
+export const deletePoliza = async (polizaNumber: string) => {
   try {
-    await axios.delete(`${USER_URL}/${id}`, { withCredentials: true });
-    console.log("Poliza eliminada:", id);
+   const res = await axios.delete(`${USER_URL}/${polizaNumber}`, {
+      withCredentials: true,
+    });
+    return res.data
+    console.log("Poliza eliminada:", polizaNumber);
   } catch (error) {
     console.log("Error al eliminar la poliza:", error);
     throw error;
   }
 };
 
-export const editPoliza = async (id: number, data: PolizaProps) => {
+export const editPoliza = async (polizaNumber: string, data: PolizaProps) => {
   try {
     const res = await axios.put(
-      `${USER_URL}/${id}`,
-      { data },
+      `${USER_URL}/${polizaNumber}`,
+      { ...data },
       { withCredentials: true }
     );
     return res.data;

@@ -91,8 +91,16 @@ function TablaConsulta({ filter, isFilter }: FilterProps) {
                     {poliza.numeroPoliza}
                   </button>
                 </td>
-                <td className="bg-[#FFA6A6] text-white font-semibold p-2">
-                  {poliza.estado}
+                <td
+                  className={`${
+                    {
+                      vencida: "bg-[#FFA6A6]",
+                      vigente: "bg-[#a6e395]",
+                      anulada: "bg-[#b0b0b0]",
+                    }[poliza.estado] || ""
+                  } text-white font-semibold p-2`}
+                >
+                  {poliza.estado.toUpperCase()}
                 </td>
                 <td className="p-2 xl:flex justify-center hidden">
                   {new Date(
@@ -126,8 +134,16 @@ function TablaConsulta({ filter, isFilter }: FilterProps) {
                     {poliza.numeroPoliza}
                   </button>
                 </td>
-                <td className="bg-[#FFA6A6] text-white font-semibold p-2">
-                  {poliza.estado}
+                <td
+                  className={` ${
+                    {
+                      vencida: "bg-[#FFA6A6]",
+                      vigente: "bg-[#a6e395]",
+                      anulada: "bg-[#b0b0b0]",
+                    }[poliza.estado] || ""
+                  } text-white font-semibold p-2`}
+                >
+                  {poliza.estado.toUpperCase()}
                 </td>
                 <td className="p-2 xl:flex justify-center hidden">
                   {new Date(
