@@ -5,7 +5,7 @@ import InputSelect from "../../commons/InputSelect";
 import InputText from "../../commons/InputText";
 import Title from "../../commons/Title";
 import Header from "../Header";
-
+import { Report } from "notiflix/build/notiflix-report-aio";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { useEffect, useState } from "react";
@@ -48,24 +48,36 @@ function Carga() {
     try {
       const res = await createPoliza(polizaData);
       if (res) {
-        setPolizaData({
-          asegurado: "",
-          compañia: "",
-          numeroPoliza: "",
-          vigenciaInicio: new Date(),
-          vigenciaFin: new Date(),
-          moneda: "",
-          estado: "",
-          productor: "",
-          riesgo: "",
-          detalle: "",
-          premio: "",
-          formaDePago: "",
-          numero: "",
-        });
-        window.location.reload();
+        Report.success(
+          "Póliza Cargada",
+          "Se cargó una nueva póliza correctamente",
+          "Ok",
+          () => {
+            setPolizaData({
+              asegurado: "",
+              compañia: "",
+              numeroPoliza: "",
+              vigenciaInicio: new Date(),
+              vigenciaFin: new Date(),
+              moneda: "",
+              estado: "",
+              productor: "",
+              riesgo: "",
+              detalle: "",
+              premio: "",
+              formaDePago: "",
+              numero: "",
+            });
+            window.location.reload();
+          }
+        );
       }
     } catch (error) {
+      Report.failure(
+        "Error al cargar la póliza",
+        "No se pudo cargar la póliza al sistema",
+        "Volver"
+      );
       throw error;
     }
   };

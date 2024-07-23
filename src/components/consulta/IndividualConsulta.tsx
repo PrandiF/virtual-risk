@@ -14,8 +14,7 @@ import {
   getPolizaByPolizaNumber,
 } from "../../services/poliza.service";
 import InputText from "../../commons/InputText";
-import InputDate from "../../commons/InputDate";
-import InputSelect from "../../commons/InputSelect";
+import { Confirm } from "notiflix/build/notiflix-confirm-aio";
 
 interface PolizaProps {
   asegurado: string;
@@ -34,7 +33,7 @@ interface PolizaProps {
 }
 
 function IndividualConsulta() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const { polizaNumber } = useParams();
   const [polizaData, setPolizaData] = useState<PolizaProps>({
     asegurado: "",
@@ -70,11 +69,11 @@ function IndividualConsulta() {
     }
   }, [polizaNumber]);
 
-  const handleDeletePoliza = async () => {
+  const handleConfirmDeletePoliza = async () => {
     try {
       const res = await deletePoliza(polizaData.numeroPoliza);
       if (res) {
-        navigate("/consultar")
+        navigate("/consultar");
       }
     } catch (error) {
       console.error("Error al eliminar la poliza:", error);
@@ -105,6 +104,30 @@ function IndividualConsulta() {
       ...prevPolizaData,
       [e.target.name]: e.target.value,
     }));
+  };
+
+  const handleDeletePoliza = async () => {
+    Confirm.show(
+      "Está a punto de eliminar la póliza",
+      "Desea confirmar?",
+      "Si",
+      "No",
+      () => {
+        handleConfirmDeletePoliza();
+      }
+    );
+  };
+
+  const handleEditPoliza = async () => {
+    Confirm.show(
+      "Esta a punto de editar la póliza",
+      "Desea confirmar?",
+      "Si",
+      "No",
+      () => {
+        handleConfirmEditPoliza();
+      }
+    );
   };
 
   // const handleDateChange = (name: string) => (date: string) => {
