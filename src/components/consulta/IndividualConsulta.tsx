@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import BackButton from "../../commons/BackButton";
 import Button1 from "../../commons/Button1";
 import Button2 from "../../commons/Button2";
@@ -18,12 +18,11 @@ import InputDate from "../../commons/InputDate";
 import InputSelect from "../../commons/InputSelect";
 
 interface PolizaProps {
-  id: number;
   asegurado: string;
   compañia: string;
   numeroPoliza: string;
-  vigenciaInicio: Date;
-  vigenciaFin: Date;
+  vigenciaInicio: string;
+  vigenciaFin: string;
   moneda: string;
   estado: string;
   productor: string;
@@ -35,14 +34,14 @@ interface PolizaProps {
 }
 
 function IndividualConsulta() {
+  const navigate = useNavigate()
   const { polizaNumber } = useParams();
   const [polizaData, setPolizaData] = useState<PolizaProps>({
-    id: 0,
     asegurado: "",
     compañia: "",
     numeroPoliza: "",
-    vigenciaInicio: new Date(),
-    vigenciaFin: new Date(),
+    vigenciaInicio: "",
+    vigenciaFin: "",
     moneda: "",
     estado: "",
     productor: "",
@@ -58,14 +57,10 @@ function IndividualConsulta() {
   useEffect(() => {
     AOS.init();
     if (polizaNumber) {
+      console.log(polizaNumber);
       getPolizaByPolizaNumber(polizaNumber)
         .then((res) => {
-          setPolizaData({
-            ...res,
-            id: Number(res.id),
-            vigenciaInicio: new Date(res.vigenciaInicio),
-            vigenciaFin: new Date(res.vigenciaFin),
-          });
+          setPolizaData(res);
         })
         .catch((error) => {
           console.error(error);
@@ -74,11 +69,15 @@ function IndividualConsulta() {
           );
         });
     }
+    console.log(typeof polizaData.vigenciaInicio, polizaData.vigenciaFin);
   }, [polizaNumber]);
 
   const handleDeletePoliza = async () => {
     try {
-      await deletePoliza(polizaData?.id);
+      const res = await deletePoliza(polizaData.numeroPoliza);
+      if (res) {
+        navigate("/consultar")
+      }
     } catch (error) {
       console.error("Error al eliminar la poliza:", error);
       throw error;
@@ -91,8 +90,8 @@ function IndividualConsulta() {
 
   const handleEditPoliza = async () => {
     try {
-      const res = await editPoliza(polizaData?.id, polizaData);
-      if (res) console.log(`Poliza ${polizaData.id} editada`);
+      const res = await editPoliza(polizaData.numeroPoliza, polizaData);
+      if (res) console.log(`Poliza ${polizaData.numeroPoliza} editada`);
       setEditar(false);
       return;
     } catch (error) {
@@ -111,12 +110,12 @@ function IndividualConsulta() {
     }));
   };
 
-  const handleDateChange = (name: string) => (date: string) => {
-    setPolizaData((prevPolizaData) => ({
-      ...prevPolizaData,
-      [name]: date,
-    }));
-  };
+  // const handleDateChange = (name: string) => (date: string) => {
+  //   setPolizaData((prevPolizaData) => ({
+  //     ...prevPolizaData,
+  //     [name]: date,
+  //   }));
+  // };
 
   return (
     <div className="relative flex w-full h-screen items-center z-20 ">
@@ -173,8 +172,10 @@ function IndividualConsulta() {
                     <label className="text-sm text-start text-[#7c8087] font-semibold ml-1 mt-[-13px]">
                       Vigencia Inicio
                     </label>
-                    <InputDate
-                      onChange={handleDateChange("vigenciaInicio")}
+                    <InputText
+                      name="vigenciaInicio"
+                      value={polizaData.vigenciaInicio.substring(0, 10)}
+                      onChange={handleChange}
                       readonly={!editar}
                     />
                   </div>
@@ -195,13 +196,45 @@ function IndividualConsulta() {
                       Estado
                     </label>
                     <input
-                      className="bg-[#FFA6A6] text-black rounded-xl py-2 pl-3 border outline-none xl:text-base md:text-base text-sm"
+                      className={`${
+                        {
+                          vencida: "bg-[#FFA6A6]",
+                          vigente: "bg-[#a6e395]",
+                          anulada: "bg-[#b0b0b0]",
+                        }[polizaData.estado] || ""
+                      } text-black rounded-xl py-2 pl-3 border outline-none xl:text-base md:text-base text-sm`}
                       name="estado"
-                      value={polizaData.estado}
+                      value={polizaData.estado.toUpperCase()}
                       onChange={handleChange}
                       readOnly={!editar}
                     />
                   </div>
+                  {polizaData.formaDePago == "CBU" ? (
+                    <div className="flex flex-col">
+                      <label className="text-sm text-start text-[#7c8087] font-semibold ml-1 mt-[-13px]">
+                        CBU
+                      </label>
+                      <InputText
+                        value={polizaData.numero}
+                        onChange={handleChange}
+                        readonly={!editar}
+                      />
+                    </div>
+                  ) : polizaData.formaDePago == "Tarjeta" ? (
+                    <div className="flex flex-col">
+                      <label className="text-sm text-start text-[#7c8087] font-semibold ml-1 mt-[-13px]">
+                        N de Tarjeta
+                      </label>
+                      <InputText
+                        name="numero"
+                        value={polizaData.numero}
+                        onChange={handleChange}
+                        readonly={!editar}
+                      />
+                    </div>
+                  ) : (
+                    ""
+                  )}
                 </div>
               </div>
               <div className="flex w-full flex-col justify-center gap-6">
@@ -245,8 +278,10 @@ function IndividualConsulta() {
                   <label className="text-sm text-start text-[#7c8087] font-semibold ml-1 mt-[-13px]">
                     Vigencia Fin
                   </label>
-                  <InputDate
-                    onChange={handleDateChange("vigenciaFin")}
+                  <InputText
+                    name="vigenciaFin"
+                    value={polizaData.vigenciaFin.substring(0, 10)}
+                    onChange={handleChange}
                     readonly={!editar}
                   />
                 </div>
@@ -267,48 +302,21 @@ function IndividualConsulta() {
                   <label className="text-sm text-start text-[#7c8087] font-semibold ml-1 mt-[-13px]">
                     Forma de pago
                   </label>
-                  <InputSelect
-                    options={["CUPONES", "TARJETA", "CBU"]}
+                  <InputText
                     name="formaDePago"
                     value={polizaData.formaDePago}
                     onChange={handleChange}
                     readonly={!editar}
                   />
                 </div>
-
-                {polizaData.formaDePago == "CBU" ? (
-                  <div className="flex flex-col">
-                    <label className="text-sm text-start text-[#7c8087] font-semibold ml-1 mt-[-13px]">
-                      CBU
-                    </label>
-                    <InputText
-                      value={polizaData.numero}
-                      onChange={handleChange}
-                      readonly={!editar}
-                    />
-                  </div>
-                ) : polizaData.formaDePago == "Tarjeta" ? (
-                  <div className="flex flex-col">
-                    <label className="text-sm text-start text-[#7c8087] font-semibold ml-1 mt-[-13px]">
-                      N de Tarjeta
-                    </label>
-                    <InputText
-                      name="numero"
-                      value={polizaData.numero}
-                      onChange={handleChange}
-                      readonly={!editar}
-                    />
-                  </div>
-                ) : (
-                  ""
-                )}
               </div>
             </div>
           )}
 
           {editar ? (
-            <div className="flex items-center justify-center">
+            <div className="flex items-center justify-center gap-6">
               <Button1 text="Guardar" onClick={handleEditPoliza} />
+              <Button2 text="Cancelar" onClick={() => setEditar(false)} />
             </div>
           ) : (
             <div className="flex items-center justify-center gap-6">
