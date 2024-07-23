@@ -57,7 +57,6 @@ function IndividualConsulta() {
   useEffect(() => {
     AOS.init();
     if (polizaNumber) {
-      console.log(polizaNumber);
       getPolizaByPolizaNumber(polizaNumber)
         .then((res) => {
           setPolizaData(res);
@@ -69,7 +68,6 @@ function IndividualConsulta() {
           );
         });
     }
-    console.log(typeof polizaData.vigenciaInicio, polizaData.vigenciaFin);
   }, [polizaNumber]);
 
   const handleDeletePoliza = async () => {
@@ -88,14 +86,13 @@ function IndividualConsulta() {
     return <div>No existe la póliza solicitada.</div>;
   }
 
-  const handleEditPoliza = async () => {
+  const handleEditPoliza = async (state: boolean) => {
     try {
-      const res = await editPoliza(polizaData.numeroPoliza, polizaData);
-      if (res) console.log(`Poliza ${polizaData.numeroPoliza} editada`);
+      const res = await editPoliza(polizaData.numeroPoliza, polizaData, state);
       setEditar(false);
-      return;
+      setPolizaData(res)
+      return res;
     } catch (error) {
-      console.log("Error al editar la poliza:", error);
       setEditar(false);
       throw error;
     }
@@ -196,13 +193,12 @@ function IndividualConsulta() {
                       Estado
                     </label>
                     <input
-                      className={`${
-                        {
-                          vencida: "bg-[#FFA6A6]",
-                          vigente: "bg-[#a6e395]",
-                          anulada: "bg-[#b0b0b0]",
-                        }[polizaData.estado] || ""
-                      } text-black rounded-xl py-2 pl-3 border outline-none xl:text-base md:text-base text-sm`}
+                      className={`${{
+                        vencida: "bg-[#FFA6A6]",
+                        vigente: "bg-[#a6e395]",
+                        anulada: "bg-[#b0b0b0]",
+                      }[polizaData.estado] || ""
+                        } text-black rounded-xl py-2 pl-3 border outline-none xl:text-base md:text-base text-sm`}
                       name="estado"
                       value={polizaData.estado.toUpperCase()}
                       onChange={handleChange}
@@ -315,14 +311,20 @@ function IndividualConsulta() {
 
           {editar ? (
             <div className="flex items-center justify-center gap-6">
-              <Button1 text="Guardar" onClick={handleEditPoliza} />
+              <Button1 text="Guardar" onClick={() => handleEditPoliza(false)} />
               <Button2 text="Cancelar" onClick={() => setEditar(false)} />
             </div>
           ) : (
             <div className="flex items-center justify-center gap-6">
               <Button2 text="Editar" onClick={() => setEditar(true)} />
               <Button1 text="Eliminar" onClick={handleDeletePoliza} />
-              <Button3 text="Anular" />
+              <Button3 text={`${polizaData.estado === "ANULADA" ? "Habilitar" : "Anular"}`} onClick={() => {
+                if (polizaData.estado === "ANULADA") {
+                  handleEditPoliza(true)
+                } else {
+                  handleEditPoliza(false)
+                }
+              }} />
             </div>
           )}
         </div>
