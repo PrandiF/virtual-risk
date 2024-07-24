@@ -47,13 +47,6 @@ function Header() {
         </button>
         <LogoutButton />
       </div>
-      {/* <div
-        className="absolute w-full flex justify-end mr-12"
-        data-aos="fade"
-        data-aos-duration="2000"
-        data-aos-delay="600"
-      > */}
-      {/* </div> */}
     </div>
   );
 }

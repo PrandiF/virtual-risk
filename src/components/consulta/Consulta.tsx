@@ -5,7 +5,6 @@ import SearchButton from "../../commons/SearchButton";
 import Title from "../../commons/Title";
 import Header from "../Header";
 import TablaConsulta from "./TablaConsulta";
-
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { useEffect, useState } from "react";

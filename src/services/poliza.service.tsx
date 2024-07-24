@@ -1,5 +1,4 @@
 import axios from "axios";
-// import { useState } from "react";
 
 const USER_URL = `${import.meta.env.VITE_API_URL}/poliza`;
 
@@ -134,15 +133,25 @@ export const deletePoliza = async (polizaNumber: string) => {
     const res = await axios.delete(`${USER_URL}/${polizaNumber}`, {
       withCredentials: true,
     });
-    return res.data
+    return res.data;
   } catch (error) {
     console.log("Error al eliminar la poliza:", error);
     throw error;
   }
 };
 
-export const editPoliza = async (polizaNumber: string, data: PolizaProps, state: boolean) => {
-  const dataClean = state ? { ...data, estado: "" } : { ...data, estado: "ANULADA" }
+export const editPoliza = async (
+  polizaNumber: string,
+  data: PolizaProps,
+  state: string,
+  change: boolean
+) => {
+  const dataClean =
+    state == "ANULADA" && change
+      ? { ...data, estado: "" }
+      : change
+      ? { ...data, estado: "ANULADA" }
+      : { ...data };
   try {
     const res = await axios.put(
       `${USER_URL}/${polizaNumber}`,

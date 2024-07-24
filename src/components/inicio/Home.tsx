@@ -4,7 +4,6 @@ import imgConsultar from "../../assets/imagenConsultar.png";
 import Card from "./Card";
 import RespnosiveCards from "./RespnosiveCards";
 import Header from "../Header";
-
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { useEffect } from "react";

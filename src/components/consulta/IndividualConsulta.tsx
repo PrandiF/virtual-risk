@@ -4,7 +4,6 @@ import Button1 from "../../commons/Button1";
 import Button2 from "../../commons/Button2";
 import Button3 from "../../commons/Button3";
 import Header from "../Header";
-
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { useEffect, useState } from "react";
@@ -32,10 +31,40 @@ interface PolizaProps {
   numero: string;
 }
 
+Confirm.init({
+  className: "notiflix-confirm",
+  width: "350px",
+  titleColor: "#000000",
+  titleFontSize: "20px",
+  messageColor: "#2c3e50",
+  messageFontSize: "18px",
+  buttonsFontSize: "16px",
+  okButtonBackground: "#3bcb77",
+  okButtonColor: "#ffffff",
+  cancelButtonBackground: "#ea6b5c",
+  cancelButtonColor: "#ffffff",
+});
+
 function IndividualConsulta() {
   const navigate = useNavigate();
   const { polizaNumber } = useParams();
   const [polizaData, setPolizaData] = useState<PolizaProps>({
+    asegurado: "",
+    compañia: "",
+    numeroPoliza: "",
+    vigenciaInicio: "",
+    vigenciaFin: "",
+    moneda: "",
+    estado: "",
+    productor: "",
+    riesgo: "",
+    detalle: "",
+    premio: "",
+    formaDePago: "",
+    numero: "",
+  });
+
+  const [originalPolizaData, setOriginalPolizaData] = useState<PolizaProps>({
     asegurado: "",
     compañia: "",
     numeroPoliza: "",
@@ -59,6 +88,7 @@ function IndividualConsulta() {
       getPolizaByPolizaNumber(polizaNumber)
         .then((res) => {
           setPolizaData(res);
+          setOriginalPolizaData(res);
         })
         .catch((error) => {
           console.error(error);
@@ -85,11 +115,17 @@ function IndividualConsulta() {
     return <div>No existe la póliza solicitada.</div>;
   }
 
-  const handleEditPoliza = async (state: boolean) => {
+  const handleConfirmEditPoliza = async (state: string, change: boolean) => {
     try {
-      const res = await editPoliza(polizaData.numeroPoliza, polizaData, state);
+      const res = await editPoliza(
+        polizaData.numeroPoliza,
+        polizaData,
+        state,
+        change
+      );
       setEditar(false);
-      setPolizaData(res)
+      setPolizaData(res);
+      setOriginalPolizaData(res);
       return res;
     } catch (error) {
       setEditar(false);
@@ -118,16 +154,51 @@ function IndividualConsulta() {
     );
   };
 
-  const handleEditPoliza = async () => {
+  const handleEditPoliza = async (state: string) => {
     Confirm.show(
       "Esta a punto de editar la póliza",
       "Desea confirmar?",
       "Si",
       "No",
       () => {
-        handleConfirmEditPoliza();
+        handleConfirmEditPoliza(state, false);
       }
     );
+  };
+
+  const handleAnularPoliza = async () => {
+    Confirm.show(
+      "Esta a punto de anular la póliza",
+      "Desea confirmar?",
+      "Si",
+      "No",
+      () => {
+        handleConfirmEditPoliza(polizaData.estado, true);
+      }
+    );
+  };
+
+  const handleHabilitarPoliza = async () => {
+    Confirm.show(
+      "Esta a punto de habilitar la póliza",
+      "Desea confirmar?",
+      "Si",
+      "No",
+      () => {
+        handleConfirmEditPoliza(polizaData.estado, true);
+      }
+    );
+  };
+
+  const handleConfirmCancelEdit = () => {
+    setPolizaData(originalPolizaData);
+    setEditar(false);
+  };
+
+  const handleCancelEdit = () => {
+    Confirm.show("Cancelar edición", "Desea confirmar?", "Si", "No", () => {
+      handleConfirmCancelEdit();
+    });
   };
 
   // const handleDateChange = (name: string) => (date: string) => {
@@ -216,16 +287,17 @@ function IndividualConsulta() {
                       Estado
                     </label>
                     <input
-                      className={`${{
-                        vencida: "bg-[#FFA6A6]",
-                        vigente: "bg-[#a6e395]",
-                        anulada: "bg-[#b0b0b0]",
-                      }[polizaData.estado] || ""
-                        } text-black rounded-xl py-2 pl-3 border outline-none xl:text-base md:text-base text-sm`}
+                      className={`${
+                        {
+                          VENCIDA: "bg-[rgba(255,166,166,0.8)]",
+                          VIGENTE: "bg-[rgba(166,227,149,1)]",
+                          ANULADA: "bg-[rgba(176,176,176,0.8)]",
+                        }[polizaData.estado] || ""
+                      } text-black rounded-xl h-[2.8rem] pl-3 border border-orange1 outline-none`}
                       name="estado"
                       value={polizaData.estado.toUpperCase()}
                       onChange={handleChange}
-                      readOnly={!editar}
+                      readOnly={true}
                     />
                   </div>
                   {polizaData.formaDePago == "CBU" ? (
@@ -334,20 +406,34 @@ function IndividualConsulta() {
 
           {editar ? (
             <div className="flex items-center justify-center gap-6">
-              <Button1 text="Guardar" onClick={() => handleEditPoliza(false)} />
-              <Button2 text="Cancelar" onClick={() => setEditar(false)} />
+              <Button3
+                bg="#3bcb77"
+                text="Guardar"
+                onClick={() => handleEditPoliza(polizaData.estado)}
+              />
+              <Button2 text="Cancelar" onClick={() => handleCancelEdit()} />
             </div>
           ) : (
             <div className="flex items-center justify-center gap-6">
-              <Button2 text="Editar" onClick={() => setEditar(true)} />
-              <Button1 text="Eliminar" onClick={handleDeletePoliza} />
-              <Button3 text={`${polizaData.estado === "ANULADA" ? "Habilitar" : "Anular"}`} onClick={() => {
-                if (polizaData.estado === "ANULADA") {
-                  handleEditPoliza(true)
-                } else {
-                  handleEditPoliza(false)
-                }
-              }} />
+              <Button1 text="Editar" onClick={() => setEditar(true)} />
+              <Button2 text="Eliminar" onClick={handleDeletePoliza} />
+              <Button3
+                bg={`${
+                  polizaData.estado === "ANULADA"
+                    ? "#3bcb77"
+                    : "rgba(176,176,176,0.8)"
+                }`}
+                text={`${
+                  polizaData.estado === "ANULADA" ? "Habilitar" : "Anular"
+                }`}
+                onClick={() => {
+                  if (polizaData.estado === "ANULADA") {
+                    handleHabilitarPoliza();
+                  } else {
+                    handleAnularPoliza();
+                  }
+                }}
+              />
             </div>
           )}
         </div>
