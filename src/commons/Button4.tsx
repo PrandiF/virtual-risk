@@ -5,7 +5,7 @@ type Button1Props = {
   url?: string;
 };
 
-function Button1({ text, onClick, url }: Button1Props) {
+function Button4({ text, onClick, url }: Button1Props) {
 
   
 
@@ -13,11 +13,11 @@ function Button1({ text, onClick, url }: Button1Props) {
     <a
       href={url}
       onClick={onClick}
-      className="z-30 bg-[#3498db] py-1 w-[150px] flex items-center justify-center shadow-lg rounded-3xl cursor-pointer hover:brightness-95"
+      className="z-30 bg-button1-gradient py-1 w-[150px] flex items-center justify-center shadow-lg rounded-3xl cursor-pointer hover:brightness-95"
     >
       {text}
     </a>
   );
 }
 
-export default Button1;
+export default Button4;

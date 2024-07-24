@@ -11,7 +11,6 @@ import {
 import Card from "./Card";
 import imgCargar from "../../assets/imagenCargar.png";
 import imgConsultar from "../../assets/imagenConsultar.png";
-
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { useEffect } from "react";
