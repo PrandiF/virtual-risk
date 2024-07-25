@@ -135,9 +135,9 @@ function TablaConsulta({ filter, isFilter }: FilterProps) {
               </td>
               <td
                 className={` ${{
-                  VENCIDA: "bg-[#FFA6A6]",
-                  VIGENTE: "bg-[#a6e395]",
-                  ANULADA: "bg-[#b0b0b0]",
+                  VENCIDA: "bg-[linear-gradient(to_right,_white_0%,_rgba(255,166,166,0.8)_15%,_rgba(255,166,166,1)_85%,_white_100%)]",
+                  VIGENTE: "bg-[linear-gradient(to_right,_white_0%,_rgba(166,227,149,0.8)_15%,_rgba(166,227,149,1)_85%,_white_100%)]",
+                  ANULADA: "bg-[linear-gradient(to_right,_white_0%,_rgba(176,176,176,0.8)_15%,_rgba(176,176,176,1)_85%,_white_100%)]",
                 }[poliza.estado] || ""
                   } text-white font-semibold p-2`}
               >
