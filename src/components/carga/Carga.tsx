@@ -1,5 +1,4 @@
 import BackButton from "../../commons/BackButton";
-import Button1 from "../../commons/Button1";
 import InputDate from "../../commons/InputDate";
 import InputSelect from "../../commons/InputSelect";
 import InputText from "../../commons/InputText";
@@ -10,6 +9,7 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 import { useEffect, useState } from "react";
 import { createPoliza } from "../../services/poliza.service";
+import Button4 from "../../commons/Button4";
 
 function Carga() {
   const [polizaData, setPolizaData] = useState({
@@ -248,7 +248,7 @@ function Carga() {
           </div>
         </div>
         <div data-aos="fade" data-aos-duration="2000" data-aos-delay="600">
-          <Button1 text="Cargar" onClick={handleSubmit} />
+          <Button4 text="Cargar" onClick={handleSubmit} />
         </div>
       </div>
     </div>
