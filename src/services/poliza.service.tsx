@@ -30,7 +30,7 @@ type FilterProps = {
 export const getPolizas = async () => {
   try {
     const res = await axios.get(`${USER_URL}`, { withCredentials: true });
-    return res.data;
+    return res.data.data;
   } catch (error) {
     console.error("Error al obtener las polizas:", error);
     throw error;
