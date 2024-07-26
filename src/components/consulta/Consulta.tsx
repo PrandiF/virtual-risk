@@ -9,6 +9,7 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 import { useEffect, useState } from "react";
 import CancelButton from "../../commons/CancelButton";
+import Pagination from "./Pagination";
 
 function Consulta() {
   useEffect(() => {
@@ -26,6 +27,8 @@ function Consulta() {
 
   const [filterData, setFilterData] = useState(initialFilterData);
   const [isFilter, setIsFilter] = useState(false);
+  const [pageTotal, setPageTotal] = useState(1)
+  const [pageFilter, setPageFilter] = useState(1)
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -52,6 +55,13 @@ function Consulta() {
     setIsFilter(false);
   };
 
+  const functionSetPageTotal = (num: number) => {
+    setPageTotal(num)
+  }
+
+  const functionSetPageFilter = (num: number) => {
+    setPageFilter(num)
+  }
   return (
     <div className="relative flex w-full h-screen items-start z-20 pt-[8%]">
       <Header />
@@ -157,8 +167,9 @@ function Consulta() {
             </button>
           </div>
         </div>
-        <div className="flex items-center px-4 justify-center w-full rounded-lg">
-          <TablaConsulta filter={filterData} isFilter={isFilter} />
+        <div className="flex flex-col items-center px-4 justify-center w-full rounded-lg">
+          <TablaConsulta pageTotal={pageTotal} pageFilter={pageFilter} filter={filterData} isFilter={isFilter} />
+          <Pagination pageTotal={pageTotal} isFilter={isFilter} pageFilter={pageFilter} setPageTotal={functionSetPageTotal} setPageFilter={functionSetPageFilter} />
         </div>
       </div>
     </div>
