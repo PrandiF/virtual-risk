@@ -201,13 +201,6 @@ function IndividualConsulta() {
     });
   };
 
-  // const handleDateChange = (name: string) => (date: string) => {
-  //   setPolizaData((prevPolizaData) => ({
-  //     ...prevPolizaData,
-  //     [name]: date,
-  //   }));
-  // };
-
   return (
     <div className="relative flex w-full h-screen items-center z-20 ">
       <Header />
@@ -287,17 +280,17 @@ function IndividualConsulta() {
                       Estado
                     </label>
                     <input
-                      className={`${
-                        {
-                          VENCIDA: "bg-[rgba(255,166,166,0.8)]",
-                          VIGENTE: "bg-[rgba(166,227,149,1)]",
-                          ANULADA: "bg-[rgba(176,176,176,0.8)]",
-                        }[polizaData.estado] || ""
-                      } text-black rounded-xl h-[2.8rem] pl-3 border border-orange1 outline-none`}
+                      className={`${{
+                        VENCIDA: "bg-[rgba(255,166,166,0.8)]",
+                        VIGENTE: "bg-[rgba(166,227,149,1)]",
+                        ANULADA: "bg-[rgba(176,176,176,0.8)]",
+                      }[polizaData.estado] || ""
+                        } text-black rounded-xl h-[2.8rem] pl-3 border border-orange1 outline-none`}
                       name="estado"
                       value={polizaData.estado.toUpperCase()}
                       onChange={handleChange}
                       readOnly={true}
+                      disabled={true}
                     />
                   </div>
                   {polizaData.formaDePago == "CBU" ? (
@@ -414,26 +407,29 @@ function IndividualConsulta() {
               <Button2 text="Cancelar" onClick={() => handleCancelEdit()} />
             </div>
           ) : (
-            <div className="flex items-center justify-center gap-6">
-              <Button1 text="Editar" onClick={() => setEditar(true)} />
-              <Button2 text="Eliminar" onClick={handleDeletePoliza} />
-              <Button3
-                bg={`${
-                  polizaData.estado === "ANULADA"
-                    ? "#3bcb77"
-                    : "rgba(176,176,176,0.8)"
-                }`}
-                text={`${
-                  polizaData.estado === "ANULADA" ? "Habilitar" : "Anular"
-                }`}
-                onClick={() => {
-                  if (polizaData.estado === "ANULADA") {
-                    handleHabilitarPoliza();
-                  } else {
-                    handleAnularPoliza();
-                  }
-                }}
-              />
+            <div className="flex flex-col w-full items-center justify-center">
+              <div className="flex flex-col gap-3">
+                <Button1 text="Editar" onClick={() => setEditar(true)} />
+                <div className="flex justify-center w-full flex-row gap-3">
+                  <Button2 text="Eliminar" onClick={handleDeletePoliza} />
+                  <Button3
+                    bg={`${polizaData.estado === "ANULADA"
+                      ? "#3bcb77"
+                      : "#fd7e14"
+                      }`}
+                    text={`${polizaData.estado === "ANULADA" ? "Habilitar" : "Anular"
+                      }`}
+                    onClick={() => {
+                      if (polizaData.estado === "ANULADA") {
+                        handleHabilitarPoliza();
+                      } else {
+                        handleAnularPoliza();
+                      }
+                    }}
+                  />
+                </div>
+              </div>
+
             </div>
           )}
         </div>
