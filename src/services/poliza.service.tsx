@@ -27,9 +27,9 @@ type FilterProps = {
   vigenciaFin: Date | null;
 };
 
-export const getPolizas = async () => {
+export const getPolizas = async (page: number = 1) => {
   try {
-    const res = await axios.get(`${USER_URL}`, { withCredentials: true });
+    const res = await axios.get(`${USER_URL}?page=${page}`, { withCredentials: true });
     return res.data.data;
   } catch (error) {
     console.error("Error al obtener las polizas:", error);
@@ -47,7 +47,7 @@ export const getPoliza = async () => {
   }
 };
 
-export const getFilterPoliza = async (filter: FilterProps) => {
+export const getFilterPoliza = async (filter: FilterProps, page: number = 1) => {
   // const [response, setResponse] = useState([])
   let filterClean: FilterProps = {
     asegurado: filter.asegurado,
@@ -81,10 +81,10 @@ export const getFilterPoliza = async (filter: FilterProps) => {
     } else {
       if (stringReq.includes("?")) {
         stringReq =
-          stringReq + `&${key}=${filterClean[key as keyof FilterProps]}`;
+          stringReq + `&${key}=${filterClean[key as keyof FilterProps]}&page=${page}`;
       } else {
         stringReq =
-          stringReq + `?${key}=${filterClean[key as keyof FilterProps]}`;
+          stringReq + `?${key}=${filterClean[key as keyof FilterProps]}&page=${page}`;
       }
     }
   });
@@ -150,8 +150,8 @@ export const editPoliza = async (
     state == "ANULADA" && change
       ? { ...data, estado: "" }
       : change
-      ? { ...data, estado: "ANULADA" }
-      : { ...data };
+        ? { ...data, estado: "ANULADA" }
+        : { ...data };
   try {
     const res = await axios.put(
       `${USER_URL}/${polizaNumber}`,
