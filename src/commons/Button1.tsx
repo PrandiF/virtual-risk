@@ -6,14 +6,11 @@ type Button1Props = {
 };
 
 function Button1({ text, onClick, url }: Button1Props) {
-
-  
-
   return (
     <a
       href={url}
       onClick={onClick}
-      className="z-30 bg-[#3498db] py-1 w-[150px] flex items-center justify-center shadow-lg rounded-3xl cursor-pointer hover:brightness-95"
+      className="z-30 bg-[#ffffffb6] text-[#fd7e14] font-semibold py-1 w-full flex items-center justify-center shadow-lg rounded-3xl cursor-pointer hover:brightness-95"
     >
       {text}
     </a>
