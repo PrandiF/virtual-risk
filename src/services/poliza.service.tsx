@@ -92,7 +92,7 @@ export const getFilterPoliza = async (filter: FilterProps, page: number = 1) => 
     const res = await axios.get(`${USER_URL}/filter${stringReq}`, {
       withCredentials: true,
     });
-    return res.data;
+    return res.data.data;
   } catch (error) {
     console.error("Error al filtrar la/las poliza/s:", error);
     throw error;
