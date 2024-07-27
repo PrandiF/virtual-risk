@@ -27,8 +27,8 @@ function Consulta() {
 
   const [filterData, setFilterData] = useState(initialFilterData);
   const [isFilter, setIsFilter] = useState(false);
-  const [pageTotal, setPageTotal] = useState(1)
-  const [pageFilter, setPageFilter] = useState(1)
+  const [pageTotal, setPageTotal] = useState(1);
+  const [pageFilter, setPageFilter] = useState(1);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -56,19 +56,19 @@ function Consulta() {
   };
 
   const functionSetPageTotal = (num: number) => {
-    setPageTotal(num)
-  }
+    setPageTotal(num);
+  };
 
   const functionSetPageFilter = (num: number) => {
-    setPageFilter(num)
-  }
+    setPageFilter(num);
+  };
   return (
     <div className="relative flex w-full h-screen items-start z-20 pt-[8%]">
       <Header />
       <div className="flex w-full flex-col items-center justify-center gap-8">
         <div className="flex flex-col gap-12 py-8 px-4 items-center">
           <div
-            className="w-full"
+            className="flex mr-auto"
             data-aos="fade"
             data-aos-duration="2000"
             data-aos-delay="400"
@@ -167,9 +167,20 @@ function Consulta() {
             </button>
           </div>
         </div>
-        <div className="flex flex-col items-center px-4 justify-center w-full rounded-lg">
-          <TablaConsulta pageTotal={pageTotal} pageFilter={pageFilter} filter={filterData} isFilter={isFilter} />
-          <Pagination pageTotal={pageTotal} isFilter={isFilter} pageFilter={pageFilter} setPageTotal={functionSetPageTotal} setPageFilter={functionSetPageFilter} />
+        <div className="flex flex-col items-center px-4 justify-center w-full rounded-lg mb-3">
+          <TablaConsulta
+            pageTotal={pageTotal}
+            pageFilter={pageFilter}
+            filter={filterData}
+            isFilter={isFilter}
+          />
+          <Pagination
+            pageTotal={pageTotal}
+            isFilter={isFilter}
+            pageFilter={pageFilter}
+            setPageTotal={functionSetPageTotal}
+            setPageFilter={functionSetPageFilter}
+          />
         </div>
       </div>
     </div>

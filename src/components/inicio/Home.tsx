@@ -24,12 +24,12 @@ function Home() {
           <Title text="¿Qué operación desea realizar?" />
         </div>
         <div
-          className="xl:flex hidden gap-10 justify-center items-center"
+          className="xl:flex md:flex xl:w-full md:w-[70%] hidden gap-10 justify-center items-center"
           data-aos="fade"
           data-aos-duration="2000"
           data-aos-delay="600"
         >
-          <div className="xl:w-[22%] hover:scale-[1.02] transition-transform duration-500">
+          <div className="xl:w-[22%]  hover:scale-[1.02] transition-transform duration-500">
             <Card img={imgCargar} buttonText="Cargar" buttonHref="/cargar" />
           </div>
           <div className="xl:w-[22%] hover:scale-[1.02] transition-transform duration-500">
@@ -40,7 +40,7 @@ function Home() {
             />
           </div>
         </div>
-        <div className="xl:hidden flex justify-center items-center">
+        <div className="xl:hidden md:hidden flex justify-center items-center">
           <RespnosiveCards />
         </div>
       </div>
