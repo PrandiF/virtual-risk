@@ -10,7 +10,7 @@ function Header() {
     AOS.init();
   }, []);
   return (
-    <div className="absolute top-0 left-0 w-full py-4 xl:px-8 md:px-8 px-3 z-40 flex items-center xl:justify-between md:justify-between xl:gap-0 md:gap-2 gap-3 bg-header-gradient">
+    <div className="absolute top-0 left-0 w-full py-4 xl:px-8 md:px-8 px-3 z-40 flex items-center justify-between xl:gap-0 md:gap-2 gap-3 bg-header-gradient">
       <button
         data-aos="fade"
         data-aos-duration="2000"
