@@ -27,6 +27,7 @@ function InputText({
       onChange={handleChange}
       className={`w-${width} bg-white text-black rounded-xl h-[2.8rem] pl-3 border border-orange1 outline-none`}
       readOnly={readonly}
+      disabled={readonly}
     />
   );
 }

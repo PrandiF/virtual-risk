@@ -11,7 +11,7 @@ function Card({ img, buttonText, buttonHref }: CardProps) {
   return (
     <button
       onClick={() => navigate(`${buttonHref}`)}
-      className="relative w-full h-full rounded-lg shadow-lg overflow-hidden bg-transparent transition-transform duration-500"
+      className="relative w-full xl:h-full md:h-[50%] rounded-lg shadow-lg overflow-hidden bg-transparent transition-transform duration-500"
     >
       <img
         src={img}

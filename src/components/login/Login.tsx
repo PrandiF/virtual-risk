@@ -1,15 +1,14 @@
 import Title from "../../commons/Title";
-import Button1 from "../../commons/Button1";
 import InputText from "../../commons/InputText";
 import InputPsw from "../../commons/InputPsw";
 import HeaderLogin from "../HeaderLogin";
-
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { useEffect, useState } from "react";
 import { login } from "../../services/user.service";
 import { useNavigate } from "react-router-dom";
 import { useUserStoreLocalStorage } from "../../store/userStore";
+import Button4 from "../../commons/Button4";
 function Login() {
   const navigate = useNavigate();
   useEffect(() => {
@@ -74,7 +73,7 @@ function Login() {
           </div>
         </form>
         <button data-aos="fade" data-aos-duration="2000" data-aos-delay="700">
-          <Button1 text="Iniciar Sesión" onClick={handleSubmit} />
+          <Button4 text="Iniciar Sesión" onClick={handleSubmit} />
         </button>
       </div>
     </div>

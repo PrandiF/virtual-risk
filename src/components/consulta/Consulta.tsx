@@ -5,24 +5,31 @@ import SearchButton from "../../commons/SearchButton";
 import Title from "../../commons/Title";
 import Header from "../Header";
 import TablaConsulta from "./TablaConsulta";
-
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { useEffect, useState } from "react";
 import CancelButton from "../../commons/CancelButton";
+import Pagination from "./Pagination";
 
 function Consulta() {
   useEffect(() => {
     AOS.init();
   }, []);
-  const [filterData, setFilterData] = useState({
+
+  const initialFilterData = {
     asegurado: "",
     compañia: "",
     vigenciaInicio: new Date("1900-01-01"),
     vigenciaFin: new Date("1900-01-01"),
     detalle: "",
     estado: "",
-  });
+  };
+
+  const [filterData, setFilterData] = useState(initialFilterData);
+  const [isFilter, setIsFilter] = useState(false);
+  const [pageTotal, setPageTotal] = useState(1);
+  const [pageFilter, setPageFilter] = useState(1);
+
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
@@ -31,47 +38,37 @@ function Consulta() {
       [e.target.name]: e.target.value,
     }));
   };
+
   const handleDateChange = (name: string) => (date: string) => {
     setFilterData((prevPolizaData) => ({
       ...prevPolizaData,
       [name]: date,
     }));
   };
-  const [search, setSearch] = useState(false);
-  const [clean, setClean] = useState(false);
-  const [isFilter, setIsFilter] = useState(false);
+
   const handleSearch = () => {
-    setSearch(!search);
+    setIsFilter(true);
   };
-  useEffect(() => {
-    if (!search && clean) {
-      setFilterData({
-        asegurado: "",
-        compañia: "",
-        vigenciaInicio: new Date("1900-01-01"),
-        vigenciaFin: new Date("1900-01-01"),
-        detalle: "",
-        estado: "",
-      });
-      setIsFilter(false);
-    } else if (search && !clean) {
-      setIsFilter(true);
-    } else {
-      setIsFilter(false);
-    }
-  }, [search]);
-  useEffect(() => {
-    if (search) {
-      setSearch(false), setClean(false);
-    }
-  }, [filterData]);
+
+  const handleCancel = () => {
+    setFilterData(initialFilterData);
+    setIsFilter(false);
+  };
+
+  const functionSetPageTotal = (num: number) => {
+    setPageTotal(num);
+  };
+
+  const functionSetPageFilter = (num: number) => {
+    setPageFilter(num);
+  };
   return (
     <div className="relative flex w-full h-screen items-start z-20 pt-[8%]">
       <Header />
       <div className="flex w-full flex-col items-center justify-center gap-8">
         <div className="flex flex-col gap-12 py-8 px-4 items-center">
           <div
-            className="w-full"
+            className="flex mr-auto"
             data-aos="fade"
             data-aos-duration="2000"
             data-aos-delay="400"
@@ -141,30 +138,27 @@ function Consulta() {
               <div className="flex gap-5 items-center w-full">
                 <InputDate
                   placeholder="Desde"
-                  clean={clean}
+                  clean={!isFilter}
                   width="full"
                   onChange={handleDateChange("vigenciaInicio")}
                 />
                 <InputDate
                   placeholder="Hasta"
-                  clean={clean}
+                  clean={!isFilter}
                   width="full"
                   onChange={handleDateChange("vigenciaFin")}
                 />
               </div>
             </div>
             <button
-              onClick={handleSearch}
+              onClick={isFilter ? handleCancel : handleSearch}
               className="xl:w-fit w-full flex h-full justify-center items-center"
               data-aos="fade"
               data-aos-duration="2000"
               data-aos-delay="600"
             >
-              {search ? (
-                <div
-                  onClick={() => setClean(true)}
-                  className="bg-orange1 text-white flex items-center justify-center rounded-lg cursor-pointer hover:brightness-95 xl:w-[45px] xl:h-[42px]"
-                >
+              {isFilter ? (
+                <div className="bg-orange1 text-white flex items-center justify-center rounded-lg cursor-pointer hover:brightness-95 xl:w-[45px] xl:h-[42px]">
                   <CancelButton />
                 </div>
               ) : (
@@ -173,8 +167,20 @@ function Consulta() {
             </button>
           </div>
         </div>
-        <div className="flex items-center px-4 justify-center w-full rounded-lg">
-          <TablaConsulta filter={filterData} isFilter={isFilter} />
+        <div className="flex flex-col items-center px-4 justify-center w-full rounded-lg mb-3">
+          <TablaConsulta
+            pageTotal={pageTotal}
+            pageFilter={pageFilter}
+            filter={filterData}
+            isFilter={isFilter}
+          />
+          <Pagination
+            pageTotal={pageTotal}
+            isFilter={isFilter}
+            pageFilter={pageFilter}
+            setPageTotal={functionSetPageTotal}
+            setPageFilter={functionSetPageFilter}
+          />
         </div>
       </div>
     </div>
