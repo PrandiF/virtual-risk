@@ -10,6 +10,7 @@ import "aos/dist/aos.css";
 import { useEffect, useState } from "react";
 import CancelButton from "../../commons/CancelButton";
 import Pagination from "./Pagination";
+import InputSelect from "../../commons/InputSelect";
 
 function Consulta() {
   useEffect(() => {
@@ -97,8 +98,32 @@ function Consulta() {
                 onChange={handleChange}
                 name="asegurado"
               />
-              <InputText
+             <InputSelect
                 placeholder="Compañía"
+                options={[
+                  "BERKLEY",
+                  "COSENA",
+                  "FEDERACIÓN",
+                  "SANCOR",
+                  "SURA",
+                  "ZURICH 2 Q JUN",
+                  "ZURICH 1 Q JUL",
+                  "ALLIANZ",
+                  "LIBRA",
+                  "PREVENCIÓN",
+                  "OMINT",
+                  "ASOCIART",
+                  "CNP 2 Q JUN",
+                  "CNP 1 Q JUL",
+                  "MARTINEZ SOSA",
+                  "SAN CRISTOBAL",
+                  "RIVADAVIA",
+                  "MERCANTIL ANDINA",
+                  "HANSTEATICA",
+                  "ZURICH EX QBE",
+                  "C&C",
+                  "CHUBB",
+                ]}
                 width="full"
                 value={filterData.compañia}
                 onChange={handleChange}
@@ -118,8 +143,9 @@ function Consulta() {
                 onChange={handleChange}
                 name="detalle"
               />
-              <InputText
+               <InputSelect
                 placeholder="Estado"
+                options={["Vigente", "Vencida", "Anulada"]}
                 width="full"
                 value={filterData.estado}
                 onChange={handleChange}
