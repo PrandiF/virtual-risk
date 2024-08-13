@@ -14,6 +14,7 @@ import {
 } from "../../services/poliza.service";
 import InputText from "../../commons/InputText";
 import { Confirm } from "notiflix/build/notiflix-confirm-aio";
+import InputSelect from "../../commons/InputSelect";
 
 interface PolizaProps {
   asegurado: string;
@@ -233,12 +234,45 @@ function IndividualConsulta() {
                     <label className="text-sm text-start text-[#7c8087] font-semibold ml-1 mt-[-13px]">
                       Compañía
                     </label>
-                    <InputText
-                      name="compañia"
-                      value={polizaData.compañia}
-                      onChange={handleChange}
-                      readonly={!editar}
-                    />
+                    {!editar ? (
+                      <InputText
+                        name="compañia"
+                        value={polizaData.compañia}
+                        onChange={handleChange}
+                      />
+                    ) : (
+                      <InputSelect
+                        placeholder="Compañía"
+                        options={[
+                          "BERKLEY",
+                          "COSENA",
+                          "FEDERACIÓN",
+                          "SANCOR",
+                          "SURA",
+                          "ZURICH 2 Q JUN",
+                          "ZURICH 1 Q JUL",
+                          "ALLIANZ",
+                          "LIBRA",
+                          "PREVENCIÓN",
+                          "OMINT",
+                          "ASOCIART",
+                          "CNP 2 Q JUN",
+                          "CNP 1 Q JUL",
+                          "MARTINEZ SOSA",
+                          "SAN CRISTOBAL",
+                          "RIVADAVIA",
+                          "MERCANTIL ANDINA",
+                          "HANSTEATICA",
+                          "ZURICH EX QBE",
+                          "C&C",
+                          "CHUBB",
+                        ]}
+                        width="full"
+                        value={polizaData.compañia}
+                        onChange={handleChange}
+                        name="compañia"
+                      />
+                    )}
                   </div>
 
                   <div className="flex flex-col">
@@ -280,12 +314,13 @@ function IndividualConsulta() {
                       Estado
                     </label>
                     <input
-                      className={`${{
-                        VENCIDA: "bg-[rgba(255,166,166,0.8)]",
-                        VIGENTE: "bg-[rgba(166,227,149,1)]",
-                        ANULADA: "bg-[rgba(176,176,176,0.8)]",
-                      }[polizaData.estado] || ""
-                        } text-black rounded-xl h-[2.8rem] pl-3 border border-orange1 outline-none`}
+                      className={`${
+                        {
+                          VENCIDA: "bg-[rgba(255,166,166,0.8)]",
+                          VIGENTE: "bg-[rgba(166,227,149,1)]",
+                          ANULADA: "bg-[rgba(176,176,176,0.8)]",
+                        }[polizaData.estado] || ""
+                      } text-black rounded-xl h-[2.8rem] pl-3 border border-orange1 outline-none`}
                       name="estado"
                       value={polizaData.estado.toUpperCase()}
                       onChange={handleChange}
@@ -326,24 +361,74 @@ function IndividualConsulta() {
                   <label className="text-sm text-start text-[#7c8087] font-semibold ml-1 mt-[-13px]">
                     Productor
                   </label>
-                  <InputText
-                    name="productor"
-                    value={polizaData.productor}
-                    onChange={handleChange}
-                    readonly={!editar}
-                  />
+                  {!editar ? (
+                    <InputText
+                      name="productor"
+                      value={polizaData.productor}
+                      onChange={handleChange}
+                    />
+                  ) : (
+                    <InputSelect
+                      placeholder="Productor"
+                      width="full"
+                      options={[
+                        "VIRTUAL RISK SA",
+                        "ALICIA SUAREZ DE BOSSIO",
+                        "JORGE CRIBARO",
+                        "NORMA CECILIA IZQUIERDO",
+                        "NATALI RIOS",
+                        "ANGELICA ALVARENGA",
+                      ]}
+                      value={polizaData.productor}
+                      onChange={handleChange}
+                      name="productor"
+                    />
+                  )}
                 </div>
 
                 <div className="flex flex-col">
                   <label className="text-sm text-start text-[#7c8087] font-semibold ml-1 mt-[-13px]">
                     Riesgo
                   </label>
-                  <InputText
-                    name="riesgo"
-                    value={polizaData.riesgo}
-                    onChange={handleChange}
-                    readonly={!editar}
-                  />
+                  {!editar ? (
+                    <InputText
+                      name="riesgo"
+                      value={polizaData.riesgo}
+                      onChange={handleChange}
+                    />
+                  ) : (
+                    <InputSelect
+                      placeholder="Riesgo"
+                      options={[
+                        "AUTOMOTOR",
+                        "FLOTA",
+                        "MOTO",
+                        "COMBINADO FAMILIAR",
+                        "VIDA OBLIGATORIO",
+                        "VIDA INDIVIDUAL",
+                        "VIDA COLECTIVO",
+                        "INTEGRAL DE COMERCIO",
+                        "INTEGRAL DE CONSORCIO",
+                        "RESPONSABILIDAD CIVIL",
+                        "CAUCIÓN",
+                        "ACCIDENTES PERSONALES",
+                        "TODO RIESGO OPERATIVO",
+                        "MALA PRAXIS",
+                        "ART",
+                        "INCENDIO",
+                        "R.C. PROFESIONAL",
+                        "ROBO Y RIESGOS SIMILARES",
+                        "TRANSPORTES",
+                        "CASCOS",
+                        "REGISTRO",
+                        "E. CONTRATO",
+                      ]}
+                      width="full"
+                      value={polizaData.riesgo}
+                      onChange={handleChange}
+                      name="riesgo"
+                    />
+                  )}
                 </div>
 
                 <div className="flex flex-col">
@@ -386,12 +471,23 @@ function IndividualConsulta() {
                   <label className="text-sm text-start text-[#7c8087] font-semibold ml-1 mt-[-13px]">
                     Forma de pago
                   </label>
-                  <InputText
-                    name="formaDePago"
-                    value={polizaData.formaDePago}
-                    onChange={handleChange}
-                    readonly={!editar}
-                  />
+                  {!editar ? (
+                    <InputText
+                      name="formaDePago"
+                      value={polizaData.formaDePago}
+                      onChange={handleChange}
+                      readonly={!editar}
+                    />
+                  ) : (
+                    <InputSelect
+                      placeholder="Forma de pago"
+                      options={["Cupones", "Tarjeta", "CBU"]}
+                      width="full"
+                      value={polizaData.formaDePago}
+                      onChange={handleChange}
+                      name="formaDePago"
+                    />
+                  )}
                 </div>
               </div>
             </div>
@@ -413,12 +509,12 @@ function IndividualConsulta() {
                 <div className="flex justify-center w-full flex-row gap-3">
                   <Button2 text="Eliminar" onClick={handleDeletePoliza} />
                   <Button3
-                    bg={`${polizaData.estado === "ANULADA"
-                      ? "#3bcb77"
-                      : "#fd7e14"
-                      }`}
-                    text={`${polizaData.estado === "ANULADA" ? "Habilitar" : "Anular"
-                      }`}
+                    bg={`${
+                      polizaData.estado === "ANULADA" ? "#3bcb77" : "#fd7e14"
+                    }`}
+                    text={`${
+                      polizaData.estado === "ANULADA" ? "Habilitar" : "Anular"
+                    }`}
                     onClick={() => {
                       if (polizaData.estado === "ANULADA") {
                         handleHabilitarPoliza();
@@ -429,7 +525,6 @@ function IndividualConsulta() {
                   />
                 </div>
               </div>
-
             </div>
           )}
         </div>
