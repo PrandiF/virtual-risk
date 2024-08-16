@@ -33,6 +33,7 @@ function Consulta() {
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
+    isFilter && setIsFilter(false)
     setFilterData((prevPolizaData) => ({
       ...prevPolizaData,
       [e.target.name]: e.target.value,
@@ -40,6 +41,7 @@ function Consulta() {
   };
 
   const handleDateChange = (name: string) => (date: string) => {
+    isFilter && setIsFilter(false)
     setFilterData((prevPolizaData) => ({
       ...prevPolizaData,
       [name]: date,
