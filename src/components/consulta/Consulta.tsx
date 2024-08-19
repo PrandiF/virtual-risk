@@ -56,6 +56,7 @@ function Consulta() {
   const handleCancel = () => {
     setFilterData(initialFilterData);
     setIsFilter(false);
+    setPageTotal(1);
   };
 
   const functionSetPageTotal = (num: number) => {

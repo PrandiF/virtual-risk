@@ -43,8 +43,6 @@ function TablaConsulta({
   const [polizas, setPolizas] = useState<PolizaProps[]>([]);
   const [arrayFilter, setArrayFilter] = useState<PolizaProps[]>([]);
   const [arrayEmpty, setArrayEmpty] = useState(false);
-  const [countTotal, setCountTotal] = useState(1);
-  const [countFilter, setCountFilter] = useState(1);
 
   useEffect(() => {
     try {
@@ -54,7 +52,6 @@ function TablaConsulta({
           setArrayEmpty(true);
         } else {
           setPolizas(res.data);
-          setCountTotal(res.totalPages);
           setArrayEmpty(false);
         }
       });
@@ -74,7 +71,6 @@ function TablaConsulta({
             setArrayEmpty(true);
           } else {
             setArrayFilter(res.data);
-            setCountFilter(res.totalPages);
             setArrayEmpty(false);
           }
         });
@@ -111,125 +107,127 @@ function TablaConsulta({
           <>
             {polizas && !isFilter
               ? polizas.map((poliza: PolizaProps, i) => (
-                <tr key={i} className="text-center">
-                  <td className="max-w-[16%] xl:py-0 py-3">
-                    {poliza.asegurado.length > 8
-                      ? `${poliza.asegurado.substring(0, 8)}...`
-                      : poliza.asegurado}
-                  </td>
-                  <td className="max-w-[16%] xl:py-0 py-3 ">
-                    {poliza.compañia.length > 8
-                      ? `${poliza.compañia.substring(0, 8)}...`
-                      : poliza.compañia}
-                  </td>
-                  <td className="max-w-[16%] xl:py-0 py-3 ">
-                    {poliza.detalle.length > 8
-                      ? `${poliza.detalle.substring(0, 8)}...`
-                      : poliza.detalle}
-                  </td>
-                  <td className="max-w-[16%] xl:py-0 py-3 ">
-                    <button
-                      onClick={() =>
-                        navigate(
-                          `/consultar/consulta-individual/${poliza.numeroPoliza}`
-                        )
-                      }
-                      className="text-orange1 underline "
-                    >
-                      {poliza.numeroPoliza.length > 8
-                        ? `${poliza.numeroPoliza.substring(0, 8)}...`
-                        : poliza.numeroPoliza}
-                    </button>
-                  </td>
-                  <td
-                    className={`${{
-                      VENCIDA:
-                        "bg-[linear-gradient(to_right,_white_0%,_rgba(255,166,166,0.8)_15%,_rgba(255,166,166,1)_85%,_white_100%)]",
-                      VIGENTE:
-                        "bg-[linear-gradient(to_right,_white_0%,_rgba(166,227,149,0.8)_15%,_rgba(166,227,149,1)_85%,_white_100%)]",
-                      ANULADA:
-                        "bg-[linear-gradient(to_right,_white_0%,_rgba(176,176,176,0.8)_15%,_rgba(176,176,176,1)_85%,_white_100%)]",
-                    }[poliza.estado] || ""
+                  <tr key={i} className="text-center">
+                    <td className="max-w-[16%] xl:py-0 py-3">
+                      {poliza.asegurado.length > 8
+                        ? `${poliza.asegurado.substring(0, 8)}...`
+                        : poliza.asegurado}
+                    </td>
+                    <td className="max-w-[16%] xl:py-0 py-3 ">
+                      {poliza.compañia.length > 8
+                        ? `${poliza.compañia.substring(0, 8)}...`
+                        : poliza.compañia}
+                    </td>
+                    <td className="max-w-[16%] xl:py-0 py-3 ">
+                      {poliza.detalle.length > 8
+                        ? `${poliza.detalle.substring(0, 8)}...`
+                        : poliza.detalle}
+                    </td>
+                    <td className="max-w-[16%] xl:py-0 py-3 ">
+                      <button
+                        onClick={() =>
+                          navigate(
+                            `/consultar/consulta-individual/${poliza.numeroPoliza}`
+                          )
+                        }
+                        className="text-orange1 underline "
+                      >
+                        {poliza.numeroPoliza.length > 8
+                          ? `${poliza.numeroPoliza.substring(0, 8)}...`
+                          : poliza.numeroPoliza}
+                      </button>
+                    </td>
+                    <td
+                      className={`${
+                        {
+                          VENCIDA:
+                            "bg-[linear-gradient(to_right,_white_0%,_rgba(255,166,166,0.8)_15%,_rgba(255,166,166,1)_85%,_white_100%)]",
+                          VIGENTE:
+                            "bg-[linear-gradient(to_right,_white_0%,_rgba(166,227,149,0.8)_15%,_rgba(166,227,149,1)_85%,_white_100%)]",
+                          ANULADA:
+                            "bg-[linear-gradient(to_right,_white_0%,_rgba(176,176,176,0.8)_15%,_rgba(176,176,176,1)_85%,_white_100%)]",
+                        }[poliza.estado] || ""
                       } text-white font-semibold max-w-[16%] xl:py-0 py-3  px-1.5`}
-                  >
-                    {poliza.estado.toUpperCase()}
-                  </td>
-                  <td className="py-3 px-1 xl:flex justify-center hidden w-full ">
-                    {new Date(
-                      new Date(poliza.vigenciaInicio).setDate(
-                        new Date(poliza.vigenciaInicio).getDate() + 1
-                      )
-                    ).toLocaleDateString() +
-                      " - " +
-                      new Date(
-                        new Date(poliza.vigenciaFin).setDate(
-                          new Date(poliza.vigenciaFin).getDate() + 1
+                    >
+                      {poliza.estado.toUpperCase()}
+                    </td>
+                    <td className="py-3 px-1 xl:flex justify-center hidden w-full ">
+                      {new Date(
+                        new Date(poliza.vigenciaInicio).setDate(
+                          new Date(poliza.vigenciaInicio).getDate() + 1
                         )
-                      ).toLocaleDateString()}
-                  </td>
-                </tr>
-              ))
+                      ).toLocaleDateString() +
+                        " - " +
+                        new Date(
+                          new Date(poliza.vigenciaFin).setDate(
+                            new Date(poliza.vigenciaFin).getDate() + 1
+                          )
+                        ).toLocaleDateString()}
+                    </td>
+                  </tr>
+                ))
               : Array.isArray(arrayFilter) &&
-              arrayFilter.length >= 1 &&
-              arrayFilter.map((poliza: PolizaProps, i) => (
-                <tr key={i} className="text-center">
-                  <td className="max-w-[16%] xl:py-0 py-3 ">
-                    {poliza.asegurado.length > 8
-                      ? `${poliza.asegurado.substring(0, 8)}...`
-                      : poliza.asegurado}
-                  </td>
-                  <td className="max-w-[16%] xl:py-0 py-3 ">
-                    {poliza.compañia.length > 8
-                      ? `${poliza.compañia.substring(0, 8)}...`
-                      : poliza.compañia}
-                  </td>
-                  <td className="max-w-[16%] xl:py-0 py-3 ">
-                    {poliza.detalle.length > 8
-                      ? `${poliza.detalle.substring(0, 8)}...`
-                      : poliza.detalle}
-                  </td>
-                  <td className="max-w-[16%] xl:py-0 py-3 ">
-                    <button
-                      onClick={() =>
-                        navigate(
-                          `/consultar/consulta-individual/${poliza.numeroPoliza}`
-                        )
-                      }
-                      className="text-orange1 underline "
-                    >
-                      {poliza.numeroPoliza.length > 8
-                        ? `${poliza.numeroPoliza.substring(0, 8)}...`
-                        : poliza.numeroPoliza}
-                    </button>
-                  </td>
-                  <td
-                    className={`${{
-                      VENCIDA:
-                        "bg-[linear-gradient(to_right,_white_0%,_rgba(255,166,166,0.8)_15%,_rgba(255,166,166,1)_85%,_white_100%)]",
-                      VIGENTE:
-                        "bg-[linear-gradient(to_right,_white_0%,_rgba(166,227,149,0.8)_15%,_rgba(166,227,149,1)_85%,_white_100%)]",
-                      ANULADA:
-                        "bg-[linear-gradient(to_right,_white_0%,_rgba(176,176,176,0.8)_15%,_rgba(176,176,176,1)_85%,_white_100%)]",
-                    }[poliza.estado] || ""
+                arrayFilter.length >= 1 &&
+                arrayFilter.map((poliza: PolizaProps, i) => (
+                  <tr key={i} className="text-center">
+                    <td className="max-w-[16%] xl:py-0 py-3 ">
+                      {poliza.asegurado.length > 8
+                        ? `${poliza.asegurado.substring(0, 8)}...`
+                        : poliza.asegurado}
+                    </td>
+                    <td className="max-w-[16%] xl:py-0 py-3 ">
+                      {poliza.compañia.length > 8
+                        ? `${poliza.compañia.substring(0, 8)}...`
+                        : poliza.compañia}
+                    </td>
+                    <td className="max-w-[16%] xl:py-0 py-3 ">
+                      {poliza.detalle.length > 8
+                        ? `${poliza.detalle.substring(0, 8)}...`
+                        : poliza.detalle}
+                    </td>
+                    <td className="max-w-[16%] xl:py-0 py-3 ">
+                      <button
+                        onClick={() =>
+                          navigate(
+                            `/consultar/consulta-individual/${poliza.numeroPoliza}`
+                          )
+                        }
+                        className="text-orange1 underline "
+                      >
+                        {poliza.numeroPoliza.length > 8
+                          ? `${poliza.numeroPoliza.substring(0, 8)}...`
+                          : poliza.numeroPoliza}
+                      </button>
+                    </td>
+                    <td
+                      className={`${
+                        {
+                          VENCIDA:
+                            "bg-[linear-gradient(to_right,_white_0%,_rgba(255,166,166,0.8)_15%,_rgba(255,166,166,1)_85%,_white_100%)]",
+                          VIGENTE:
+                            "bg-[linear-gradient(to_right,_white_0%,_rgba(166,227,149,0.8)_15%,_rgba(166,227,149,1)_85%,_white_100%)]",
+                          ANULADA:
+                            "bg-[linear-gradient(to_right,_white_0%,_rgba(176,176,176,0.8)_15%,_rgba(176,176,176,1)_85%,_white_100%)]",
+                        }[poliza.estado] || ""
                       } text-white font-semibold max-w-[16%] xl:py-0 py-3  px-1.5`}
-                  >
-                    {poliza.estado.toUpperCase()}
-                  </td>
-                  <td className="py-3 px-1 xl:flex justify-center hidden w-full ">
-                    {new Date(
-                      new Date(poliza.vigenciaInicio).setDate(
-                        new Date(poliza.vigenciaInicio).getDate() + 1
-                      )
-                    ).toLocaleDateString() +
-                      " - " +
-                      new Date(
-                        new Date(poliza.vigenciaFin).setDate(
-                          new Date(poliza.vigenciaFin).getDate() + 1
+                    >
+                      {poliza.estado.toUpperCase()}
+                    </td>
+                    <td className="py-3 px-1 xl:flex justify-center hidden w-full ">
+                      {new Date(
+                        new Date(poliza.vigenciaInicio).setDate(
+                          new Date(poliza.vigenciaInicio).getDate() + 1
                         )
-                      ).toLocaleDateString()}
-                  </td>
-                </tr>
-              ))}
+                      ).toLocaleDateString() +
+                        " - " +
+                        new Date(
+                          new Date(poliza.vigenciaFin).setDate(
+                            new Date(poliza.vigenciaFin).getDate() + 1
+                          )
+                        ).toLocaleDateString()}
+                    </td>
+                  </tr>
+                ))}
           </>
         )}
       </tbody>
