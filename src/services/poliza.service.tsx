@@ -1,9 +1,11 @@
 import axios from "axios";
 
 const USER_URL =
-  import.meta.env.NODE_ENV === "prod"
+  import.meta.env.MODE === 'production'
     ? `${import.meta.env.VITE_API_URL_PROD}/poliza`
     : `${import.meta.env.VITE_API_URL}/poliza`;
+
+console.log(import.meta.env.MODE, import.meta.env.DEV)
 
 type PolizaProps = {
   asegurado: string;
@@ -155,8 +157,8 @@ export const editPoliza = async (
     state == "ANULADA" && change
       ? { ...data, estado: "" }
       : change
-      ? { ...data, estado: "ANULADA" }
-      : { ...data };
+        ? { ...data, estado: "ANULADA" }
+        : { ...data };
   try {
     const res = await axios.put(
       `${USER_URL}/${polizaNumber}`,
