@@ -1,4 +1,4 @@
-import logo from "../assets/Group 21.png";
+import logo from "../assets/logoVR.png";
 import { useNavigate } from "react-router-dom";
 import AOS from "aos";
 import "aos/dist/aos.css";
@@ -19,7 +19,7 @@ function Header() {
       >
         <img
           src={logo}
-          className="xl:w-[300px] md:w-[260px] w-[170px] cursor-pointer"
+          className="xl:w-[200px] md:w-[140px] w-[85px] cursor-pointer"
         />
       </button>
       <div className="text-black font-semibold flex xl:gap-20 md:gap-12 gap-3 xl:text-[18px] md:text-[18px] text-[12px] font-montserrat">
