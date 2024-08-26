@@ -13,7 +13,7 @@ type PolizaProps = {
   vigenciaInicio: Date | string;
   vigenciaFin: Date | string;
   moneda: string;
-  premio: string;
+  premio: number;
   formaDePago: string;
   numero?: string;
 };

@@ -15,6 +15,7 @@ import {
 import InputText from "../../commons/InputText";
 import { Confirm } from "notiflix/build/notiflix-confirm-aio";
 import InputSelect from "../../commons/InputSelect";
+import InputNumber from "../../commons/inputNumber";
 
 interface PolizaProps {
   asegurado: string;
@@ -27,7 +28,7 @@ interface PolizaProps {
   productor: string;
   riesgo: string;
   detalle: string;
-  premio: string;
+  premio: number;
   formaDePago: string;
   numero: string;
 }
@@ -60,7 +61,7 @@ function IndividualConsulta() {
     productor: "",
     riesgo: "",
     detalle: "",
-    premio: "",
+    premio: 0,
     formaDePago: "",
     numero: "",
   });
@@ -76,7 +77,7 @@ function IndividualConsulta() {
     productor: "",
     riesgo: "",
     detalle: "",
-    premio: "",
+    premio: 0,
     formaDePago: "",
     numero: "",
   });
@@ -249,15 +250,13 @@ function IndividualConsulta() {
                           "FEDERACIÓN",
                           "SANCOR",
                           "SURA",
-                          "ZURICH 2 Q JUN",
-                          "ZURICH 1 Q JUL",
+                          "ZURICH",
                           "ALLIANZ",
                           "LIBRA",
                           "PREVENCIÓN",
                           "OMINT",
                           "ASOCIART",
-                          "CNP 2 Q JUN",
-                          "CNP 1 Q JUL",
+                          "CNP",
                           "MARTINEZ SOSA",
                           "SAN CRISTOBAL",
                           "RIVADAVIA",
@@ -459,7 +458,7 @@ function IndividualConsulta() {
                   <label className="text-sm text-start text-[#7c8087] font-semibold ml-1 mt-[-13px]">
                     Premio
                   </label>
-                  <InputText
+                  <InputNumber
                     name="premio"
                     value={polizaData.premio}
                     onChange={handleChange}
