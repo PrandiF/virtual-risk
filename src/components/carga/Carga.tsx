@@ -10,6 +10,7 @@ import "aos/dist/aos.css";
 import { useEffect, useState } from "react";
 import { createPoliza } from "../../services/poliza.service";
 import Button4 from "../../commons/Button4";
+import InputNumber from "../../commons/inputNumber";
 
 function Carga() {
   const [polizaData, setPolizaData] = useState({
@@ -23,7 +24,7 @@ function Carga() {
     productor: "",
     riesgo: "",
     detalle: "",
-    premio: "",
+    premio: 0,
     formaDePago: "",
     numero: "",
   });
@@ -64,7 +65,7 @@ function Carga() {
               productor: "",
               riesgo: "",
               detalle: "",
-              premio: "",
+              premio: 0,
               formaDePago: "",
               numero: "",
             });
@@ -114,15 +115,13 @@ function Carga() {
                   "FEDERACIÓN",
                   "SANCOR",
                   "SURA",
-                  "ZURICH 2 Q JUN",
-                  "ZURICH 1 Q JUL",
+                  "ZURICH",
                   "ALLIANZ",
                   "LIBRA",
                   "PREVENCIÓN",
                   "OMINT",
                   "ASOCIART",
-                  "CNP 2 Q JUN",
-                  "CNP 1 Q JUL",
+                  "CNP",
                   "MARTINEZ SOSA",
                   "SAN CRISTOBAL",
                   "RIVADAVIA",
@@ -221,7 +220,7 @@ function Carga() {
                 width="full"
                 onChange={handleDateChange("vigenciaFin")}
               />
-              <InputText
+              <InputNumber
                 placeholder="Premio"
                 value={polizaData.premio}
                 onChange={handleChange}
