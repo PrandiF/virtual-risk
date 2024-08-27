@@ -88,7 +88,7 @@ function Carga() {
   }, []);
 
   return (
-    <div className="relative flex w-full h-screen items-center z-20 ">
+    <div className="relative flex w-full items-center z-20 min-h-screen">
       <Header />
       <div className="flex w-full items-center flex-col gap-8 xl:pt-0 xl:pb-0 pt-[30%] pb-[20%]">
         <div

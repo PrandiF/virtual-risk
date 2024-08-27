@@ -55,9 +55,9 @@ function TablaConsulta({
           setArrayEmpty(false);
         }
       }).catch(error => {
-        console.error(error);
         setPolizas([]);
         setArrayEmpty(true);
+        throw new error
       });
     }
   }, [pageTotal, isFilter]);
@@ -73,9 +73,9 @@ function TablaConsulta({
           setArrayEmpty(false);
         }
       }).catch(error => {
-        console.error(error);
         setArrayFilter([]);
         setArrayEmpty(true);
+        throw new error
       });
     }
   }, [isFilter, filter, pageFilter]);

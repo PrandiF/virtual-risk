@@ -48,7 +48,6 @@ export const getPoliza = async () => {
 };
 
 export const getFilterPoliza = async (filter: FilterProps, page: number = 1) => {
-  // const [response, setResponse] = useState([])
   let filterClean: FilterProps = {
     asegurado: filter.asegurado,
     compañia: filter.compañia,
@@ -70,7 +69,6 @@ export const getFilterPoliza = async (filter: FilterProps, page: number = 1) => 
   ) {
     filterClean.vigenciaFin = null;
   }
-  // const newUrl = async () => {
   let stringReq = "";
   Object.keys(filterClean).forEach((key) => {
     if (
@@ -97,9 +95,7 @@ export const getFilterPoliza = async (filter: FilterProps, page: number = 1) => 
     console.error("Error al filtrar la/las poliza/s:", error);
     throw error;
   }
-  // }
-  // newUrl()
-  // return response;
+
 };
 
 export const createPoliza = async (polizaData: PolizaProps) => {
