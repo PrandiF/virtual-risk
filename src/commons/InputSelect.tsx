@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 type InputSelectProps = {
   options: string[];
@@ -8,6 +8,7 @@ type InputSelectProps = {
   value?: string;
   name: string;
   readonly?: boolean;
+  clean?: boolean;
 };
 
 function InputSelect({
@@ -16,6 +17,7 @@ function InputSelect({
   placeholder,
   width,
   value,
+  clean,
   name,
   readonly,
 }: InputSelectProps) {
@@ -25,6 +27,11 @@ function InputSelect({
     setSelected(event.target.value);
     onChange(event);
   };
+  useEffect(() => {
+    if (clean) {
+      setSelected(""); // Limpiar el valor seleccionado
+    }
+  }, [clean]);
 
   return (
     <div className="relative w-full">

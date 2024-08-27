@@ -54,6 +54,8 @@ function Consulta() {
   const handleCancel = () => {
     setFilterData(initialFilterData);
     setIsFilter(false);
+    setPageFilter(1);
+    setPageTotal(1);
   };
 
   const functionSetPageTotal = (num: number) => {
@@ -98,7 +100,7 @@ function Consulta() {
                 onChange={handleChange}
                 name="asegurado"
               />
-             <InputSelect
+              <InputSelect
                 placeholder="Compañía"
                 options={[
                   "BERKLEY",
@@ -126,6 +128,7 @@ function Consulta() {
                 value={filterData.compañia}
                 onChange={handleChange}
                 name="compañia"
+                clean={!isFilter}
               />
             </div>
             <div
@@ -141,13 +144,14 @@ function Consulta() {
                 onChange={handleChange}
                 name="detalle"
               />
-               <InputSelect
+              <InputSelect
                 placeholder="Estado"
                 options={["Vigente", "Vencida", "Anulada"]}
                 width="full"
                 value={filterData.estado}
                 onChange={handleChange}
                 name="estado"
+                clean={!isFilter}
               />
             </div>
             <div

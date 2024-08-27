@@ -45,7 +45,8 @@ function TablaConsulta({
   const [arrayEmpty, setArrayEmpty] = useState(false);
 
   useEffect(() => {
-    try {
+    if (!isFilter) {
+      // Cargar todas las pólizas cuando no hay filtro
       getPolizas(pageTotal).then((res) => {
         if (!res || res.length === 0) {
           setPolizas([]);
@@ -54,33 +55,32 @@ function TablaConsulta({
           setPolizas(res);
           setArrayEmpty(false);
         }
+      }).catch(error => {
+        console.error(error);
+        setPolizas([]);
+        setArrayEmpty(true);
       });
-    } catch (error) {
-      console.error(error);
-      setPolizas([]);
-      setArrayEmpty(true);
     }
-  }, [pageTotal]);
+  }, [pageTotal, isFilter]);
 
   useEffect(() => {
     if (isFilter) {
-      try {
-        getFilterPoliza(filter, pageFilter).then((res) => {
-          if (!res || res.length === 0) {
-            setArrayFilter([]);
-            setArrayEmpty(true);
-          } else {
-            setArrayFilter(res);
-            setArrayEmpty(false);
-          }
-        });
-      } catch (error) {
+      // Cargar las pólizas filtradas cuando hay un filtro aplicado
+      getFilterPoliza(filter, pageFilter).then((res) => {
+        if (!res || res.length === 0) {
+          setArrayFilter([]);
+          setArrayEmpty(true);
+        } else {
+          setArrayFilter(res);
+          setArrayEmpty(false);
+        }
+      }).catch(error => {
         console.error(error);
         setArrayFilter([]);
         setArrayEmpty(true);
-      }
+      });
     }
-  }, [isFilter, pageFilter]);
+  }, [isFilter, filter, pageFilter]);
 
   return (
     <Table className="xl:w-[80%] md:w-[85%] w-[90%] rounded-lg">

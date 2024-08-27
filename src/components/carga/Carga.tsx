@@ -147,11 +147,16 @@ function Carga() {
                 width="full"
                 onChange={handleDateChange("vigenciaInicio")}
               />
-              <InputText
+              <InputSelect
+              options={[
+                "Pesos",
+                "Dolares",
+              ]}
                 placeholder="Moneda"
                 value={polizaData.moneda}
                 onChange={handleChange}
                 name="moneda"
+                width="full"
               />
               <InputSelect
                 placeholder="Forma de pago"
