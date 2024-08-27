@@ -16,8 +16,8 @@ function InputNumber({
   value,
   onChange,
   readonly,
-  min = 0,  // Valor mínimo por defecto
-  step = "0.01",  // Permite decimales con dos dígitos
+  min = 0, 
+  step = "0.01", 
 }: InputNumberProps) {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (onChange) onChange(e);
