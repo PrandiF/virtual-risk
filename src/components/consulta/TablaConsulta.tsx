@@ -55,9 +55,9 @@ function TablaConsulta({
           setArrayEmpty(false);
         }
       }).catch(error => {
-        console.error(error);
         setPolizas([]);
         setArrayEmpty(true);
+        throw new error
       });
     }
   }, [pageTotal, isFilter]);
@@ -73,20 +73,9 @@ function TablaConsulta({
           setArrayEmpty(false);
         }
       }).catch(error => {
-      try {
-        getFilterPoliza(filter, pageFilter).then((res) => {
-          if (!res || res.length === 0) {
-            setArrayFilter([]);
-            setArrayEmpty(true);
-          } else {
-            setArrayFilter(res.data);
-            setArrayEmpty(false);
-          }
-        });
-      } catch (error) {
-        console.error(error);
         setArrayFilter([]);
         setArrayEmpty(true);
+        throw new error
       });
     }
   }, [isFilter, filter, pageFilter]);
