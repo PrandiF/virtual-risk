@@ -46,13 +46,12 @@ function TablaConsulta({
 
   useEffect(() => {
     if (!isFilter) {
-      // Cargar todas las pólizas cuando no hay filtro
       getPolizas(pageTotal).then((res) => {
         if (!res || res.length === 0) {
           setPolizas([]);
           setArrayEmpty(true);
         } else {
-          setPolizas(res);
+          setPolizas(res.data);
           setArrayEmpty(false);
         }
       }).catch(error => {
@@ -65,7 +64,6 @@ function TablaConsulta({
 
   useEffect(() => {
     if (isFilter) {
-      // Cargar las pólizas filtradas cuando hay un filtro aplicado
       getFilterPoliza(filter, pageFilter).then((res) => {
         if (!res || res.length === 0) {
           setArrayFilter([]);
@@ -75,6 +73,17 @@ function TablaConsulta({
           setArrayEmpty(false);
         }
       }).catch(error => {
+      try {
+        getFilterPoliza(filter, pageFilter).then((res) => {
+          if (!res || res.length === 0) {
+            setArrayFilter([]);
+            setArrayEmpty(true);
+          } else {
+            setArrayFilter(res.data);
+            setArrayEmpty(false);
+          }
+        });
+      } catch (error) {
         console.error(error);
         setArrayFilter([]);
         setArrayEmpty(true);

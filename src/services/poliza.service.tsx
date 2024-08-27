@@ -1,6 +1,11 @@
 import axios from "axios";
 
-const USER_URL = `${import.meta.env.VITE_API_URL}/poliza`;
+const USER_URL =
+  import.meta.env.MODE === 'production'
+    ? `${import.meta.env.VITE_API_URL_PROD}/poliza`
+    : `${import.meta.env.VITE_API_URL}/poliza`;
+
+console.log(import.meta.env.MODE, import.meta.env.DEV)
 
 type PolizaProps = {
   asegurado: string;
@@ -29,8 +34,10 @@ type FilterProps = {
 
 export const getPolizas = async (page: number = 1) => {
   try {
-    const res = await axios.get(`${USER_URL}?page=${page}`, { withCredentials: true });
-    return res.data.data;
+    const res = await axios.get(`${USER_URL}?page=${page}`, {
+      withCredentials: true,
+    });
+    return res.data;
   } catch (error) {
     console.error("Error al obtener las polizas:", error);
     throw error;
@@ -47,8 +54,10 @@ export const getPoliza = async () => {
   }
 };
 
-export const getFilterPoliza = async (filter: FilterProps, page: number = 1) => {
-  // const [response, setResponse] = useState([])
+export const getFilterPoliza = async (
+  filter: FilterProps,
+  page: number = 1
+) => {
   let filterClean: FilterProps = {
     asegurado: filter.asegurado,
     compañia: filter.compañia,
@@ -70,7 +79,6 @@ export const getFilterPoliza = async (filter: FilterProps, page: number = 1) => 
   ) {
     filterClean.vigenciaFin = null;
   }
-  // const newUrl = async () => {
   let stringReq = "";
   Object.keys(filterClean).forEach((key) => {
     if (
@@ -81,10 +89,12 @@ export const getFilterPoliza = async (filter: FilterProps, page: number = 1) => 
     } else {
       if (stringReq.includes("?")) {
         stringReq =
-          stringReq + `&${key}=${filterClean[key as keyof FilterProps]}&page=${page}`;
+          stringReq +
+          `&${key}=${filterClean[key as keyof FilterProps]}&page=${page}`;
       } else {
         stringReq =
-          stringReq + `?${key}=${filterClean[key as keyof FilterProps]}&page=${page}`;
+          stringReq +
+          `?${key}=${filterClean[key as keyof FilterProps]}&page=${page}`;
       }
     }
   });
@@ -92,14 +102,11 @@ export const getFilterPoliza = async (filter: FilterProps, page: number = 1) => 
     const res = await axios.get(`${USER_URL}/filter${stringReq}`, {
       withCredentials: true,
     });
-    return res.data.data;
+    return res.data;
   } catch (error) {
     console.error("Error al filtrar la/las poliza/s:", error);
     throw error;
   }
-  // }
-  // newUrl()
-  // return response;
 };
 
 export const createPoliza = async (polizaData: PolizaProps) => {
