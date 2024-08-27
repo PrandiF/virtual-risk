@@ -85,7 +85,6 @@ function Carga() {
       throw error;
     }
   };
-
   useEffect(() => {
     AOS.init();
   }, []);
