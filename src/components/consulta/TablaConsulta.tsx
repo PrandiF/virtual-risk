@@ -45,7 +45,7 @@ function TablaConsulta({
   const [arrayEmpty, setArrayEmpty] = useState(false);
 
   useEffect(() => {
-    try {
+    if (!isFilter) {
       getPolizas(pageTotal).then((res) => {
         if (!res || res.length === 0) {
           setPolizas([]);
@@ -54,33 +54,31 @@ function TablaConsulta({
           setPolizas(res.data);
           setArrayEmpty(false);
         }
+      }).catch(error => {
+        setPolizas([]);
+        setArrayEmpty(true);
+        throw new error
       });
-    } catch (error) {
-      console.error(error);
-      setPolizas([]);
-      setArrayEmpty(true);
     }
-  }, [pageTotal]);
+  }, [pageTotal, isFilter]);
 
   useEffect(() => {
     if (isFilter) {
-      try {
-        getFilterPoliza(filter, pageFilter).then((res) => {
-          if (!res || res.length === 0) {
-            setArrayFilter([]);
-            setArrayEmpty(true);
-          } else {
-            setArrayFilter(res.data);
-            setArrayEmpty(false);
-          }
-        });
-      } catch (error) {
-        console.error(error);
+      getFilterPoliza(filter, pageFilter).then((res) => {
+        if (!res || res.length === 0) {
+          setArrayFilter([]);
+          setArrayEmpty(true);
+        } else {
+          setArrayFilter(res);
+          setArrayEmpty(false);
+        }
+      }).catch(error => {
         setArrayFilter([]);
         setArrayEmpty(true);
-      }
+        throw new error
+      });
     }
-  }, [isFilter, pageFilter]);
+  }, [isFilter, filter, pageFilter]);
 
   return (
     <Table className="xl:w-[80%] md:w-[85%] w-[90%] rounded-lg">

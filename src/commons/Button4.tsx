@@ -6,9 +6,6 @@ type Button1Props = {
 };
 
 function Button4({ text, onClick, url }: Button1Props) {
-
-  
-
   return (
     <a
       href={url}

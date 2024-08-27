@@ -54,10 +54,7 @@ export const getPoliza = async () => {
   }
 };
 
-export const getFilterPoliza = async (
-  filter: FilterProps,
-  page: number = 1
-) => {
+export const getFilterPoliza = async (filter: FilterProps, page: number = 1) => {
   let filterClean: FilterProps = {
     asegurado: filter.asegurado,
     compañia: filter.compañia,

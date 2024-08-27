@@ -240,6 +240,7 @@ function IndividualConsulta() {
                         name="compañia"
                         value={polizaData.compañia}
                         onChange={handleChange}
+                        readonly={true}
                       />
                     ) : (
                       <InputSelect
@@ -299,12 +300,23 @@ function IndividualConsulta() {
                     <label className="text-sm text-start text-[#7c8087] font-semibold ml-1 mt-[-13px]">
                       Moneda
                     </label>
-                    <InputText
-                      name="moneda"
-                      value={polizaData.moneda}
-                      onChange={handleChange}
-                      readonly={!editar}
-                    />
+                    {!editar ? (
+                      <InputText
+                        name="moneda"
+                        value={polizaData.moneda}
+                        onChange={handleChange}
+                        readonly={true}
+                      />
+                    ) : (
+                      <InputSelect
+                        options={["Pesos", "Dolares"]}
+                        placeholder="Moneda"
+                        value={polizaData.moneda}
+                        onChange={handleChange}
+                        name="moneda"
+                        width="full"
+                      />
+                    )}
                   </div>
                   <div className="flex flex-col">
                     <label className="text-sm text-start text-[#7c8087] font-semibold ml-1 mt-[-13px]">
@@ -363,6 +375,7 @@ function IndividualConsulta() {
                       name="productor"
                       value={polizaData.productor}
                       onChange={handleChange}
+                      readonly={true}
                     />
                   ) : (
                     <InputSelect
@@ -391,6 +404,7 @@ function IndividualConsulta() {
                       name="riesgo"
                       value={polizaData.riesgo}
                       onChange={handleChange}
+                      readonly={true}
                     />
                   ) : (
                     <InputSelect
