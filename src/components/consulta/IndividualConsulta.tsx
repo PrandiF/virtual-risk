@@ -274,7 +274,6 @@ function IndividualConsulta() {
                       />
                     )}
                   </div>
-
                   <div className="flex flex-col">
                     <label className="text-sm text-start text-[#7c8087] font-semibold ml-1 mt-[-13px]">
                       N de Póliza
@@ -319,7 +318,6 @@ function IndividualConsulta() {
                       />
                     )}
                   </div>
-
                   <div className="flex flex-col">
                     <label className="text-sm text-start text-[#7c8087] font-semibold ml-1 mt-[-13px]">
                       Estado
@@ -397,7 +395,6 @@ function IndividualConsulta() {
                     />
                   )}
                 </div>
-
                 <div className="flex flex-col">
                   <label className="text-sm text-start text-[#7c8087] font-semibold ml-1 mt-[-13px]">
                     Riesgo
@@ -443,7 +440,6 @@ function IndividualConsulta() {
                     />
                   )}
                 </div>
-
                 <div className="flex flex-col">
                   <label className="text-sm text-start text-[#7c8087] font-semibold ml-1 mt-[-13px]">
                     Detalle/Patente
@@ -455,7 +451,6 @@ function IndividualConsulta() {
                     readonly={!editar}
                   />
                 </div>
-
                 <div className="flex flex-col">
                   <label className="text-sm text-start text-[#7c8087] font-semibold ml-1 mt-[-13px]">
                     Vigencia Fin
@@ -467,7 +462,6 @@ function IndividualConsulta() {
                     readonly={!editar}
                   />
                 </div>
-
                 <div className="flex flex-col">
                   <label className="text-sm text-start text-[#7c8087] font-semibold ml-1 mt-[-13px]">
                     Premio
@@ -479,7 +473,6 @@ function IndividualConsulta() {
                     readonly={!editar}
                   />
                 </div>
-
                 <div className="flex flex-col">
                   <label className="text-sm text-start text-[#7c8087] font-semibold ml-1 mt-[-13px]">
                     Forma de pago
@@ -505,7 +498,6 @@ function IndividualConsulta() {
               </div>
             </div>
           )}
-
           {editar ? (
             <div className="flex items-center justify-center gap-6">
               <Button3

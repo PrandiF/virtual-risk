@@ -7,7 +7,7 @@ type CardProps = {
 };
 
 function Card({ img, buttonText, buttonHref }: CardProps) {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   return (
     <button
       onClick={() => navigate(`${buttonHref}`)}
@@ -19,10 +19,9 @@ function Card({ img, buttonText, buttonHref }: CardProps) {
         alt="imagen"
       />
       <div className="absolute bottom-6 left-0 right-0 flex justify-center items-center">
-        <div
-          className="z-30 bg-button1-gradient py-1 w-[150px] flex items-center justify-center shadow-lg rounded-3xl cursor-pointer hover:brightness-95"
-
-        >{buttonText}</div>
+        <div className="z-30 bg-button1-gradient py-1 w-[150px] flex items-center justify-center shadow-lg rounded-3xl cursor-pointer hover:brightness-95">
+          {buttonText}
+        </div>
       </div>
     </button>
   );

@@ -51,7 +51,7 @@ function TablaConsulta({
           setPolizas([]);
           setArrayEmpty(true);
         } else {
-          setPolizas(res);
+          setPolizas(res.data);
           setArrayEmpty(false);
         }
       }).catch(error => {

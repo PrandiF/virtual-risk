@@ -1,4 +1,4 @@
-import logo from "../assets/Group 21.png";
+import logo from "../assets/logoVR.png";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { useEffect } from "react";
