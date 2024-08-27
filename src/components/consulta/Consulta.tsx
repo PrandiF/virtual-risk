@@ -68,7 +68,7 @@ function Consulta() {
     setPageFilter(num);
   };
   return (
-    <div className="relative flex w-full h-screen items-start z-20 pt-[8%]">
+    <div className="relative flex w-full items-start z-20 pt-[8%]">
       <Header />
       <div className="flex w-full flex-col items-center justify-center gap-8">
         <div className="flex flex-col gap-12 py-8 px-4 items-center">

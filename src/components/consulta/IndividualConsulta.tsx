@@ -204,11 +204,11 @@ function IndividualConsulta() {
   };
 
   return (
-    <div className="relative flex w-full h-screen items-center z-20 ">
+    <div className="relative flex w-full items-center z-20 xl:py-0 xl:pt-[5%] md:py-0 md:pt-[5%] py-[8%]">
       <Header />
-      <div className="flex w-full items-start flex-col gap-8 xl:pt-0 pt-[30%] xl:pb-0 pb-[10%]">
+      <div className="flex w-full items-start flex-col gap-8 xl:pt-0 pt-[15%] xl:pb-0 ">
         <div
-          className="flex flex-col relative bg-[#EAA788] bg-opacity-25 backdrop-blur-sm z-20 xl:w-[60%] md:w-[75%] w-[95%] px-6 py-8 m-auto rounded-lg gap-10"
+          className="flex flex-col relative bg-[#EAA788] bg-opacity-25 backdrop-blur-sm z-20 xl:w-[60%] md:w-[75%] w-[95%] px-6 xl:py-8 md:py-6 py-4 m-auto rounded-lg gap-10"
           data-aos="fade"
           data-aos-duration="2600"
           data-aos-delay="400"
