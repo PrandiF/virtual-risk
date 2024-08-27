@@ -46,7 +46,6 @@ function TablaConsulta({
 
   useEffect(() => {
     if (!isFilter) {
-      // Cargar todas las pólizas cuando no hay filtro
       getPolizas(pageTotal).then((res) => {
         if (!res || res.length === 0) {
           setPolizas([]);
@@ -65,7 +64,6 @@ function TablaConsulta({
 
   useEffect(() => {
     if (isFilter) {
-      // Cargar las pólizas filtradas cuando hay un filtro aplicado
       getFilterPoliza(filter, pageFilter).then((res) => {
         if (!res || res.length === 0) {
           setArrayFilter([]);
