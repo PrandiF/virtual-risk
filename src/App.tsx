@@ -17,7 +17,7 @@ function App() {
   const { isAuthenticated } = useUserStoreLocalStorage();
   return (
     <Router>
-      <div className="min-h-screen w-full font-roboto scroll-smooth flex flex-col">
+      <div className="h-screen w-full font-roboto scroll-smooth flex flex-col">
         <img
           src={imageBackground}
           alt="fondo"

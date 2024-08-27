@@ -12,6 +12,7 @@ import { createPoliza } from "../../services/poliza.service";
 import Button4 from "../../commons/Button4";
 import InputNumber from "../../commons/inputNumber";
 
+
 function Carga() {
   const [polizaData, setPolizaData] = useState({
     asegurado: "",
@@ -32,9 +33,11 @@ function Carga() {
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
+    const { name, value } = e.target;
+  
     setPolizaData((prevPolizaData) => ({
       ...prevPolizaData,
-      [e.target.name]: e.target.value,
+      [name]: name === "premio" ? parseFloat(value) : value,
     }));
   };
 
@@ -88,7 +91,7 @@ function Carga() {
   }, []);
 
   return (
-    <div className="relative flex w-full items-center z-20 min-h-screen">
+    <div className="relative flex w-full items-center z-20 xl:pt-[5%]">
       <Header />
       <div className="flex w-full items-center flex-col gap-8 xl:pt-0 xl:pb-0 pt-[30%] pb-[20%]">
         <div
