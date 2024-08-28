@@ -2,7 +2,7 @@ import axios from "axios";
 
 const USER_URL = `${import.meta.env.VITE_API_URL_PROD}/poliza`;
 
-console.log(import.meta.env.MODE, import.meta.env.DEV);
+console.log(import.meta.env.MODE);
 
 type PolizaProps = {
   asegurado: string;
@@ -114,6 +114,7 @@ export const createPoliza = async (polizaData: PolizaProps) => {
       { ...polizaData },
       { withCredentials: true }
     );
+    console.log(res.data)
     return res.data;
   } catch (error) {
     console.error("Error al crear la poliza:", error);
