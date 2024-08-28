@@ -1,11 +1,8 @@
 import axios from "axios";
 
-const USER_URL =
-  import.meta.env.MODE === 'production'
-    ? `${import.meta.env.VITE_API_URL_PROD}/poliza`
-    : `${import.meta.env.VITE_API_URL}/poliza`;
+const USER_URL = `${import.meta.env.VITE_API_URL}/poliza`;
 
-console.log(import.meta.env.MODE, import.meta.env.DEV)
+console.log(import.meta.env.MODE, import.meta.env.DEV);
 
 type PolizaProps = {
   asegurado: string;
@@ -54,7 +51,10 @@ export const getPoliza = async () => {
   }
 };
 
-export const getFilterPoliza = async (filter: FilterProps, page: number = 1) => {
+export const getFilterPoliza = async (
+  filter: FilterProps,
+  page: number = 1
+) => {
   let filterClean: FilterProps = {
     asegurado: filter.asegurado,
     compañia: filter.compañia,
@@ -108,7 +108,7 @@ export const getFilterPoliza = async (filter: FilterProps, page: number = 1) => 
 
 export const createPoliza = async (polizaData: PolizaProps) => {
   try {
-    console.log(typeof polizaData.premio, polizaData.premio)
+    console.log(typeof polizaData.premio, polizaData.premio);
     const res = await axios.post(
       `${USER_URL}`,
       { ...polizaData },
@@ -155,8 +155,8 @@ export const editPoliza = async (
     state == "ANULADA" && change
       ? { ...data, estado: "" }
       : change
-        ? { ...data, estado: "ANULADA" }
-        : { ...data };
+      ? { ...data, estado: "ANULADA" }
+      : { ...data };
   try {
     const res = await axios.put(
       `${USER_URL}/${polizaNumber}`,

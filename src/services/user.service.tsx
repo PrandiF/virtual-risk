@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const USER_URL = import.meta.env.MODE === 'production' ? `${import.meta.env.VITE_API_URL_PROD}/usuario` : `${import.meta.env.VITE_API_URL}/usuario`;
+const USER_URL = `${import.meta.env.VITE_API_URL}/usuario`;
 
 export const login = async (username: string, password: string) => {
   try {
