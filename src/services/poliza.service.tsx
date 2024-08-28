@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const USER_URL = `${import.meta.env.VITE_API_URL}/poliza`;
+const USER_URL = `${import.meta.env.VITE_API_URL_PROD}/poliza`;
 
 console.log(import.meta.env.MODE, import.meta.env.DEV);
 
