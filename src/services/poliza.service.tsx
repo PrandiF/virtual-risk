@@ -108,6 +108,7 @@ export const getFilterPoliza = async (filter: FilterProps, page: number = 1) => 
 
 export const createPoliza = async (polizaData: PolizaProps) => {
   try {
+    console.log(typeof polizaData.premio, polizaData.premio)
     const res = await axios.post(
       `${USER_URL}`,
       { ...polizaData },
