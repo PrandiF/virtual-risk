@@ -15,40 +15,40 @@ function Header() {
         data-aos="fade"
         data-aos-duration="2000"
         data-aos-delay="200"
-        onClick={() => navigate("/inicio")}
+        onClick={() => navigate("/")}
       >
         <img
           src={logo}
           className="xl:w-[200px] md:w-[140px] w-[85px] cursor-pointer"
         />
       </button>
-      <div className="text-black font-semibold flex xl:gap-20 md:gap-12 gap-3 xl:text-[18px] md:text-[18px] text-[12px] font-montserrat">
+      <div className="text-black font-semibold flex xl:gap-20 md:gap-12 gap-3 xl:text-[18px] md:text-[18px] text-[12px] font-montserrat items-end">
         <button
           className="cursor-pointer hover:underline"
           data-aos="fade"
           data-aos-duration="2000"
           data-aos-delay="300"
-          onClick={() => navigate("/inicio")}
+          onClick={() => navigate("/virtualNet/inicio")}
         >
-          INICIO
+          Inicio
         </button>
         <button
           className="cursor-pointer hover:underline"
           data-aos="fade"
           data-aos-duration="2000"
           data-aos-delay="400"
-          onClick={() => navigate("/cargar")}
+          onClick={() => navigate("/virtualNet/cargar")}
         >
-          CARGAR
+          Cargar
         </button>
         <button
           className="cursor-pointer hover:underline"
           data-aos="fade"
           data-aos-duration="2000"
           data-aos-delay="500"
-          onClick={() => navigate("/consultar")}
+          onClick={() => navigate("/virtualNet/consultar")}
         >
-          CONSULTAR
+          Consultar
         </button>
         <div data-aos="fade" data-aos-duration="2000" data-aos-delay="600">
           <LogoutButton />

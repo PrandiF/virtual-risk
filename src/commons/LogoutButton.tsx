@@ -10,7 +10,7 @@ function LogoutButton() {
       const res = await logout();
       if (res == "Cookies deleted") {
         logoutState();
-        navigate("/");
+        navigate("/virtualNet/login");
       }
     } catch (error) {
       throw error;

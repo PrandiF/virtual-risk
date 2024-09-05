@@ -213,7 +213,7 @@ function IndividualConsulta() {
           data-aos-duration="2600"
           data-aos-delay="400"
         >
-          <BackButton />
+          <BackButton onClick={() => navigate(-1)}/>
           {error ? (
             <div className="text-red-500">{error}</div>
           ) : (
