@@ -22,7 +22,7 @@ function Header() {
           className="xl:w-[200px] md:w-[140px] w-[85px] cursor-pointer"
         />
       </button>
-      <div className="text-black font-semibold flex xl:gap-20 md:gap-12 gap-3 xl:text-[18px] md:text-[18px] text-[12px] font-montserrat items-end">
+      <div className="text-orange-500 font-semibold flex xl:gap-20 md:gap-12 gap-3 xl:text-[18px] md:text-[18px] text-[12px] font-montserrat items-end">
         <button
           className="cursor-pointer hover:underline"
           data-aos="fade"
@@ -49,6 +49,15 @@ function Header() {
           onClick={() => navigate("/virtualNet/consultar")}
         >
           Consultar
+        </button>
+        <button
+          className="cursor-pointer hover:underline"
+          data-aos="fade"
+          data-aos-duration="2000"
+          data-aos-delay="500"
+          onClick={() => navigate("/")}
+        >
+          Salir
         </button>
         <div data-aos="fade" data-aos-duration="2000" data-aos-delay="600">
           <LogoutButton />
