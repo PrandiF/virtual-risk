@@ -2,7 +2,9 @@ import logo from "../assets/logoVR.png";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 function HeaderLogin() {
+  const navigate = useNavigate();
   useEffect(() => {
     AOS.init();
   }, []);
@@ -13,7 +15,9 @@ function HeaderLogin() {
       data-aos-duration="2000"
       data-aos-delay="200"
     >
-      <img src={logo} className="xl:w-[300px] w-[180px]" />
+      <button onClick={() => navigate("/")}>
+        <img src={logo} className="xl:w-[300px] w-[180px]" />
+      </button>
     </div>
   );
 }

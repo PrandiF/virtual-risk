@@ -12,7 +12,7 @@ function Home() {
     AOS.init();
   }, []);
   return (
-    <div className="relative flex w-full h-screen items-center z-20 ">
+    <div className="relative flex w-full h-screen items-center z-20">
       <Header />
       <div className="flex items-center justify-center flex-col gap-16 mx-auto">
         <div
@@ -30,13 +30,13 @@ function Home() {
           data-aos-delay="600"
         >
           <div className="xl:w-[22%]  hover:scale-[1.02] transition-transform duration-500">
-            <Card img={imgCargar} buttonText="Cargar" buttonHref="/cargar" />
+            <Card img={imgCargar} buttonText="Cargar" buttonHref="/virtualNet/cargar" />
           </div>
           <div className="xl:w-[22%] hover:scale-[1.02] transition-transform duration-500">
             <Card
               img={imgConsultar}
               buttonText="Consultar"
-              buttonHref="/consultar"
+              buttonHref="/virtualNet/consultar"
             />
           </div>
         </div>

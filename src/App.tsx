@@ -12,6 +12,7 @@ import Carga from "./components/carga/Carga";
 import Consulta from "./components/consulta/Consulta";
 import IndividualConsulta from "./components/consulta/IndividualConsulta";
 import { useUserStoreLocalStorage } from "./store/userStore";
+import Landing from "./components/LandingPage/Landing";
 
 function App() {
   const { isAuthenticated } = useUserStoreLocalStorage();
@@ -25,19 +26,20 @@ function App() {
         />
 
         <Routes>
+          <Route path="/" element={<Landing />} />
           {isAuthenticated ? (
             <>
-              <Route path="/" element={<Navigate to="/inicio" replace />} />
-              <Route path="/inicio" element={<Home />} />
-              <Route path="/cargar" element={<Carga />} />
-              <Route path="/consultar" element={<Consulta />} />
+              <Route path="/virtualNet/login" element={<Navigate to="/virtualNet/inicio" replace />} />
+              <Route path="/virtualNet/inicio" element={<Home />} />
+              <Route path="/virtualNet/cargar" element={<Carga />} />
+              <Route path="/virtualNet/consultar" element={<Consulta />} />
               <Route
                 path="/consultar/consulta-individual/:polizaNumber"
                 element={<IndividualConsulta />}
               />
             </>
           ) : (
-            <Route path="/" element={<Login />} />
+            <Route path="/virtualNet/login" element={<Login />} />
           )}
         </Routes>
       </div>

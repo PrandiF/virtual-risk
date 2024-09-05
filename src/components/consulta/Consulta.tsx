@@ -11,8 +11,10 @@ import { useEffect, useState } from "react";
 import CancelButton from "../../commons/CancelButton";
 import Pagination from "./Pagination";
 import InputSelect from "../../commons/InputSelect";
+import { useNavigate } from "react-router-dom";
 
 function Consulta() {
+  const navigate = useNavigate();
   useEffect(() => {
     AOS.init();
   }, []);
@@ -34,7 +36,7 @@ function Consulta() {
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
-    isFilter && setIsFilter(false)
+    isFilter && setIsFilter(false);
     setFilterData((prevPolizaData) => ({
       ...prevPolizaData,
       [e.target.name]: e.target.value,
@@ -42,7 +44,7 @@ function Consulta() {
   };
 
   const handleDateChange = (name: string) => (date: string) => {
-    isFilter && setIsFilter(false)
+    isFilter && setIsFilter(false);
     setFilterData((prevPolizaData) => ({
       ...prevPolizaData,
       [name]: date,
@@ -70,7 +72,7 @@ function Consulta() {
   return (
     <div className="relative flex w-full items-start z-20 pt-[8%]">
       <Header />
-      <div className="flex w-full flex-col items-center justify-center gap-8">
+      <div className="flex w-full flex-col items-center justify-center gap-8 xl:mt-0 mt-[5%]">
         <div className="flex flex-col gap-12 py-8 px-4 items-center">
           <div
             className="flex mr-auto"
@@ -78,7 +80,7 @@ function Consulta() {
             data-aos-duration="2000"
             data-aos-delay="400"
           >
-            <BackButton />
+            <BackButton onClick={() => navigate(-1)} />
           </div>
           <div
             className="flex text-center"
