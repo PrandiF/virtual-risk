@@ -11,9 +11,10 @@ import { useEffect, useState } from "react";
 import { createPoliza } from "../../services/poliza.service";
 import Button4 from "../../commons/Button4";
 import InputNumber from "../../commons/inputNumber";
-
+import { useNavigate } from "react-router-dom";
 
 function Carga() {
+  const navigate = useNavigate();
   const [polizaData, setPolizaData] = useState({
     asegurado: "",
     compañia: "",
@@ -34,7 +35,7 @@ function Carga() {
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
     const { name, value } = e.target;
-  
+
     setPolizaData((prevPolizaData) => ({
       ...prevPolizaData,
       [name]: name === "premio" ? parseFloat(value) : value,
@@ -90,16 +91,19 @@ function Carga() {
   }, []);
 
   return (
-    <div className="relative flex w-full items-center z-20 xl:pt-[5%]">
+    <div className="relative flex w-full items-center z-20 py-[10%] h-full ">
       <Header />
       <div className="flex w-full items-center flex-col gap-8 xl:pt-0 xl:pb-0 pt-[30%] pb-[20%]">
         <div
-          className="flex flex-col relative bg-[#EAA788] bg-opacity-25 backdrop-blur-sm z-20 xl:w-[50%] md:w-[70%] w-[95%] px-6 xl:py-8 md:py-6 py-4 m-auto rounded-lg xl:gap-10 md:gap-8 gap-6 "
+          className="flex flex-col relative bg-[#EAA788] bg-opacity-25 backdrop-blur-sm z-20 xl:w-[50%] md:w-[70%] w-[95%] px-6 xl:py-8 md:py-6 py-4 m-auto rounded-lg xl:gap-10 md:gap-8 gap-6 xl:mt-[5%] "
           data-aos="fade"
           data-aos-duration="2500"
           data-aos-delay="400"
         >
-          <BackButton />
+          <div className="flex">
+            <BackButton onClick={() => navigate(-1)} />
+          </div>
+
           <Title text="Cargar pólizas" />
           <div className="flex w-[50%] items-start justify-center gap-5 mx-auto">
             <div className="flex w-full flex-col gap-4">
@@ -150,10 +154,7 @@ function Carga() {
                 onChange={handleDateChange("vigenciaInicio")}
               />
               <InputSelect
-              options={[
-                "Pesos",
-                "Dolares",
-              ]}
+                options={["Pesos", "Dolares"]}
                 placeholder="Moneda"
                 value={polizaData.moneda}
                 onChange={handleChange}
@@ -253,7 +254,7 @@ function Carga() {
             </div>
           </div>
         </div>
-        <div data-aos="fade" data-aos-duration="2000" data-aos-delay="600">
+        <div>
           <Button4 text="Cargar" onClick={handleSubmit} />
         </div>
       </div>

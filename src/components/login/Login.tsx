@@ -9,6 +9,7 @@ import { login } from "../../services/user.service";
 import { useNavigate } from "react-router-dom";
 import { useUserStoreLocalStorage } from "../../store/userStore";
 import Button4 from "../../commons/Button4";
+import BackButton from "../../commons/BackButton";
 function Login() {
   const navigate = useNavigate();
   useEffect(() => {
@@ -45,11 +46,15 @@ function Login() {
     <div className="flex w-full h-screen items-center justify-center z-20">
       <HeaderLogin />
       <div
-        className="flex relative flex-col bg-[#EAA788] bg-opacity-25 backdrop-blur-sm z-20 xl:w-[30%] md:w-[60%] w-[90%] px-5 items-center gap-10 py-16 m-auto rounded-lg"
+        className="flex relative flex-col bg-[#EAA788] bg-opacity-25 backdrop-blur-sm z-20 xl:w-[30%] md:w-[60%] w-[90%] px-5 items-center gap-10 pt-5 pb-8 m-auto rounded-lg"
         data-aos="fade"
         data-aos-duration="2200"
         data-aos-delay="200"
       >
+        <div className="w-full flex">
+          <BackButton onClick={() => navigate("/")} />
+        </div>
+
         <div data-aos="fade" data-aos-duration="2000" data-aos-delay="400">
           <Title text="Bienvenido/a" />
         </div>
