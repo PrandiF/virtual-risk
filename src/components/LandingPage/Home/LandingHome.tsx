@@ -13,7 +13,7 @@ function LandingHome() {
   return (
     <div className="relative w-full xl:h-[700px] flex">
       <img src={imgLandingVR} className="w-full h-full" />
-      <div className="absolute inset-0 bg-gradient-to-r from-orange-500 via-orange-300 to-white opacity-45"></div>
+      <div className="absolute inset-0 bg-gradient-to-r from-orange-600 via-orange-300 to-white opacity-50"></div>
       <div className="flex flex-col absolute xl:items-start justify-center xl:gap-5 gap-2 h-full  ml-[30px] xl:ml-[150px]">
         <div
           className="flex flex-col xl:text-6xl text-3xl font-bold"
