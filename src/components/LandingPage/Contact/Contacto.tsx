@@ -1,10 +1,8 @@
-import Button4 from "../../../commons/Button4";
-import InputText from "../../../commons/InputText";
 import contactSection from "../../../assets/contactSection.png";
-import Textarea from "../../../commons/Textarea";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { useEffect } from "react";
+import ContactForm from "./ContactForm";
 
 function Contacto() {
   useEffect(() => {
@@ -26,17 +24,7 @@ function Contacto() {
           <p data-aos="fade" data-aos-duration="3000" data-aos-delay="400">
             Recibí el mejor asesoramiento en seguros.
           </p>
-          <form className="flex flex-col gap-3 mt-3 xl:w-[50%] w-[80%]" data-aos="fade"
-          data-aos-duration="3000"
-          data-aos-delay="600">
-            <InputText placeholder="Nombre" width="full" />
-            <InputText placeholder="Apellido" width="full" />
-            <InputText placeholder="Mail" width="full" />
-            <Textarea placeholder="Tu mensaje..." width="full" />
-            <div className="flex w-full justify-center">
-              <Button4 text="Enviar" />
-            </div>
-          </form>
+          <ContactForm />
         </div>
         <div className="w-[40%] h-[600px] xl:flex relative hidden">
           <img src={contactSection} className="w-full" />
