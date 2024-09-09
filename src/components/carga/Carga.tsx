@@ -91,11 +91,11 @@ function Carga() {
   }, []);
 
   return (
-    <div className="relative flex w-full items-center z-20 py-[10%] h-full ">
+    <div className="relative flex w-full items-center z-20 xl:py-[10%] h-full">
       <Header />
-      <div className="flex w-full items-center flex-col gap-8 xl:pt-0 xl:pb-0 pt-[30%] pb-[20%]">
+      <div className="flex w-full items-center flex-col gap-8 xl:pt-0 xl:pb-0 pt-[20%] pb-[5%]">
         <div
-          className="flex flex-col relative bg-[#EAA788] bg-opacity-25 backdrop-blur-sm z-20 xl:w-[50%] md:w-[70%] w-[95%] px-6 xl:py-8 md:py-6 py-4 m-auto rounded-lg xl:gap-10 md:gap-8 gap-6 xl:mt-[5%] "
+          className="flex flex-col relative bg-[#EAA788] bg-opacity-25 backdrop-blur-sm z-20 xl:w-[50%] md:w-[70%] w-[95%] px-6 xl:py-8 md:py-6 py-4 m-auto rounded-lg xl:gap-10 md:gap-8 gap-4 xl:mt-[5%] "
           data-aos="fade"
           data-aos-duration="2500"
           data-aos-delay="400"
