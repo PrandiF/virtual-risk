@@ -2,7 +2,6 @@ import axios from "axios";
 
 const USER_URL = `${import.meta.env.VITE_API_URL_PROD}/poliza`;
 
-console.log(import.meta.env.MODE);
 
 type PolizaProps = {
   asegurado: string;
@@ -76,30 +75,20 @@ export const getFilterPoliza = async (
   ) {
     filterClean.vigenciaFin = null;
   }
-  let stringReq = "";
+  const params = new URLSearchParams();
   Object.keys(filterClean).forEach((key) => {
-    if (
-      filterClean[key as keyof FilterProps] === "" ||
-      filterClean[key as keyof FilterProps] === null
-    ) {
-      delete filterClean[key as keyof FilterProps];
-    } else {
-      if (stringReq.includes("?")) {
-        stringReq =
-          stringReq +
-          `&${key}=${filterClean[key as keyof FilterProps]}&page=${page}`;
-      } else {
-        stringReq =
-          stringReq +
-          `?${key}=${filterClean[key as keyof FilterProps]}&page=${page}`;
-      }
+    const value = filterClean[key as keyof FilterProps];
+    if (value !== "" && value !== null && value !== undefined) {
+      params.append(key, String(value)); // Convierte los valores a string
     }
   });
+  params.append('page', String(page));
   try {
-    const res = await axios.get(`${USER_URL}/filter${stringReq}`, {
+    const res = await axios.get(`${USER_URL}/filter?${params.toString()}`, {
       withCredentials: true,
     });
     return res.data;
+
   } catch (error) {
     console.error("Error al filtrar la/las poliza/s:", error);
     throw error;
@@ -108,13 +97,11 @@ export const getFilterPoliza = async (
 
 export const createPoliza = async (polizaData: PolizaProps) => {
   try {
-    console.log(typeof polizaData.premio, polizaData.premio);
     const res = await axios.post(
       `${USER_URL}`,
       { ...polizaData },
       { withCredentials: true }
     );
-    console.log(res.data)
     return res.data;
   } catch (error) {
     console.error("Error al crear la poliza:", error);

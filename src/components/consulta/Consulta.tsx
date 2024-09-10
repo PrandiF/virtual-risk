@@ -32,10 +32,12 @@ function Consulta() {
   const [isFilter, setIsFilter] = useState(false);
   const [pageTotal, setPageTotal] = useState(1);
   const [pageFilter, setPageFilter] = useState(1);
+  const [isClean, setIsClean] = useState(false);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
+    setIsClean(false)
     isFilter && setIsFilter(false);
     setFilterData((prevPolizaData) => ({
       ...prevPolizaData,
@@ -44,6 +46,7 @@ function Consulta() {
   };
 
   const handleDateChange = (name: string) => (date: string) => {
+    setIsClean(false);
     isFilter && setIsFilter(false);
     setFilterData((prevPolizaData) => ({
       ...prevPolizaData,
@@ -57,6 +60,7 @@ function Consulta() {
 
   const handleCancel = () => {
     setFilterData(initialFilterData);
+    setIsClean(true);
     setIsFilter(false);
     setPageFilter(1);
     setPageTotal(1);
@@ -132,7 +136,7 @@ function Consulta() {
                 value={filterData.compañia}
                 onChange={handleChange}
                 name="compañia"
-                clean={!isFilter}
+                clean={isClean}
               />
             </div>
             <div
@@ -155,7 +159,7 @@ function Consulta() {
                 value={filterData.estado}
                 onChange={handleChange}
                 name="estado"
-                clean={!isFilter}
+                clean={isClean}
               />
             </div>
             <div
@@ -170,13 +174,13 @@ function Consulta() {
               <div className="flex gap-5 items-center w-full">
                 <InputDate
                   placeholder="Desde"
-                  clean={!isFilter}
+                  clean={isClean}
                   width="full"
                   onChange={handleDateChange("vigenciaInicio")}
                 />
                 <InputDate
                   placeholder="Hasta"
-                  clean={!isFilter}
+                  clean={isClean}
                   width="full"
                   onChange={handleDateChange("vigenciaFin")}
                 />

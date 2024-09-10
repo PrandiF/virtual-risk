@@ -63,20 +63,23 @@ function TablaConsulta({
   }, [pageTotal, isFilter]);
 
   useEffect(() => {
+   
     if (isFilter) {
-      getFilterPoliza(filter, pageFilter).then((res) => {
-        if (!res || res.length === 0) {
+      getFilterPoliza(filter, pageFilter)
+        .then((res) => {
+          if (!res || res.data.length === 0) {
+            setArrayFilter([]);
+            setArrayEmpty(true);
+          } else {
+            setArrayFilter(res.data);
+            setArrayEmpty(false);
+          }
+        })
+        .catch((error) => {
           setArrayFilter([]);
           setArrayEmpty(true);
-        } else {
-          setArrayFilter(res);
-          setArrayEmpty(false);
-        }
-      }).catch(error => {
-        setArrayFilter([]);
-        setArrayEmpty(true);
-        throw new error
-      });
+          throw new Error(error);
+        });
     }
   }, [isFilter, filter, pageFilter]);
 
