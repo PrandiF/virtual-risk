@@ -46,7 +46,7 @@ function Login() {
     <div className="flex w-full h-screen items-center justify-center z-20">
       <HeaderLogin />
       <div
-        className="flex relative flex-col bg-[#EAA788] bg-opacity-25 backdrop-blur-sm z-20 xl:w-[30%] md:w-[60%] w-[90%] px-5 items-center gap-10 pt-5 pb-8 m-auto rounded-lg"
+        className="flex relative flex-col bg-[#EAA788] bg-opacity-25 backdrop-blur-sm z-20 xl:w-[30%] md:w-[60%] w-[90%] px-5 items-center gap-10 pt-5 pb-8 m-auto rounded-lg xl:mt-[15%]"
         data-aos="fade"
         data-aos-duration="2200"
         data-aos-delay="200"

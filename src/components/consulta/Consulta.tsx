@@ -77,7 +77,7 @@ function Consulta() {
     <div className="relative flex w-full items-start z-20 pt-[8%]">
       <Header />
       <div className="flex w-full flex-col items-center justify-center gap-8 xl:mt-0 mt-[5%]">
-        <div className="flex flex-col gap-12 py-8 px-4 items-center">
+        <div className="flex flex-col xl:gap-12 md:gap-10 gap-8 py-8 px-4 items-center">
           <div
             className="flex mr-auto"
             data-aos="fade"
@@ -131,6 +131,9 @@ function Consulta() {
                   "ZURICH EX QBE",
                   "C&C",
                   "CHUBB",
+                  "GALICIA",
+                  "SMG",
+                  "HDI",
                 ]}
                 width="full"
                 value={filterData.compañia}

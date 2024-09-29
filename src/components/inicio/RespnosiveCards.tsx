@@ -52,13 +52,13 @@ function RespnosiveCards() {
           className="h-full w-[65%] relative flex items-center m-auto mt-4"
         >
           <SwiperSlide className="w-[80%] h-[90%] relative flex justify-center">
-            <Card img={imgCargar} buttonText="Cargar" buttonHref="/cargar" />
+            <Card img={imgCargar} buttonText="Cargar" buttonHref="/virtualNet/cargar" />
           </SwiperSlide>
           <SwiperSlide className="w-[80%] h-[90%] relative flex justify-center">
             <Card
               img={imgConsultar}
               buttonText="Consultar"
-              buttonHref="/consultar"
+              buttonHref="/virtualNet/consultar"
             />
           </SwiperSlide>
         </Swiper>

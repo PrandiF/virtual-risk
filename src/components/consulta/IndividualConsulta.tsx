@@ -213,7 +213,7 @@ function IndividualConsulta() {
           data-aos-duration="2600"
           data-aos-delay="400"
         >
-          <BackButton onClick={() => navigate(-1)}/>
+          <BackButton onClick={() => navigate(-1)} />
           {error ? (
             <div className="text-red-500">{error}</div>
           ) : (
@@ -266,6 +266,9 @@ function IndividualConsulta() {
                           "ZURICH EX QBE",
                           "C&C",
                           "CHUBB",
+                          "GALICIA",
+                          "SMG",
+                          "HDI",
                         ]}
                         width="full"
                         value={polizaData.compañia}

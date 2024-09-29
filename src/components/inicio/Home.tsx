@@ -14,7 +14,7 @@ function Home() {
   return (
     <div className="relative flex w-full h-screen items-center z-20">
       <Header />
-      <div className="flex items-center justify-center flex-col gap-16 mx-auto">
+      <div className="flex items-center justify-center flex-col gap-16 mx-auto xl:mt-[5%]">
         <div
           className="flex text-center"
           data-aos="fade"
