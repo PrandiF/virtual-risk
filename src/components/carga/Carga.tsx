@@ -136,6 +136,9 @@ function Carga() {
                   "ZURICH EX QBE",
                   "C&C",
                   "CHUBB",
+                  "GALICIA",
+                  "SMG",
+                  "HDI",
                 ]}
                 width="full"
                 value={polizaData.compañia}
@@ -253,9 +256,9 @@ function Carga() {
               )}
             </div>
           </div>
-        </div>
-        <div>
-          <Button4 text="Cargar" onClick={handleSubmit} />
+          <div className="mx-auto">
+            <Button4 text="Cargar" onClick={handleSubmit} />
+          </div>
         </div>
       </div>
     </div>

@@ -266,6 +266,9 @@ function IndividualConsulta() {
                           "ZURICH EX QBE",
                           "C&C",
                           "CHUBB",
+                          "GALICIA",
+                          "SMG",
+                          "HDI",
                         ]}
                         width="full"
                         value={polizaData.compañia}

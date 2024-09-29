@@ -22,7 +22,7 @@ function App() {
         <img
           src={imageBackground}
           alt="fondo"
-          className="absolute top-0 left-0 inset-0 w-screen h-screen object-cover"
+          className="flex absolute top-0 left-0 inset-0 w-screen h-full object-cover"
         />
 
         <Routes>
