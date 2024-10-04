@@ -104,13 +104,14 @@ function Carga() {
             <BackButton onClick={() => navigate(-1)} />
           </div>
           <Title text="Cargar pólizas" />
-          <div className="flex w-[50%] items-start justify-center gap-5 mx-auto">
-            <div className="flex w-full flex-col gap-4">
+          <div className="flex w-[50%] flex-col items-start justify-center gap-5 mx-auto">
+            <div className="flex w-full gap-4">
               <InputText
                 placeholder="Asegurado"
                 value={polizaData.asegurado}
                 onChange={handleChange}
                 name="asegurado"
+                width="full"
               />
               <InputSelect
                 placeholder="Compañía"
@@ -144,17 +145,23 @@ function Carga() {
                 onChange={handleChange}
                 name="compañia"
               />
+            </div>
+            <div className="flex w-full gap-4">
               <InputText
                 placeholder="N de Póliza"
                 value={polizaData.numeroPoliza}
                 onChange={handleChange}
                 name="numeroPoliza"
+                width="full"
               />
               <InputDate
                 placeholder="Vigencia Inicio"
                 width="full"
                 onChange={handleDateChange("vigenciaInicio")}
               />
+            </div>
+
+            <div className="flex w-full gap-4">
               <InputSelect
                 options={["Pesos", "Dolares"]}
                 placeholder="Moneda"
@@ -172,7 +179,8 @@ function Carga() {
                 name="formaDePago"
               />
             </div>
-            <div className="flex w-full flex-col gap-4">
+
+            <div className="flex w-full gap-4">
               <InputSelect
                 placeholder="Productor"
                 width="full"
@@ -219,22 +227,30 @@ function Carga() {
                 onChange={handleChange}
                 name="riesgo"
               />
+            </div>
+
+            <div className="flex w-full gap-4">
               <InputText
                 placeholder="Detalle/Patente"
                 value={polizaData.detalle}
                 onChange={handleChange}
                 name="detalle"
+                width="full"
               />
               <InputDate
                 placeholder="Vigencia Fin"
                 width="full"
                 onChange={handleDateChange("vigenciaFin")}
               />
+            </div>
+
+            <div className="flex w-full gap-4">
               <InputNumber
                 placeholder="Premio"
                 value={polizaData.premio}
                 onChange={handleChange}
                 name="premio"
+                width="[50%]"
               />
               {polizaData.formaDePago == "CBU" ? (
                 <InputText
@@ -242,6 +258,7 @@ function Carga() {
                   name="numero"
                   value={polizaData.numero}
                   onChange={handleChange}
+                  width="[50%]"
                 />
               ) : polizaData.formaDePago == "TARJETA" ? (
                 <InputText
@@ -249,12 +266,13 @@ function Carga() {
                   name="numero"
                   value={polizaData.numero}
                   onChange={handleChange}
+                  width="[50%]"
                 />
               ) : (
                 ""
               )}
             </div>
-          </div>{" "}
+          </div>
           <div className="mx-auto">
             <Button4 text="Cargar" onClick={handleSubmit} />
           </div>
