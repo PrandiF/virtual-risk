@@ -10,8 +10,12 @@ export const login = async (username: string, password: string) => {
       { withCredentials: true }
     );
     return res.data;
-  } catch (error) {
-    throw error;
+  } catch (error: any) {
+    if (error.response && error.response.status === 401) {
+      return "invalid password";
+    } else {
+      throw new Error("Error en la solicitud de login");
+    }
   }
 };
 

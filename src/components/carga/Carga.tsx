@@ -12,9 +12,11 @@ import { createPoliza } from "../../services/poliza.service";
 import Button4 from "../../commons/Button4";
 import InputNumber from "../../commons/inputNumber";
 import { useNavigate } from "react-router-dom";
+import { ClipLoader } from "react-spinners";
 
 function Carga() {
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
   const [polizaData, setPolizaData] = useState({
     asegurado: "",
     compañia: "",
@@ -50,9 +52,13 @@ function Carga() {
   };
 
   const handleSubmit = async () => {
+    setLoading(true);
+    await new Promise((resolve) => setTimeout(resolve, 1500));
     try {
       const res = await createPoliza(polizaData);
+
       if (res) {
+        setLoading(false);
         Report.success(
           "Póliza Cargada",
           "Se cargó una nueva póliza correctamente",
@@ -78,6 +84,28 @@ function Carga() {
         );
       }
     } catch (error) {
+      setLoading(false);
+      if (
+        !polizaData.asegurado ||
+        !polizaData.compañia ||
+        !polizaData.detalle ||
+        !polizaData.estado ||
+        !polizaData.formaDePago ||
+        !polizaData.moneda ||
+        !polizaData.numero ||
+        !polizaData.numeroPoliza ||
+        !polizaData.premio ||
+        !polizaData.productor ||
+        !polizaData.riesgo ||
+        !polizaData.vigenciaFin ||
+        !polizaData.vigenciaInicio
+      ) {
+        Report.failure(
+          "Error al cargar la poliza",
+          "Por favor, completa todos los campos",
+          "Ok"
+        );
+      }
       Report.failure(
         "Error al cargar la póliza",
         "No se pudo cargar la póliza al sistema",
@@ -274,9 +302,16 @@ function Carga() {
               />
             </div>
           </div>
-          <div className="mx-auto">
-            <Button4 text="Cargar" onClick={handleSubmit} />
-          </div>
+          {loading ? (
+            <div className="loading-spinner text-center">
+              <ClipLoader color="#4D5061" loading={loading} size={50} />
+            </div>
+          ) : (
+            <div className="mx-auto">
+              <Button4 text="Cargar" onClick={handleSubmit} />
+            </div>
+          )}
+
         </div>
       </div>
     </div>

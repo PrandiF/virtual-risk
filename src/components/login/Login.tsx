@@ -10,6 +10,8 @@ import { useNavigate } from "react-router-dom";
 import { useUserStoreLocalStorage } from "../../store/userStore";
 import Button4 from "../../commons/Button4";
 import BackButton from "../../commons/BackButton";
+import { Report } from "notiflix/build/notiflix-report-aio";
+import { ClipLoader } from "react-spinners";
 function Login() {
   const navigate = useNavigate();
   useEffect(() => {
@@ -20,6 +22,7 @@ function Login() {
     username: "",
     password: "",
   });
+  const [loading, setLoading] = useState(false);
 
   const { loginState } = useUserStoreLocalStorage();
 
@@ -32,13 +35,36 @@ function Login() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setLoading(true);
+    await new Promise((resolve) => setTimeout(resolve, 1500));
+
     try {
       const res = await login(userData.username, userData.password);
-      if (res == "User has been logged") {
+      if (res == "invalid password") {
+        setLoading(false);
+        Report.failure(
+          "Error al iniciar sesión",
+          "Contraseña incorrecta",
+          "Ok",
+          () => {
+            setUserData({ username: "", password: "" });
+          }
+        );
+      } else if (res == "User has been logged") {
+        setLoading(false);
         loginState();
         navigate("/inicio");
       }
     } catch (error) {
+      if (!userData.username || !userData.password) {
+        Report.failure(
+          "Error al iniciar sesión",
+          "Debe completar todos los campos",
+          "Ok"
+        );
+      }
+
+      setLoading(false);
       throw error;
     }
   };
@@ -77,9 +103,15 @@ function Login() {
             />
           </div>
         </form>
-        <button data-aos="fade" data-aos-duration="2000" data-aos-delay="700">
-          <Button4 text="Iniciar Sesión" onClick={handleSubmit} />
-        </button>
+        {loading ? (
+          <div className="loading-spinner">
+            <ClipLoader color="#4D5061" loading={loading} size={50} />
+          </div>
+        ) : (
+          <button data-aos="fade" data-aos-duration="2000" data-aos-delay="700">
+            <Button4 text="Iniciar Sesión" onClick={handleSubmit} />
+          </button>
+        )}
       </div>
     </div>
   );
