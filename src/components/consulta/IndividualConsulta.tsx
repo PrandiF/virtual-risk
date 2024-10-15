@@ -16,6 +16,8 @@ import InputText from "../../commons/InputText";
 import { Confirm } from "notiflix/build/notiflix-confirm-aio";
 import InputSelect from "../../commons/InputSelect";
 import InputNumber from "../../commons/inputNumber";
+import { ClipLoader } from "react-spinners";
+import { Report } from "notiflix/build/notiflix-report-aio";
 
 interface PolizaProps {
   asegurado: string;
@@ -50,6 +52,7 @@ Confirm.init({
 function IndividualConsulta() {
   const navigate = useNavigate();
   const { polizaNumber } = useParams();
+  const [loading, setLoading] = useState(false);
   const [polizaData, setPolizaData] = useState<PolizaProps>({
     asegurado: "",
     compañia: "",
@@ -118,7 +121,10 @@ function IndividualConsulta() {
   }
 
   const handleConfirmEditPoliza = async (state: string, change: boolean) => {
+    setLoading(true);
+    await new Promise((resolve) => setTimeout(resolve, 1500));
     try {
+      setLoading(false);
       const res = await editPoliza(
         polizaData.numeroPoliza,
         polizaData,
@@ -126,10 +132,19 @@ function IndividualConsulta() {
         change
       );
       setEditar(false);
-      setPolizaData(res);
-      setOriginalPolizaData(res);
+      if (res) {
+        Report.success(
+          "Póliza actualizada con éxito",
+          "Se actualizó una póliza correctamente",
+          "Ok"
+        );
+        setPolizaData(res);
+        setOriginalPolizaData(res);
+      }
+
       return res;
     } catch (error) {
+      setLoading(false);
       setEditar(false);
       throw error;
     }
@@ -213,7 +228,7 @@ function IndividualConsulta() {
           data-aos-duration="2600"
           data-aos-delay="400"
         >
-          <BackButton onClick={() => navigate(-1)}/>
+          <BackButton onClick={() => navigate(-1)} />
           {error ? (
             <div className="text-red-500">{error}</div>
           ) : (
@@ -502,13 +517,20 @@ function IndividualConsulta() {
             </div>
           )}
           {editar ? (
-            <div className="flex items-center justify-center gap-6">
-              <Button3
-                bg="#3bcb77"
-                text="Guardar"
-                onClick={() => handleEditPoliza(polizaData.estado)}
-              />
-              <Button2 text="Cancelar" onClick={() => handleCancelEdit()} />
+            <div className="flex flex-col items-center justify-center gap-3">
+              <div className="flex items-center justify-center gap-6">
+                <Button3
+                  bg="#3bcb77"
+                  text="Guardar"
+                  onClick={() => handleEditPoliza(polizaData.estado)}
+                />
+                <Button2 text="Cancelar" onClick={() => handleCancelEdit()} />
+              </div>
+              {loading && (
+                <div className="loading-spinner">
+                  <ClipLoader color="#4D5061" loading={loading} size={50} />
+                </div>
+              )}
             </div>
           ) : (
             <div className="flex flex-col w-full items-center justify-center">
