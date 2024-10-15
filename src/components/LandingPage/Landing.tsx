@@ -2,7 +2,7 @@ import Footer from "../Footer";
 import HeaderLanding from "../HeaderLanding";
 import Contacto from "./Contact/Contacto";
 import LandingHome from "./Home/LandingHome";
-import Nosotros from "./Nosotros/Nosotros";
+
 
 function Landing() {
   return (
@@ -11,13 +11,9 @@ function Landing() {
       <div id="HOME">
         <LandingHome />
       </div>
-      <div id="NOSOTROS">
-        <Nosotros />
-      </div>
       <div className="CONTACT">
         <Contacto />
       </div>
-
       <Footer />
     </div>
   );

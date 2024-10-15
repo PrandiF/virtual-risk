@@ -121,9 +121,9 @@ function Carga() {
   return (
     <div className="relative flex w-full items-center z-20 xl:py-[10%] h-full">
       <Header />
-      <div className="flex w-full items-center flex-col gap-8 xl:pt-0 xl:pb-0 pt-[20%] pb-[5%]">
+      <div className="flex w-full items-center flex-col gap-8 xl:pt-[2%] xl:pb-0 pt-[20%] pb-[5%]">
         <div
-          className="flex flex-col relative bg-[#EAA788] bg-opacity-25 backdrop-blur-sm z-20 xl:w-[50%] md:w-[70%] w-[95%] px-6 xl:py-8 md:py-6 py-4 m-auto rounded-lg xl:gap-10 md:gap-8 gap-4 xl:mt-[5%] "
+          className="flex flex-col relative bg-[#EAA788] bg-opacity-25 backdrop-blur-sm z-20 xl:w-[50%] md:w-[70%] w-[95%] px-6 xl:py-4 md:py-6 py-4 m-auto rounded-lg xl:gap-6 md:gap-8 gap-4 xl:mt-[5%] "
           data-aos="fade"
           data-aos-duration="2500"
           data-aos-delay="400"
@@ -131,16 +131,33 @@ function Carga() {
           <div className="flex">
             <BackButton onClick={() => navigate(-1)} />
           </div>
-
           <Title text="Cargar pólizas" />
-          <div className="flex w-[50%] items-start justify-center gap-5 mx-auto">
-            <div className="flex w-full flex-col gap-4">
+          <div className="flex w-[50%] flex-col items-start justify-center gap-5 mx-auto">
+            <div className="flex w-full gap-4">
               <InputText
                 placeholder="Asegurado"
                 value={polizaData.asegurado}
                 onChange={handleChange}
                 name="asegurado"
+                width="full"
               />
+              <InputSelect
+                placeholder="Productor"
+                width="full"
+                options={[
+                  "VIRTUAL RISK SA",
+                  "ALICIA SUAREZ DE BOSSIO",
+                  "JORGE CRIBARO",
+                  "NORMA CECILIA IZQUIERDO",
+                  "NATALI RIOS",
+                  "ANGELICA ALVARENGA",
+                ]}
+                value={polizaData.productor}
+                onChange={handleChange}
+                name="productor"
+              />
+            </div>
+            <div className="flex w-full gap-4">
               <InputSelect
                 placeholder="Compañía"
                 options={[
@@ -173,50 +190,6 @@ function Carga() {
                 onChange={handleChange}
                 name="compañia"
               />
-              <InputText
-                placeholder="N de Póliza"
-                value={polizaData.numeroPoliza}
-                onChange={handleChange}
-                name="numeroPoliza"
-              />
-              <InputDate
-                placeholder="Vigencia Inicio"
-                width="full"
-                onChange={handleDateChange("vigenciaInicio")}
-              />
-              <InputSelect
-                options={["Pesos", "Dolares"]}
-                placeholder="Moneda"
-                value={polizaData.moneda}
-                onChange={handleChange}
-                name="moneda"
-                width="full"
-              />
-              <InputSelect
-                placeholder="Forma de pago"
-                options={["CUPONES", "TARJETA", "CBU"]}
-                width="full"
-                value={polizaData.formaDePago}
-                onChange={handleChange}
-                name="formaDePago"
-              />
-            </div>
-            <div className="flex w-full flex-col gap-4">
-              <InputSelect
-                placeholder="Productor"
-                width="full"
-                options={[
-                  "VIRTUAL RISK SA",
-                  "ALICIA SUAREZ DE BOSSIO",
-                  "JORGE CRIBARO",
-                  "NORMA CECILIA IZQUIERDO",
-                  "NATALI RIOS",
-                  "ANGELICA ALVARENGA",
-                ]}
-                value={polizaData.productor}
-                onChange={handleChange}
-                name="productor"
-              />
               <InputSelect
                 placeholder="Riesgo"
                 options={[
@@ -248,29 +221,65 @@ function Carga() {
                 onChange={handleChange}
                 name="riesgo"
               />
+            </div>
+
+            <div className="flex w-full gap-4">
+              <InputText
+                placeholder="N de Póliza"
+                value={polizaData.numeroPoliza}
+                onChange={handleChange}
+                name="numeroPoliza"
+                width="full"
+              />
+
               <InputText
                 placeholder="Detalle/Patente"
                 value={polizaData.detalle}
                 onChange={handleChange}
                 name="detalle"
+                width="full"
+              />
+            </div>
+
+            <div className="flex w-full gap-4">
+              <InputDate
+                placeholder="Vigencia Inicio"
+                width="full"
+                onChange={handleDateChange("vigenciaInicio")}
               />
               <InputDate
                 placeholder="Vigencia Fin"
                 width="full"
                 onChange={handleDateChange("vigenciaFin")}
               />
+            </div>
+
+            <div className="flex w-full gap-4">
+              <InputSelect
+                options={["Pesos", "Dolares"]}
+                placeholder="Moneda"
+                value={polizaData.moneda}
+                onChange={handleChange}
+                name="moneda"
+                width="full"
+              />
               <InputNumber
                 placeholder="Premio"
                 value={polizaData.premio}
                 onChange={handleChange}
                 name="premio"
+                width="full"
               />
+            </div>
+
+            <div className="flex w-full gap-4">
               {polizaData.formaDePago == "CBU" ? (
                 <InputText
                   placeholder="Numero de CBU"
                   name="numero"
                   value={polizaData.numero}
                   onChange={handleChange}
+                  width="[50%]"
                 />
               ) : polizaData.formaDePago == "TARJETA" ? (
                 <InputText
@@ -278,13 +287,21 @@ function Carga() {
                   name="numero"
                   value={polizaData.numero}
                   onChange={handleChange}
+                  width="[50%]"
                 />
               ) : (
                 ""
               )}
+              <InputSelect
+                placeholder="Forma de pago"
+                options={["CUPONES", "TARJETA", "CBU"]}
+                width="[50%]"
+                value={polizaData.formaDePago}
+                onChange={handleChange}
+                name="formaDePago"
+              />
             </div>
           </div>
-
           {loading ? (
             <div className="loading-spinner text-center">
               <ClipLoader color="#4D5061" loading={loading} size={50} />
@@ -294,6 +311,7 @@ function Carga() {
               <Button4 text="Cargar" onClick={handleSubmit} />
             </div>
           )}
+
         </div>
       </div>
     </div>
