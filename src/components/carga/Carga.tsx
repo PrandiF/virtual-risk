@@ -284,15 +284,14 @@ function Carga() {
               )}
             </div>
           </div>
-          <div className="mx-auto">
-            <Button4
-              text={loading ? "Cargando..." : " Cargar"}
-              onClick={handleSubmit}
-            />
-          </div>
-          {loading && (
+
+          {loading ? (
             <div className="loading-spinner text-center">
               <ClipLoader color="#4D5061" loading={loading} size={50} />
+            </div>
+          ) : (
+            <div className="mx-auto">
+              <Button4 text="Cargar" onClick={handleSubmit} />
             </div>
           )}
         </div>

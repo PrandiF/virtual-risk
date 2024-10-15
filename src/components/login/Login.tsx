@@ -56,6 +56,14 @@ function Login() {
         navigate("/inicio");
       }
     } catch (error) {
+      if (!userData.username || !userData.password) {
+        Report.failure(
+          "Error al iniciar sesión",
+          "Debe completar todos los campos",
+          "Ok"
+        );
+      }
+
       setLoading(false);
       throw error;
     }
@@ -95,17 +103,15 @@ function Login() {
             />
           </div>
         </form>
-        {loading && (
+        {loading ? (
           <div className="loading-spinner">
             <ClipLoader color="#4D5061" loading={loading} size={50} />
           </div>
+        ) : (
+          <button data-aos="fade" data-aos-duration="2000" data-aos-delay="700">
+            <Button4 text="Iniciar Sesión" onClick={handleSubmit} />
+          </button>
         )}
-        <button data-aos="fade" data-aos-duration="2000" data-aos-delay="700">
-          <Button4
-            text={loading == true ? "Cargando..." : "Iniciar Sesión"}
-            onClick={handleSubmit}
-          />
-        </button>
       </div>
     </div>
   );
