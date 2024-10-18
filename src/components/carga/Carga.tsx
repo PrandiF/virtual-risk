@@ -151,6 +151,7 @@ function Carga() {
                   "NORMA CECILIA IZQUIERDO",
                   "NATALI RIOS",
                   "ANGELICA ALVARENGA",
+                  "ANDRES LÓPEZ MURGUEITIO",
                 ]}
                 value={polizaData.productor}
                 onChange={handleChange}
@@ -184,6 +185,7 @@ function Carga() {
                   "GALICIA",
                   "SMG",
                   "HDI",
+                  "MERIDIONAL",
                 ]}
                 width="full"
                 value={polizaData.compañia}
@@ -311,7 +313,6 @@ function Carga() {
               <Button4 text="Cargar" onClick={handleSubmit} />
             </div>
           )}
-
         </div>
       </div>
     </div>

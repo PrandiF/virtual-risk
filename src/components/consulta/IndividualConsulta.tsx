@@ -284,6 +284,7 @@ function IndividualConsulta() {
                           "GALICIA",
                           "SMG",
                           "HDI",
+                          "MERIDIONAL",
                         ]}
                         width="full"
                         value={polizaData.compañia}
@@ -406,6 +407,7 @@ function IndividualConsulta() {
                         "NORMA CECILIA IZQUIERDO",
                         "NATALI RIOS",
                         "ANGELICA ALVARENGA",
+                        "ANDRES LÓPEZ MURGUEITIO",
                       ]}
                       value={polizaData.productor}
                       onChange={handleChange}

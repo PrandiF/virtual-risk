@@ -134,6 +134,7 @@ function Consulta() {
                   "GALICIA",
                   "SMG",
                   "HDI",
+                  "MERIDIONAL",
                 ]}
                 width="full"
                 value={filterData.compañia}
