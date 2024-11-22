@@ -24,6 +24,7 @@ type FilterProps = {
   compañia: string;
   detalle: string;
   estado: string;
+  riesgo: string;
   vigenciaInicio: Date | null;
   vigenciaFin: Date | null;
 };
@@ -59,6 +60,7 @@ export const getFilterPoliza = async (
     compañia: filter.compañia,
     detalle: filter.detalle,
     estado: filter.estado,
+    riesgo: filter.riesgo,
     vigenciaInicio: filter.vigenciaInicio,
     vigenciaFin: filter.vigenciaFin,
   };

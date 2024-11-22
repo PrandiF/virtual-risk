@@ -26,6 +26,7 @@ function Consulta() {
     vigenciaFin: new Date("1900-01-01"),
     detalle: "",
     estado: "",
+    riesgo: "",
   };
 
   const [filterData, setFilterData] = useState(initialFilterData);
@@ -94,9 +95,9 @@ function Consulta() {
           >
             <Title text="Consulta de pólizas" />
           </div>
-          <div className="flex flex-col xl:flex-row gap-5 w-full xl:w-auto">
+          <div className="flex flex-col xl:flex-row w-full xl:w-full">
             <div
-              className="flex  items-center gap-5 h-full w-full "
+              className="flex  items-center gap-5 h-full w-[80%] mr-5 "
               data-aos="fade"
               data-aos-duration="2000"
               data-aos-delay="600"
@@ -144,7 +145,7 @@ function Consulta() {
               />
             </div>
             <div
-              className="flex items-center gap-5 h-full w-full "
+              className="flex items-center gap-5 h-full w-full mr-5"
               data-aos="fade"
               data-aos-duration="2000"
               data-aos-delay="600"
@@ -165,6 +166,38 @@ function Consulta() {
                 name="estado"
                 clean={isClean}
               />
+              <InputSelect
+                placeholder="Riesgo"
+                options={[
+                  "AUTOMOTOR",
+                  "FLOTA",
+                  "MOTO",
+                  "COMBINADO FAMILIAR",
+                  "VIDA OBLIGATORIO",
+                  "VIDA INDIVIDUAL",
+                  "VIDA COLECTIVO",
+                  "INTEGRAL DE COMERCIO",
+                  "INTEGRAL DE CONSORCIO",
+                  "RESPONSABILIDAD CIVIL",
+                  "CAUCIÓN",
+                  "ACCIDENTES PERSONALES",
+                  "TODO RIESGO OPERATIVO",
+                  "MALA PRAXIS",
+                  "ART",
+                  "INCENDIO",
+                  "R.C. PROFESIONAL",
+                  "ROBO Y RIESGOS SIMILARES",
+                  "TRANSPORTES",
+                  "CASCOS",
+                  "REGISTRO",
+                  "E. CONTRATO",
+                ]}
+                width="full"
+                value={initialFilterData.riesgo}
+                onChange={handleChange}
+                name="riesgo"
+                clean={isClean}
+              />
             </div>
             <div
               className="relative flex items-center gap-5 h-full w-full"
@@ -175,7 +208,7 @@ function Consulta() {
               <p className="text-sm absolute top-[-8px] left-0 text-start text-orange1 font-semibold ml-1 mt-[-13px]">
                 Vigencia
               </p>
-              <div className="flex gap-5 items-center w-full">
+              <div className="flex gap-5 items-center justify-center w-[80%]">
                 <InputDate
                   placeholder="Desde"
                   clean={isClean}

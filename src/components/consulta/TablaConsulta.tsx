@@ -25,6 +25,7 @@ type FilterProps = {
     compañia: string;
     detalle: string;
     estado: string;
+    riesgo: string;
     vigenciaInicio: Date;
     vigenciaFin: Date;
   };
@@ -46,24 +47,25 @@ function TablaConsulta({
 
   useEffect(() => {
     if (!isFilter) {
-      getPolizas(pageTotal).then((res) => {
-        if (!res || res.length === 0) {
+      getPolizas(pageTotal)
+        .then((res) => {
+          if (!res || res.length === 0) {
+            setPolizas([]);
+            setArrayEmpty(true);
+          } else {
+            setPolizas(res.data);
+            setArrayEmpty(false);
+          }
+        })
+        .catch((error) => {
           setPolizas([]);
           setArrayEmpty(true);
-        } else {
-          setPolizas(res.data);
-          setArrayEmpty(false);
-        }
-      }).catch(error => {
-        setPolizas([]);
-        setArrayEmpty(true);
-        throw new error
-      });
+          throw new error();
+        });
     }
   }, [pageTotal, isFilter]);
 
   useEffect(() => {
-   
     if (isFilter) {
       getFilterPoliza(filter, pageFilter)
         .then((res) => {
@@ -89,6 +91,7 @@ function TablaConsulta({
         <tr className="text-center rounded-lg">
           <th className="max-w-[16%] xl:py-0 py-2  xl:px-2 px-1">Asegurado</th>
           <th className="max-w-[16%] xl:py-0 py-2 ">Compañía</th>
+          <th className="xl:block hidden max-w-[16%] xl:py-0 py-2 text-center mx-auto">Riesgo</th>
           <th className="max-w-[16%] xl:py-0 py-2 ">Detalle/Patente</th>
           <th className="max-w-[16%] xl:py-0 py-2 ">Póliza</th>
           <th className="max-w-[16%] xl:py-0 py-2 ">Estado</th>
@@ -118,6 +121,11 @@ function TablaConsulta({
                       {poliza.compañia.length > 8
                         ? `${poliza.compañia.substring(0, 8)}...`
                         : poliza.compañia}
+                    </td>
+                    <td className="xl:block hidden max-w-[16%] xl:py-0 py-3 text-center mx-auto">
+                      {poliza.riesgo.length > 8
+                        ? `${poliza.riesgo.substring(0, 8)}...`
+                        : poliza.riesgo}
                     </td>
                     <td className="max-w-[16%] xl:py-0 py-3 ">
                       {poliza.detalle.length > 8
@@ -180,6 +188,11 @@ function TablaConsulta({
                       {poliza.compañia.length > 8
                         ? `${poliza.compañia.substring(0, 8)}...`
                         : poliza.compañia}
+                    </td>
+                    <td className="xl:block hidden max-w-[16%] xl:py-0 py-3 text-center mx-auto">
+                      {poliza.riesgo.length > 8
+                        ? `${poliza.riesgo.substring(0, 8)}...`
+                        : poliza.riesgo}
                     </td>
                     <td className="max-w-[16%] xl:py-0 py-3 ">
                       {poliza.detalle.length > 8
