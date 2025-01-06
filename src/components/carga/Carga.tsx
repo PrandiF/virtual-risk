@@ -296,7 +296,7 @@ function Carga() {
               )}
               <InputSelect
                 placeholder="Forma de pago"
-                options={["CUPONES", "TARJETA", "CBU"]}
+                options={["CUPONES", "TARJETA", "CBU", "AFIP"]}
                 width="[50%]"
                 value={polizaData.formaDePago}
                 onChange={handleChange}
