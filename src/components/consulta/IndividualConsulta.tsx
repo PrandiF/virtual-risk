@@ -507,7 +507,7 @@ function IndividualConsulta() {
                   ) : (
                     <InputSelect
                       placeholder="Forma de pago"
-                      options={["Cupones", "Tarjeta", "CBU"]}
+                      options={["Cupones", "Tarjeta", "CBU", "AFIP"]}
                       width="full"
                       value={polizaData.formaDePago}
                       onChange={handleChange}
